@@ -43,7 +43,41 @@
 
   <!--Main Body-->
   <div>
-    WORK IN PROGRESS
+    <br><br><br>
+    <h1 style="text-align: center;">MEET THE TEAM</h1>
+    <br><br>
+    <div class="team-container">
+      <div class="team-member">
+        <img src="img/team members/1.png" alt="Team Member 1">
+        <h5>Joseph</h5>
+        <p>He is our lead developer and has been with the company for 5 years. He specializes in front-end development and is passionate about building responsive and accessible websites.</p>
+      </div>
+      
+      <div class="team-member">
+        <img src="img/team members/2.png" alt="Team Member 2">
+        <h5>Jaron</h5>
+        <p>He is our lead developer and has been with the company for 5 years. He specializes in front-end development and is passionate about building responsive and accessible websites.</p>
+      </div>
+      
+      <div class="team-member">
+        <img src="img/team members/3.png" alt="Team Member 3">
+        <h5>Yi Xun</h5>
+        <p>He is our lead developer and has been with the company for 5 years. He specializes in front-end development and is passionate about building responsive and accessible websites.</p>
+      </div>
+      
+      <div class="team-member">
+        <img src="img/team members/4.png" alt="Team Member 4">
+        <h5>Lawson</h5>
+        <p>He is our lead developer and has been with the company for 5 years. He specializes in front-end development and is passionate about building responsive and accessible websites.</p>
+      </div>
+      
+      <div class="team-member">
+        <img src="img/team members/5.png" alt="Team Member 5">
+        <h5>Arshad</h5>
+        <p>He is our lead developer and has been with the company for 5 years. He specializes in front-end development and is passionate about building responsive and accessible websites.</p>
+      </div>
+    </div>
+    <br><br><br>
   </div>
 
 </body>
@@ -53,7 +87,7 @@
 <style>
   p {
     text-align: center;
-    font-size: 30px;
+    font-size: 15px;
     margin-top: 0px;
   }
   
@@ -74,4 +108,37 @@
     background: white;
     padding: 10px;
   }
+
+
+
+  .team-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  }
+
+  .team-member {
+    width: 15%;
+    margin: 20px;
+    text-align: center;
+  }
+
+  .team-member img {
+    width: 70%;
+    height: auto;
+    border-radius: 20%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .team-container {
+      flex-direction: column;
+    }
+    
+    .team-member {
+      width: 50%;
+      margin: 10px auto;
+    }
+  }
+
 </style>
