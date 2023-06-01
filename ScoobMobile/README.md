@@ -1,14 +1,4 @@
-# Expo Router Example
+# How to start
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
-
-## 🚀 How to use
-
-```sh
-npx create-expo-app -e with-router
-```
-
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+Ensure relevant dependencies are installed, \
+Ensure you are in the right directory (Scoob-Site/ScoobMobile/) if not, then `cd ScoobMobile` then run `npx expo start`.
