@@ -22,7 +22,7 @@ const ParentsHomePage = () => {
                     headerRight: () => (
                         <ScreenHeaderBtn iconUrl = {icons.user} dimension="80%" />
                     ),
-                    headerTitle: "Parent"
+                    headerTitle: "Teacher"
                 }}
             />
 
