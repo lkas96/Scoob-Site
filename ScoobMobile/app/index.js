@@ -23,17 +23,30 @@ const Login = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = () => {
-        if (selectedUser === "Parent/Guardians") {
-            router.replace("./ParentsHomePage")
-        }
-        else if (selectedUser === "Third-Party") {
-            router.replace("./ThirdPartyHomePage")
-        }
-        else if (selectedUser === "Teacher") {
-            router.replace("./TeacherHomePage")
-        }
-        else {
-            router.replace("./DriverHomePage")
+        try{
+            // (selectedUser = undefined) is to reset the variable so when the user logs out,
+            // the data will be reset rather than saving the previous data
+            if (selectedUser === "Parent/Guardians") {
+                selectedUser = undefined
+                router.replace("./ParentsHomePage")
+            }
+            else if (selectedUser === "Third-Party") {
+                selectedUser = undefined
+                router.replace("./ThirdPartyHomePage")
+            }
+            else if (selectedUser === "Teacher") {
+                selectedUser = undefined
+                router.replace("./TeacherHomePage")
+            }
+            else if (selectedUser === "Driver") {
+                selectedUser = undefined
+                router.replace("./DriverHomePage")
+            }
+            else{
+                alert("Please select a user from the dropdown list")    
+            }
+        } catch(e){
+            alert("Please select a user from the dropdown list")
         }
     };
 
