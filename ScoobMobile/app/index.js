@@ -13,6 +13,8 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CustomInput from '../components/CustomInput';
+import CustomButton from '../components/CustomButton';
 
 import { COLORS, icons, images, SIZES } from '../constants';
 
@@ -20,7 +22,7 @@ import { COLORS, icons, images, SIZES } from '../constants';
 const Login = () => {
     const router = useRouter();
     const users = ["Parent/Guardians", "Third-Party", "Teacher", "Driver"];
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = () => {
         try{
@@ -50,6 +52,38 @@ const Login = () => {
         }
     };
 
+    const onLoginPressed = () => {
+        try{
+            // (selectedUser = undefined) is to reset the variable so when the user logs out,
+            // the data will be reset rather than saving the previous data
+            if (selectedUser === "Parent/Guardians") {
+                selectedUser = undefined
+                router.replace("./ParentsHomePage")
+            }
+            else if (selectedUser === "Third-Party") {
+                selectedUser = undefined
+                router.replace("./ThirdPartyHomePage")
+            }
+            else if (selectedUser === "Teacher") {
+                selectedUser = undefined
+                router.replace("./TeacherHomePage")
+            }
+            else if (selectedUser === "Driver") {
+                selectedUser = undefined
+                router.replace("./DriverHomePage")
+            }
+            else{
+                alert("Please select a user from the dropdown list")    
+            }
+        } catch(e){
+            alert("Please select a user from the dropdown list")
+        }
+    };
+
+    const onForgotPasswordPressed = () => {
+        router.replace("./ForgotPasswordPage/ForgotPasswordPage")
+    };
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.orange}}>
             <Stack.Screen 
@@ -67,27 +101,43 @@ const Login = () => {
                 <StatusBar style="auto" />
 
                 <View style={styles.inputView}>
-                    <TextInput
+                    {/* <TextInput
                         style={styles.TextInput}
                         placeholder="Username"
                         placeholderTextColor="#003f5c"
-                        onChangeText={(username) => setusername(username)}
-                    /> 
+                        onChangeText={(username) => setUsername(username)}
+                    />  */}
+                    <CustomInput 
+                        placeholder="Username"
+                        value={username}
+                        setValue={setUsername} 
+                    />
                 </View> 
-
+        
                 <View style={styles.inputView}>
-                    <TextInput
+                    {/* <TextInput
                         style={styles.TextInput}
                         placeholder="Password"
                         placeholderTextColor="#003f5c"
                         secureTextEntry={true}
                         onChangeText={(password) => setPassword(password)}
-                    /> 
+                    />  */}
+                    <CustomInput 
+                        placeholder="Password"
+                        value={password}
+                        setValue={setPassword} 
+                        secureTextEntry={true}
+                    />
                 </View> 
 
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <Text style={styles.forgot_button}>Forgot Password?</Text> 
-                </TouchableOpacity> 
+                </TouchableOpacity>  */}
+                <CustomButton 
+                    text='Forgot Password?'
+                    onPress={onForgotPasswordPressed}
+                    type="TERTIARY"
+                />
 
                 <SelectDropdown
                     data={users}
@@ -117,13 +167,16 @@ const Login = () => {
                     }}
                 />
 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                     style={styles.loginBtn}
                     onPress={() => handleSubmit()}
                 >
                     <Text style={styles.loginText}>LOGIN</Text> 
-                </TouchableOpacity> 
-
+                </TouchableOpacity>  */}
+                <CustomButton 
+                    text='Login'
+                    onPress={onLoginPressed}
+                />
             </View>
         </SafeAreaView>
     )
@@ -144,11 +197,9 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     inputView: {
-        backgroundColor: COLORS.white,
         borderRadius: 10,
         width: "75%",
-        height: 45,
-        marginBottom: 10,
+        marginVertical: 10,
         alignItems: "center",
     },
     TextInput: {
