@@ -1,5 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
+import { COLORS, icons, images, SIZES } from '../../constants';
 
 const CustomInput = ({value, setValue, placeholder, secureTextEntry, type}) => {
   return (
@@ -17,15 +18,11 @@ const CustomInput = ({value, setValue, placeholder, secureTextEntry, type}) => {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: 'COLORS.White',
+      backgroundColor: COLORS.white,
       width: '100%',
       height: 50,
-      borderColor: 'COLORS.White',
-      borderRadius: 5,
-
-      borderWidth: 1,
-      marginVertical: 10,
-      paddingHorizontal: 10,
+      borderColor: COLORS.white,
+      borderRadius: 10,
     },
     container_FP: {
       width: '75%',
@@ -33,9 +30,9 @@ const styles = StyleSheet.create({
     input: {
       height: 50,
       width: '100%',
-      borderColor: '#e8e8e8',
+      borderColor: COLORS.white,
       borderWidth: 1,
-      borderRadius: 5,
+      borderRadius: 10,
       textAlign: "center",
     },
 })
