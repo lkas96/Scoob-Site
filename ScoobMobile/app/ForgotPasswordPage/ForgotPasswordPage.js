@@ -23,6 +23,9 @@ const ForgotPasswordPage = () => {
                 headerStyle: {backgroundColor: COLORS.orange,}, 
                 headerShadowVisible: false,
                 headerTitle: "Forget Password",
+                headerLeft: () => (
+                    <Text> </Text>
+                ),
             }}
         />
 

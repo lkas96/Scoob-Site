@@ -130,14 +130,9 @@ const Login = () => {
                     />
                 </View> 
 
-                {/* <TouchableOpacity>
-                    <Text style={styles.forgot_button}>Forgot Password?</Text> 
-                </TouchableOpacity>  */}
-                <CustomButton 
-                    text='Forgot Password?'
-                    onPress={onForgotPasswordPressed}
-                    type="TERTIARY"
-                />
+                <TouchableOpacity style={styles.forgot_button} onPress={onForgotPasswordPressed}>
+                    <Text>Forgot Password?</Text> 
+                </TouchableOpacity>
 
                 <SelectDropdown
                     data={users}
@@ -210,8 +205,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     forgot_button: {
-        height: 30,
-        marginBottom: 30,
+        margin: 20,
+        fontWeight: 'bold',
     },
     loginBtn: {
         width: "75%",
