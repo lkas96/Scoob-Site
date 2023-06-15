@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native'
-import React, {useState} from 'react'
-import CustomButton from '../../components/CustomButton'
-import CustomInput from '../../components/CustomInput'
+import React, {useState, Component} from 'react'
+import CustomButton from '../../components/CustomButton/CustomButton'
+import CustomInput from '../../components/CustomInput/CustomInput'
 import {COLORS, SIZES} from '../../constants'
 import { Stack, useRouter } from 'expo-router';
 
@@ -14,23 +14,20 @@ const ForgotPasswordPage = () => {
     };
 
     const onBackPressed = () => {
-        router.replace(".././")
+        router.replace("../index")
     };
     return (
-    <SafeAreaView style={styles.root}>
+    <SafeAreaView style={{backgroundColor: COLORS.orange, flex: 1}}>
         <Stack.Screen 
             options={{
                 headerStyle: {backgroundColor: COLORS.orange,}, 
                 headerShadowVisible: false,
                 headerTitle: "Forget Password",
-                headerLeft: () => (
-                    <Text> </Text>
-                ),
             }}
         />
 
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View >
+            <View style={styles.root}>
                 <CustomInput 
                     placeholder="Username"
                     value={username}
@@ -50,6 +47,8 @@ const styles = StyleSheet.create({
     root: {
         backgroundColor: COLORS.orange,
         flex: 1,
+        alignItems:"center",
+        justifyContent:"center",
     },
 })
 export default ForgotPasswordPage

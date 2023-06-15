@@ -13,11 +13,11 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
+import CustomInput from '../components/CustomInput/CustomInput';
+import CustomButton from '../components/CustomButton/CustomButton';
 
-import { COLORS, icons, images, SIZES } from '../constants';
 
+import { COLORS, SHADOWS, SIZES } from "../constants";
 
 const Login = () => {
     const router = useRouter();
@@ -81,7 +81,7 @@ const Login = () => {
     };
 
     const onForgotPasswordPressed = () => {
-        router.replace("./ForgotPasswordPage/ForgotPasswordPage")
+        router.replace("./Boundary/ForgotPasswordPage")
     };
 
     return (
@@ -101,12 +101,6 @@ const Login = () => {
                 <StatusBar style="auto" />
 
                 <View style={styles.inputView}>
-                    {/* <TextInput
-                        style={styles.TextInput}
-                        placeholder="Username"
-                        placeholderTextColor="#003f5c"
-                        onChangeText={(username) => setUsername(username)}
-                    />  */}
                     <CustomInput 
                         placeholder="Username"
                         value={username}
@@ -115,13 +109,6 @@ const Login = () => {
                 </View> 
         
                 <View style={styles.inputView}>
-                    {/* <TextInput
-                        style={styles.TextInput}
-                        placeholder="Password"
-                        placeholderTextColor="#003f5c"
-                        secureTextEntry={true}
-                        onChangeText={(password) => setPassword(password)}
-                    />  */}
                     <CustomInput 
                         placeholder="Password"
                         value={password}
@@ -162,12 +149,6 @@ const Login = () => {
                     }}
                 />
 
-                {/* <TouchableOpacity 
-                    style={styles.loginBtn}
-                    onPress={() => handleSubmit()}
-                >
-                    <Text style={styles.loginText}>LOGIN</Text> 
-                </TouchableOpacity>  */}
                 <CustomButton 
                     text='Login'
                     onPress={onLoginPressed}
@@ -176,9 +157,6 @@ const Login = () => {
         </SafeAreaView>
     )
 }
-
-export default Login;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -253,3 +231,5 @@ const styles = StyleSheet.create({
     },
       
   });
+
+export default Login;
