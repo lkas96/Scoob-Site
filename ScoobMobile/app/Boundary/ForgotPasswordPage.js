@@ -14,7 +14,7 @@ const ForgotPasswordPage = () => {
     };
 
     const onBackPressed = () => {
-        router.replace("../index")
+        router.replace(".././")
     };
     return (
     <SafeAreaView style={{backgroundColor: COLORS.orange, flex: 1}}>

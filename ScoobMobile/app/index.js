@@ -24,33 +24,33 @@ const Login = () => {
     const users = ["Parent/Guardians", "Third-Party", "Teacher", "Driver"];
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = () => {
-        try{
-            // (selectedUser = undefined) is to reset the variable so when the user logs out,
-            // the data will be reset rather than saving the previous data
-            if (selectedUser === "Parent/Guardians") {
-                selectedUser = undefined
-                router.replace("./ParentsHomePage")
-            }
-            else if (selectedUser === "Third-Party") {
-                selectedUser = undefined
-                router.replace("./ThirdPartyHomePage")
-            }
-            else if (selectedUser === "Teacher") {
-                selectedUser = undefined
-                router.replace("./TeacherHomePage")
-            }
-            else if (selectedUser === "Driver") {
-                selectedUser = undefined
-                router.replace("./DriverHomePage")
-            }
-            else{
-                alert("Please select a user from the dropdown list")    
-            }
-        } catch(e){
-            alert("Please select a user from the dropdown list")
-        }
-    };
+    // const handleSubmit = () => {
+    //     try{
+    //         // (selectedUser = undefined) is to reset the variable so when the user logs out,
+    //         // the data will be reset rather than saving the previous data
+    //         if (selectedUser === "Parent/Guardians") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/ParentsHomePage")
+    //         }
+    //         else if (selectedUser === "Third-Party") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/ThirdPartyHomePage")
+    //         }
+    //         else if (selectedUser === "Teacher") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/TeacherHomePage")
+    //         }
+    //         else if (selectedUser === "Driver") {
+    //             selectedUser = undefined
+    //             router.replace("./DriverHomePage")
+    //         }
+    //         else{
+    //             alert("Please select a user from the dropdown list")    
+    //         }
+    //     } catch(e){
+    //         alert("Please select a user from the dropdown list")
+    //     }
+    // };
 
     const onLoginPressed = () => {
         try{
@@ -58,19 +58,19 @@ const Login = () => {
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
                 selectedUser = undefined
-                router.replace("./ParentsHomePage")
+                router.replace("./Boundary/ParentsHomePage")
             }
             else if (selectedUser === "Third-Party") {
                 selectedUser = undefined
-                router.replace("./ThirdPartyHomePage")
+                router.replace("./Boundary/ThirdPartyHomePage")
             }
             else if (selectedUser === "Teacher") {
                 selectedUser = undefined
-                router.replace("./TeacherHomePage")
+                router.replace("./Boundary/TeacherHomePage")
             }
             else if (selectedUser === "Driver") {
                 selectedUser = undefined
-                router.replace("./DriverHomePage")
+                router.replace("./Boundary/DriverHomePage")
             }
             else{
                 alert("Please select a user from the dropdown list")    
