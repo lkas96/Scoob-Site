@@ -13,34 +13,64 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CustomInput from '../components/CustomInput/CustomInput';
+import CustomButton from '../components/CustomButton/CustomButton';
 
-import { COLORS, icons, images, SIZES } from '../constants';
 
+import { COLORS, SHADOWS, SIZES } from "../constants";
 
 const Login = () => {
     const router = useRouter();
     const users = ["Parent/Guardians", "Third-Party", "Teacher", "Driver"];
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = () => {
+    // const handleSubmit = () => {
+    //     try{
+    //         // (selectedUser = undefined) is to reset the variable so when the user logs out,
+    //         // the data will be reset rather than saving the previous data
+    //         if (selectedUser === "Parent/Guardians") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/ParentsHomePage")
+    //         }
+    //         else if (selectedUser === "Third-Party") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/ThirdPartyHomePage")
+    //         }
+    //         else if (selectedUser === "Teacher") {
+    //             selectedUser = undefined
+    //             router.replace("./Boundary/TeacherHomePage")
+    //         }
+    //         else if (selectedUser === "Driver") {
+    //             selectedUser = undefined
+    //             router.replace("./DriverHomePage")
+    //         }
+    //         else{
+    //             alert("Please select a user from the dropdown list")    
+    //         }
+    //     } catch(e){
+    //         alert("Please select a user from the dropdown list")
+    //     }
+    // };
+
+    const onLoginPressed = () => {
         try{
             // (selectedUser = undefined) is to reset the variable so when the user logs out,
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
                 selectedUser = undefined
-                router.replace("./ParentsHomePage")
+                router.replace("./Boundary/ParentsHomePage")
             }
             else if (selectedUser === "Third-Party") {
                 selectedUser = undefined
-                router.replace("./ThirdPartyHomePage")
+                router.replace("./Boundary/ThirdPartyHomePage")
             }
             else if (selectedUser === "Teacher") {
                 selectedUser = undefined
-                router.replace("./TeacherHomePage")
+                router.replace("./Boundary/TeacherHomePage")
             }
             else if (selectedUser === "Driver") {
                 selectedUser = undefined
-                router.replace("./DriverHomePage")
+                router.replace("./Boundary/DriverHomePage")
             }
             else{
                 alert("Please select a user from the dropdown list")    
@@ -48,6 +78,10 @@ const Login = () => {
         } catch(e){
             alert("Please select a user from the dropdown list")
         }
+    };
+
+    const onForgotPasswordPressed = () => {
+        router.replace("./Boundary/ForgotPasswordPage")
     };
 
     return (
@@ -67,27 +101,25 @@ const Login = () => {
                 <StatusBar style="auto" />
 
                 <View style={styles.inputView}>
-                    <TextInput
-                        style={styles.TextInput}
+                    <CustomInput 
                         placeholder="Username"
-                        placeholderTextColor="#003f5c"
-                        onChangeText={(username) => setusername(username)}
-                    /> 
+                        value={username}
+                        setValue={setUsername} 
+                    />
                 </View> 
-
+        
                 <View style={styles.inputView}>
-                    <TextInput
-                        style={styles.TextInput}
+                    <CustomInput 
                         placeholder="Password"
-                        placeholderTextColor="#003f5c"
+                        value={password}
+                        setValue={setPassword} 
                         secureTextEntry={true}
-                        onChangeText={(password) => setPassword(password)}
-                    /> 
+                    />
                 </View> 
 
-                <TouchableOpacity>
-                    <Text style={styles.forgot_button}>Forgot Password?</Text> 
-                </TouchableOpacity> 
+                <TouchableOpacity style={styles.forgot_button} onPress={onForgotPasswordPressed}>
+                    <Text>Forgot Password?</Text> 
+                </TouchableOpacity>
 
                 <SelectDropdown
                     data={users}
@@ -117,20 +149,14 @@ const Login = () => {
                     }}
                 />
 
-                <TouchableOpacity 
-                    style={styles.loginBtn}
-                    onPress={() => handleSubmit()}
-                >
-                    <Text style={styles.loginText}>LOGIN</Text> 
-                </TouchableOpacity> 
-
+                <CustomButton 
+                    text='Login'
+                    onPress={onLoginPressed}
+                />
             </View>
         </SafeAreaView>
     )
 }
-
-export default Login;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -144,11 +170,9 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     inputView: {
-        backgroundColor: COLORS.white,
         borderRadius: 10,
         width: "75%",
-        height: 45,
-        marginBottom: 10,
+        marginVertical: 10,
         alignItems: "center",
     },
     TextInput: {
@@ -159,8 +183,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     forgot_button: {
-        height: 30,
-        marginBottom: 30,
+        margin: 20,
+        fontWeight: 'bold',
     },
     loginBtn: {
         width: "75%",
@@ -207,3 +231,5 @@ const styles = StyleSheet.create({
     },
       
   });
+
+export default Login;

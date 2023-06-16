@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { View, ScrollView, SafeAreaView, Image, StyleSheet, Text} from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 
-import { COLORS, icons, images, SIZES } from '../constants';
+import { COLORS, icons, images, SIZES } from '../../constants';
 import {
     ScreenHeaderBtn, Welcome
-} from '../components';
+} from '../../components';
 
 const ParentsHomePage = () => {
     const router = useRouter();
@@ -22,7 +22,7 @@ const ParentsHomePage = () => {
                     headerRight: () => (
                         <ScreenHeaderBtn iconUrl = {icons.user} dimension="80%" />
                     ),
-                    headerTitle: "Teacher"
+                    headerTitle: "Parent"
                 }}
             />
 
@@ -36,7 +36,7 @@ const ParentsHomePage = () => {
                     <Welcome 
                     
                     />
-                    <Text onPress={() => {router.replace("./")}}>Logout</Text>
+                    <Text onPress={() => {router.replace(".././")}}>Logout</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
