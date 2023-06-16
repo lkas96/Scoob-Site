@@ -41448,7 +41448,7 @@
 											"top": 911,
 											"width": 87,
 											"height": 13,
-											"text": "Add Child"
+											"text": "Link Child"
 										},
 										{
 											"_type": "LabelView",
@@ -81147,7 +81147,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Add Child"
+					"name": "Link Child"
 				}
 			]
 		}
