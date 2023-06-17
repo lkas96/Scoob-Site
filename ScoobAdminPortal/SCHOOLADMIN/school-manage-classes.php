@@ -1,5 +1,5 @@
 <?php
-include 'SystemAdminController.php';
+include 'SchoolAdminController.php';
 include '../LogoutController.php';
 session_start();
 
@@ -11,7 +11,7 @@ if (isset($_POST["logout"]))
 
 <html>
 <head>
-  <title>System Admin</title>
+  <title>School Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/custom.css">
@@ -32,7 +32,7 @@ if (isset($_POST["logout"]))
 <body>
   <!--Navigation Bar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="manage-applications-home.php"><img src="../img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp Scoob System Admin</a>
+    <a class="navbar-brand" href="school-home.php"><img src="../img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp School Admin - Manage Classes</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,15 +46,16 @@ if (isset($_POST["logout"]))
   <!-- Main Container -->
   <div class="bodyContainer">
     <div class="leftPanel">
-      <button class="customButton" type="button" onclick="window.location.href='manage-applications-home.php'"> <span>Manage Applications</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-manage-classes.php'"> <span>Manage Classes</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-manage-teachers.php'"> <span>Manage Teachers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-manage-students.php'"> <span>Manage Students</span></button><br><br>
       <form method="post">
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
 	    </form>
     </div>
 
     <div class="rightPanel">
-    SHOW TABLE OF ALL APPLICATIONS OVERVIEW HERE
-    TO BE ADDED
+    MANAGING CLASSES WIP
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->

@@ -18,11 +18,11 @@ if(isset($_POST['Login']))
   }
   else if($type == "SchoolAdmin")
   {
-    header("Location: SCHOOLADMIN/manage-applications-home.php");
+    header("Location: SCHOOLADMIN/school-home.php");
   }
   else if($type == "TransportAdmin")
   {
-    header("Location: TRANSPORTADMIN/manage-applications-home.php");
+    header("Location: TRANSPORTADMIN/transport-home.php");
   }
   else
   {

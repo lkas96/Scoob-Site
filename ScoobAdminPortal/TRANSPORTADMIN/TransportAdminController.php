@@ -5,7 +5,6 @@ include("../CLASSES/User.php");
 
 
 
-
 //DATABASE SETTINGS
 $servername = "localhost";
 $username = "root";
