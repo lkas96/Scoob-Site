@@ -58,7 +58,7 @@ const Login = () => {
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
                 selectedUser = undefined
-                router.replace("./Boundary/ParentsHomePage")
+                router.replace("./Boundary/ParentsNavigation")
             }
             else if (selectedUser === "Third-Party") {
                 selectedUser = undefined
