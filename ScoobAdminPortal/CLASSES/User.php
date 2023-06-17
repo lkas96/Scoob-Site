@@ -49,7 +49,6 @@ class User{
     //SET USER DETAILS THAT IS LOGGED IN
     $this->email  = $row["login"];
     $this->username = $row["login"];
-    $this->password = $row["password"];
     $this->uen   = $row["uen"];
     $this->type  = $row["type"];
 
@@ -58,11 +57,33 @@ class User{
     return true;
   }
 
-  //FUNCTION TO GET THE TYPE OF USER THAT IS LOGGED IN
+  //BASIC FUNCTION - GET TYPE OF USER
   public function getType()
   {
     return $this->type;
   }
+
+  //BASIC FUNCTION - GET EMAIL OF USER
+  public function getEmail()
+  {
+    return $this->email;
+  }
+
+  //BASIC FUNCTION - GET USERNAME OF USER
+  public function getUsername()
+  {
+    return $this->username;
+  }
+
+  //BASIC FUNCTION - GET UEN OF USER
+  public function getUen()
+  {
+    return $this->uen;
+  }
+
+
+
+
 
 }
 ?>

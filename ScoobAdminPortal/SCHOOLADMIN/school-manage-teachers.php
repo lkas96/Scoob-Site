@@ -55,10 +55,109 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-    MANAGING TEACHERS WIP
+      <h1>Viewing All Teachers</h1>
+    <table>
+  <tr>
+    <th>Teacher</th>
+    <th>Class</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    <td>Ms. Ham</td>
+    <td>A1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Ms. Smith</td>
+    <td>B1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Dr. Davis</td>
+    <td>B2</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Mr. Thompson</td>
+    <td>C3</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Mr. Johnson</td>
+    <td>D1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Ms. Williams</td>
+    <td>E1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Dr. Wilson</td>
+    <td>E2</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Mr. Brown</td>
+    <td>F1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Ms. Davis</td>
+    <td>G1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Dr. Anderson</td>
+    <td>G2</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Mr. Thompson</td>
+    <td>H1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Ms. White</td>
+    <td>I1</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+  <tr>
+    <td>Dr. Johnson</td>
+    <td>I2</td>
+    <td><button class="view-button">View More</button></td>
+  </tr>
+</table>
+
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
 </body>
 </html>
 
+
+
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .view-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>

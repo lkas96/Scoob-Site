@@ -55,10 +55,106 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-    MANAGING CLASSES WIP
+      <h1>Viewing All Classes</h1>
+      <table>
+          <tr>
+              <th>Class</th>
+              <th>Teacher</th>
+              <th>Action</th>
+          </tr>
+          <tr>
+            <td>A1</td>
+            <td>Ms. Ham</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>B1</td>
+            <td>Ms. Smith</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>B2</td>
+            <td>Dr. Davis</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>C3</td>
+            <td>Mr. Thompson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>D1</td>
+            <td>Mr. Johnson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>E1</td>
+            <td>Ms. Williams</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>E2</td>
+            <td>Dr. Wilson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>F1</td>
+            <td>Mr. Brown</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>G1</td>
+            <td>Ms. Davis</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>G2</td>
+            <td>Dr. Anderson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>H1</td>
+            <td>Mr. Thompson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>I1</td>
+            <td>Ms. White</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+        <tr>
+            <td>I2</td>
+            <td>Dr. Johnson</td>
+            <td><button class="view-button">View More</button></td>
+        </tr>
+      </table>
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
 </body>
 </html>
 
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .view-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
