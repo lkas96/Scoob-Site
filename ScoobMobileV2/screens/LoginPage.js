@@ -3,40 +3,44 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { COLORS } from '../constants';
 
 import CustomButton from '../components/CustomButton';
 import Header from '../components/header';
 
-const LoginPage = ({ navigation }) => {
-//States
-  const users = ["Parent/Guardians", "Teacher", "Driver"];
+import { useNavigation } from '@react-navigation/native';
 
-  const [credentials, setCredentials] = useState({username: '', password: ''});
+const LoginPage = () => {
+    const navigation = useNavigation();
+
+    const users = ["Parent/Guardians", "Teacher", "Driver"];
+
+    const [credentials, setCredentials] = useState({username: '', password: ''});
   
-  const onLoginPressed = () => {
-    try{
-        console.log(credentials.username, credentials.password);
-        // (selectedUser = undefined) is to reset the variable so when the user logs out,
-        // the data will be reset rather than saving the previous data
-        if (selectedUser === "Parent/Guardians") {
-            selectedUser = undefined
-            navigation.navigate('ParentsHomePage', credentials);
+    const onLoginPressed = () => {
+        try{
+            console.log(credentials.username, credentials.password);
+            // (selectedUser = undefined) is to reset the variable so when the user logs out,
+            // the data will be reset rather than saving the previous data
+            if (selectedUser === "Parent/Guardians") {
+                selectedUser = undefined
+                navigation.navigate('ParentsBottomTab');
+            }
+            else if (selectedUser === "Teacher") {
+                selectedUser = undefined
+                navigation.navigate('TeachersHomePage');
+            }
+            else if (selectedUser === "Driver") {
+                selectedUser = undefined
+                navigation.navigate('DriversHomePage');
+            }
+            else{
+                alert("Please select a user from the dropdown list")    
+            }
+        } catch(e){
+            alert("Please select a user from the dropdown list")
         }
-        else if (selectedUser === "Teacher") {
-            selectedUser = undefined
-            navigation.navigate('TeachersHomePage');
-        }
-        else if (selectedUser === "Driver") {
-            selectedUser = undefined
-            navigation.navigate('DriversHomePage');
-        }
-        else{
-            alert("Please select a user from the dropdown list")    
-        }
-    } catch(e){
-        alert("Please select a user from the dropdown list")
-    }
-};
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -100,7 +104,7 @@ const LoginPage = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fd7e14',
+        backgroundColor: COLORS.primary,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -112,40 +116,40 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         marginTop: 20,
-        width: '60%',
+        width: '77%',
     },
     input: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: COLORS.white,
         borderWidth: 1,
         borderColor: '#777',
         borderRadius: 10,
         padding: 8,
         margin: 5,
-        width: '60%',
+        width: '77%',
         height: 50,
     },
     dropdown2BtnStyle: {
-        width: '60%',
+        width: '77%',
         height: 50,
-        backgroundColor: '#F6F6F6',
+        backgroundColor: COLORS.white,
         borderRadius: 10,
         marginTop: 10,
     },
     dropdown2BtnTxtStyle: {
-        color: '#191919',
+        color: COLORS.black,
         textAlign: 'center',
         fontSize: 14,
     },
     dropdown2DropdownStyle: {
-        backgroundColor: '#F6F6F6',
+        backgroundColor: COLORS.white,
         borderRadius: 10,
     },
     dropdown2RowStyle: {
-        backgroundColor: '#F6F6F6', 
-        borderBottomColor: '191919',
+        backgroundColor: COLORS.white, 
+        borderBottomColor: COLORS.black,
     },
     dropdown2RowTxtStyle: {
-        color: '191919',
+        color: COLORS.black,
         textAlign: 'center',
         fontSize: 14,
         fontWeight: 'bold',

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import CustomButton from '../../components/CustomButton'
 
-const HomePage = ( { navigation }) => {
+const HomePage = ({ navigation }) => {
   
   const chatHandler = () => {
     navigation.navigate('TeachersChatPage')

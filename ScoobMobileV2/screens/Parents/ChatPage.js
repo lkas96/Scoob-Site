@@ -1,12 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React from 'react'
 
 const ChatPage = () => {
   return (
-    <View>
-      <Text>ChatPage</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text>Chat !</Text>
+    </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+});
 
 export default ChatPage
