@@ -28,12 +28,7 @@ const HomePage = ({ navigation }) => {
         <View style={styles.container}>
             <Text>{navigation.getParam('username')}</Text>
             <Text>{navigation.getParam('password')}</Text>
-            <CustomButton 
-                onPress={chatHandler}
-                text="Chat"
-                type='TERTIARY'
-            />
-
+            
             <CustomButton 
                 onPress={viewProfileHandler}
                 text="View Profile"
@@ -52,6 +47,12 @@ const HomePage = ({ navigation }) => {
                 type='TERTIARY'
             />
 
+            <CustomButton 
+                onPress={chatHandler}
+                text="Chat"
+                type='TERTIARY'
+            />
+            
             <CustomButton
                 onPress={logOutHandler}
                 text="Logout"

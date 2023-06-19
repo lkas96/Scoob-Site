@@ -34,8 +34,8 @@ const screens = {
     ParentsProfilePage: {
         screen: ParentsProfilePage,
         navigationOptions: {
-            title: "Home"
-        }
+            title: "Profile"
+        },
     },
     ParentsChildInfoPage: {
         screen: ParentsChildInfoPage,
@@ -75,7 +75,11 @@ const screens = {
 
 const ParentsHomeStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
-        headerStyle: { backgroundColor: 'orange'},
+        headerStyle: { 
+            backgroundColor: '#fd7e14',
+            shadowColor: 'transparent',
+            elevation: 0,
+        },
         headerTitleAlign: 'center',
     }
 });

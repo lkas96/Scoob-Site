@@ -100,7 +100,7 @@ const LoginPage = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'orange',
+        backgroundColor: '#fd7e14',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         width: '60%',
     },
     input: {
-        backgroundColor: 'white',
+        backgroundColor: '#F6F6F6',
         borderWidth: 1,
         borderColor: '#777',
         borderRadius: 10,
@@ -127,25 +127,25 @@ const styles = StyleSheet.create({
     dropdown2BtnStyle: {
         width: '60%',
         height: 50,
-        backgroundColor: 'white',
+        backgroundColor: '#F6F6F6',
         borderRadius: 10,
         marginTop: 10,
     },
     dropdown2BtnTxtStyle: {
-        color: 'black',
+        color: '#191919',
         textAlign: 'center',
         fontSize: 14,
     },
     dropdown2DropdownStyle: {
-        backgroundColor: 'white',
+        backgroundColor: '#F6F6F6',
         borderRadius: 10,
     },
     dropdown2RowStyle: {
-        backgroundColor: 'white', 
-        borderBottomColor: 'black',
+        backgroundColor: '#F6F6F6', 
+        borderBottomColor: '191919',
     },
     dropdown2RowTxtStyle: {
-        color: 'black',
+        color: '191919',
         textAlign: 'center',
         fontSize: 14,
         fontWeight: 'bold',
