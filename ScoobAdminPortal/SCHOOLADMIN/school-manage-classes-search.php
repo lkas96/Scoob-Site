@@ -32,7 +32,7 @@ if (isset($_POST["logout"]))
 <body>
   <!--Navigation Bar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="school-home.php"><img src="../img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp School Admin - Manage Teachers</a>
+    <a class="navbar-brand" href="school-home.php"><img src="../img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp School Admin - Search Class</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -55,87 +55,30 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-      <h1>Viewing All Teachers</h1>
-    <table>
-  <tr>
-    <th>Teacher</th>
-    <th>Class</th>
-    <th>Action</th>
-  </tr>
-  <tr>
-    <td>Ms. Ham</td>
-    <td>A1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Ms. Smith</td>
-    <td>B1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Dr. Davis</td>
-    <td>B2</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Mr. Thompson</td>
-    <td>C3</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Mr. Johnson</td>
-    <td>D1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Ms. Williams</td>
-    <td>E1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Dr. Wilson</td>
-    <td>E2</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Mr. Brown</td>
-    <td>F1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Ms. Davis</td>
-    <td>G1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Dr. Anderson</td>
-    <td>G2</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Mr. Thompson</td>
-    <td>H1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Ms. White</td>
-    <td>I1</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-  <tr>
-    <td>Dr. Johnson</td>
-    <td>I2</td>
-    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
-  </tr>
-</table>
 
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h1 style="margin: 0;">Search A Class</h1>
+        </div>
+
+      <div class="search-results">
+        <!-- INPUT FAKE SEARCH RESULTS -->
+        <table>
+            <tr>
+                <th>Class</th>
+                <th>Teacher</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+              <td>A1</td>
+              <td>Ms. Ham</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+        </table>
+      </div> <!-- End of search-results -->
     </div> <!-- End of RightPanel -->
-    
-  </div> <!-- End of Container -->
+  </div> <!-- End of Main Container -->
 </body>
 </html>
-
-
 
 <style>
         table {

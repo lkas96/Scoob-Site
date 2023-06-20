@@ -2,7 +2,7 @@
 include("CLASSES/User.php");
 
 class LoginController{
-  function loginAcc($email, $password)
+  function login($email, $password)
   {
     $userLogin = new User();
 

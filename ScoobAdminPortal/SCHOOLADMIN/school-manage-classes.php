@@ -55,82 +55,98 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-      <h1>Viewing All Classes</h1>
-      <table>
-          <tr>
-              <th>Class</th>
-              <th>Teacher</th>
-              <th>Action</th>
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h1 style="margin: 0;">Viewing All Classes</h1>
+          <div style="display: flex; align-items: center;">
+          <a href="school-manage-classes-add.php" style="margin-right: 10px;"><button>Add Class</button></a>
+          <form method="get" action="school-manage-classes-search.php" style="display: flex; align-items: center;margin-bottom: 0px;">
+            <input type="text" name="searchQuery" placeholder="Search Class" style="margin-right: 5px;">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="data">
+        <table>
+            <tr>
+                <th>Class</th>
+                <th>Teacher</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+              <td>A1</td>
+              <td>Ms. Ham</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
           </tr>
           <tr>
-            <td>A1</td>
-            <td>Ms. Ham</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>B1</td>
-            <td>Ms. Smith</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>B2</td>
-            <td>Dr. Davis</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>C3</td>
-            <td>Mr. Thompson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>D1</td>
-            <td>Mr. Johnson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>E1</td>
-            <td>Ms. Williams</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>E2</td>
-            <td>Dr. Wilson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>F1</td>
-            <td>Mr. Brown</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>G1</td>
-            <td>Ms. Davis</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>G2</td>
-            <td>Dr. Anderson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>H1</td>
-            <td>Mr. Thompson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>I1</td>
-            <td>Ms. White</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-        <tr>
-            <td>I2</td>
-            <td>Dr. Johnson</td>
-            <td><button class="view-button">View More</button></td>
-        </tr>
-      </table>
+              <td>B1</td>
+              <td>Ms. Smith</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>B2</td>
+              <td>Dr. Davis</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>C3</td>
+              <td>Mr. Thompson</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>D1</td>
+              <td>Mr. Johnson</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>E1</td>
+              <td>Ms. Williams</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>E2</td>
+              <td>Dr. Wilson</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>F1</td>
+              <td>Mr. Brown</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>G1</td>
+              <td>Ms. Davis</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>G2</td>
+              <td>Dr. Anderson</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>H1</td>
+              <td>Mr. Thompson</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>I1</td>
+              <td>Unassigned</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+          <tr>
+              <td>I2</td>
+              <td>Unassigned</td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+          </tr>
+        </table>
+      </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
-    
-  </div> <!-- End of Container -->
+  </div> <!-- End of Main Container -->
 </body>
 </html>
 

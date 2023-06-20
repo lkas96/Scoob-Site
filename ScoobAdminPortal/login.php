@@ -10,7 +10,7 @@ if(isset($_POST['Login']))
   $password = $_POST['password'];
 
   $login = new LoginController();
-  $type = $login->loginAcc($email, $password);
+  $type = $login->login($email, $password);
 
   if($type == "SystemAdmin")
   {

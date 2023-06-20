@@ -117,407 +117,407 @@ if (isset($_POST["logout"]))
   <tr>
     <td>John Doe</td>
     <td>A1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Jane Smith</td>
     <td>B1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Michael Johnson</td>
     <td>B2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sarah Thompson</td>
     <td>C3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Emily Davis</td>
     <td>D1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>David Williams</td>
     <td>E1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Samantha Wilson</td>
     <td>E2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Christopher Brown</td>
     <td>F1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Olivia Davis</td>
     <td>G1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Adam Wilson</td>
     <td>A2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sophia Thompson</td>
     <td>B3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Ethan Davis</td>
     <td>C1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Emma Johnson</td>
     <td>D2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Joshua Anderson</td>
     <td>E3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Ava Davis</td>
     <td>F2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Mason Brown</td>
     <td>G3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Charlotte Wilson</td>
     <td>H2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sebastian Thompson</td>
     <td>I3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Madison Davis</td>
     <td>A3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Aiden Johnson</td>
     <td>B2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Harper Anderson</td>
     <td>C3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Daniel Davis</td>
     <td>D1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Evelyn Thompson</td>
     <td>E2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Logan Johnson</td>
     <td>F3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Grace Wilson</td>
     <td>G1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Lucas Brown</td>
     <td>H3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sofia Davis</td>
     <td>I2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Carter Thompson</td>
     <td>A1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Avery Johnson</td>
     <td>B3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Henry Anderson</td>
     <td>C1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Scarlett Davis</td>
     <td>D3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Owen Wilson</td>
     <td>E1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Aria Thompson</td>
     <td>F2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Wyatt Johnson</td>
     <td>G3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Chloe Anderson</td>
     <td>H1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Julian Davis</td>
     <td>I3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Leah Johnson</td>
     <td>A2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Samuel Wilson</td>
     <td>B1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Madelyn Thompson</td>
     <td>C2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Joseph Davis</td>
     <td>D1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Ella Johnson</td>
     <td>E2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Levi Brown</td>
     <td>F1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Victoria Davis</td>
     <td>G2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Isaac Thompson</td>
     <td>H2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Grace Johnson</td>
     <td>I1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Anthony Wilson</td>
     <td>A3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Stella Davis</td>
     <td>B2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Grayson Anderson</td>
     <td>C3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Christopher Davis</td>
     <td>D2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Penelope Thompson</td>
     <td>E3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Leo Johnson</td>
     <td>F2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Victoria Anderson</td>
     <td>G3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Jack Davis</td>
     <td>H2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Bella Johnson</td>
     <td>I3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Henry Wilson</td>
     <td>A1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Lily Thompson</td>
     <td>B3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Jonathan Davis</td>
     <td>C1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Eleanor Johnson</td>
     <td>D3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Dylan Anderson</td>
     <td>E1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sophie Davis</td>
     <td>F2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Julian Thompson</td>
     <td>G3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Elizabeth Anderson</td>
     <td>H1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Christopher Davis</td>
     <td>I3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Aria Johnson</td>
     <td>A2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Liam Wilson</td>
     <td>B1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Abigail Thompson</td>
     <td>C2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Lucas Davis</td>
     <td>D1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Sofia Johnson</td>
     <td>E2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Benjamin Brown</td>
     <td>F1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Emily Davis</td>
     <td>G2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Andrew Thompson</td>
     <td>H2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Avery Johnson</td>
     <td>I1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Oliver Wilson</td>
     <td>A3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Scarlett Davis</td>
     <td>B2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Gabriel Anderson</td>
     <td>C3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Ella Davis</td>
     <td>D2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>David Thompson</td>
     <td>E3</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Matthew Anderson</td>
     <td>G2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Andrew Thompson</td>
     <td>H1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Isabella White</td>
     <td>I1</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
   <tr>
     <td>Nathan Johnson</td>
     <td>I2</td>
-    <td><button class="view-button">View More</button></td>
+    <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
   </tr>
 </table>
     </div> <!-- End of RightPanel -->
