@@ -16,7 +16,10 @@ function ParentSettingsStack() {
       }} 
       initialRouteName='ParentsSettingsPage'
     >
-      <Stack.Screen name="ParentsSettingsPage" component={ParentsSettingsPage} />
+      <Stack.Screen 
+        name="ParentsSettingsPage" 
+        component={ParentsSettingsPage} 
+      />
       <Stack.Screen 
         name="ParentsProfile" 
         component={ParentsProfilePage} 
@@ -24,10 +27,6 @@ function ParentSettingsStack() {
           headerShown: true,
           headerTitle: "Profile",
         }}/>
-      {/* <Stack.Screen name="ParentsChildInfoPage" component={ParentsChildInfoPage} />
-      <Stack.Screen name="ParentsChatPage" component={ParentsChatPage} />
-      <Stack.Screen name="ParentsBusServicePage" component={ParentsBusServicePage} /> */}
-
     </Stack.Navigator>
   );
 }

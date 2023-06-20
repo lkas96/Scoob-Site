@@ -1,10 +1,23 @@
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 
+import CustomButton from '../../components/CustomButton';
+
 const BusServicePage = () => {
+
+  const subscriptionHandler = () => {
+    Alert.alert("Successfully subscribed!");
+};
+
   return (
     <SafeAreaView style={styles.container}> 
-      <Text>Bus Service !</Text>
+      <Text style={styles.header}>Subscribe to Bus Service</Text>
+
+      <CustomButton 
+        onPress={subscriptionHandler}
+        text="Subscribe"
+        type='TERTIARY'
+      /> 
     </SafeAreaView>
   )
 }
@@ -14,5 +27,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
   },
+  header: {
+    fontWeight:'bold',
+    fontSize: 35,
+  }
 });
 export default BusServicePage

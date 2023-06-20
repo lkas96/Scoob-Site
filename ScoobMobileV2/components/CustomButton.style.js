@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
     container: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     },
 
     container_TERTIARY: {
-        backgroundColor:"#3B71F3",
+        backgroundColor:COLORS.primary,
         width: '75%',
         padding: 15,
         margin: 10,

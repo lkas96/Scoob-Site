@@ -4,9 +4,22 @@ import CustomButton from '../../components/CustomButton';
 
 const HomePage = ({ navigation }) => {
 
+    const childButtonPress = () => {
+        navigation.navigate('ChildProfile')
+    }
+
     return (
         <SafeAreaView style={styles.container}>            
-            <Text>Welcome Home</Text>
+            <CustomButton 
+                text="Child 1"
+                type='TERTIARY'
+                onPress={childButtonPress}
+            />
+            <CustomButton 
+                text="Child 2"
+                type='TERTIARY'
+                onPress={childButtonPress}
+            />
         </SafeAreaView>
     )
 }

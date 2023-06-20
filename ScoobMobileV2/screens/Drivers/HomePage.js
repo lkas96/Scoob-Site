@@ -4,24 +4,24 @@ import CustomButton from '../../components/CustomButton';
 
 const HomePage = ( { navigation }) => {
   const tripHandler = () => {
-    navigation.navigate('DriversTripsPage')
-  };
-
-  const logOutHandler = () => {
-    navigation.goBack()
+    navigation.navigate('Trips')
   };
   
   return (
     <View style={styles.container}>
       <CustomButton 
         onPress={tripHandler}
-        text="Trip"
+        text="Trip 1"
         type='TERTIARY'
       />
-      
-      <CustomButton
-        onPress={logOutHandler}
-        text="Logout"
+      <CustomButton 
+        onPress={tripHandler}
+        text="Trip 2"
+        type='TERTIARY'
+      />
+      <CustomButton 
+        onPress={tripHandler}
+        text="Trip 3"
         type='TERTIARY'
       />
     </View>
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

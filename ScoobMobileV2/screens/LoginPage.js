@@ -28,11 +28,11 @@ const LoginPage = () => {
             }
             else if (selectedUser === "Teacher") {
                 selectedUser = undefined
-                navigation.navigate('TeachersHomePage');
+                navigation.navigate('TeachersBottomTab');
             }
             else if (selectedUser === "Driver") {
                 selectedUser = undefined
-                navigation.navigate('DriversHomePage');
+                navigation.navigate('DriversBottomTab');
             }
             else{
                 alert("Please select a user from the dropdown list")    

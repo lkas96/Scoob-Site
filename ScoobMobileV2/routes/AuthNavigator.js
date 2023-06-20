@@ -1,8 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import ParentBottomTab from './ParentBottomTab';
 import LoginPage from "../screens/LoginPage";
+import ParentBottomTab from './ParentBottomTab';
+import DriverBottomTab from './DriverBottomTab';
+import TeacherBottomTab from './TeacherBottomTab';
 
 const Stack = createStackNavigator();
 
@@ -35,19 +37,19 @@ function AuthNavigator() {
                 headerTitle: "Home"
             }}
         /> */}
-        {/* <Stack.Screen name="ParentsProfilePage" component={ParentStack} /> */}
-        {/* <Stack.Screen name="ParentsChildInfoPage" component={ParentsChildInfoPage} />
-        <Stack.Screen name="ParentsChatPage" component={ParentsChatPage} />
-        <Stack.Screen name="ParentsBusServicePage" component={ParentsBusServicePage} /> */}
-
-        {/* <Stack.Screen name="TeachersHomePage" component={TeachersHomePage} />
-        <Stack.Screen name="TeachersChatPage" component={TeachersChatPage} />
-        <Stack.Screen name="TeachersPickUpZonePage" component={TeachersPickUpZonePage} />
-        <Stack.Screen name="DriversHomePage" component={DriversHomePage} />
-        <Stack.Screen name="DriversTripsPage" component={DriversTripsPage} /> */}
         <Stack.Screen 
             name="ParentsBottomTab" 
             component={ParentBottomTab} 
+            options={{headerShown: false, gestureEnabled: false,}}
+        />
+        <Stack.Screen 
+            name="DriversBottomTab" 
+            component={DriverBottomTab} 
+            options={{headerShown: false, gestureEnabled: false,}}
+        />
+        <Stack.Screen 
+            name="TeachersBottomTab" 
+            component={TeacherBottomTab} 
             options={{headerShown: false, gestureEnabled: false,}}
         />
     </Stack.Navigator>
