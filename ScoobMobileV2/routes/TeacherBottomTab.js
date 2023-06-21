@@ -6,7 +6,7 @@ import { COLORS } from '../constants';
 // Need to redo import style
 import TeachersHomePage from "../screens/Teachers/HomePage";
 import TeachersChatPage from "../screens/Teachers/ChatPage";
-import TeachersSettingsStack from "../routes/TeachersSettingsStack";
+import TeachersSettingsStack from "./TeacherSettingsStack";
 
 const Tab = createBottomTabNavigator();
 const TeacherBottomTab = () => {
@@ -14,27 +14,32 @@ const TeacherBottomTab = () => {
     <Tab.Navigator 
         screenOptions={({route}) => ({
           headerShown: false,
-          gestureEnabled: false,
-          tabBarActiveTintColor: COLORS.white,
-          tabBarActiveBackgroundColor: COLORS.primary,
-          tabBarInactiveBackgroundColor: 'gray',
-          tabBarInactiveTintColor: COLORS.black,
+            tabBarShowLabel:false,
+            gestureEnabled: false,
+            tabBarActiveTintColor: COLORS.white,
+            tabBarActiveBackgroundColor: COLORS.primary,
+            tabBarInactiveBackgroundColor: "#003D7C",
+            tabBarInactiveTintColor: COLORS.black,
+            tabBarStyle: {
+              paddingBottom: 0,
+            },
+            tabBarIconStyle: {
+              paddingBottom: Platform.OS === 'ios' ? 25 : 0,
+            },
             // To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
-            // tabBarIcon: ({color, size, focused}) => {
-            //     let iconName;
+            tabBarIcon: ({color, size, focused}) => {
+                let iconName;
 
-            //     if (route.name === ROUTES.HOME_TAB) {
-            //         iconName = focused ? 'ios-home-sharp' : 'ios-home-outline';
-            //     } else if (route.name === ROUTES.SETTINGS) {
-            //         iconName = focused ? 'settings' : 'settings-outline';
-            //     } else if (route.name === ROUTES.WALLET) {
-            //         iconName = focused ? 'wallet' : 'wallet-outline';
-            //     } else if (route.name === ROUTES.NOTIFICATIONS) {
-            //         iconName = focused ? 'md-notifications-sharp' : 'md-notifications-outline';
-            //     }
+                if (route.name === "TeachersHome") {
+                    iconName = focused ? 'ios-home-sharp' : 'ios-home-outline';
+                } else if (route.name === "TeachersSettings") {
+                    iconName = focused ? 'settings' : 'settings-outline';
+                } else if (route.name === "TeachersChat") {
+                    iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+                }
 
-            //     return <Icon name={iconName} size={22} color={color} />
-            // }
+                return <Icon name={iconName} size={22} color={color} />
+            }
         })}>
         <Tab.Screen name="TeachersHome" component={TeachersHomePage} options={{tabBarLabel: "Home"}}/>
         {/* <Tab.Screen name="TeachersHome" component={TeachersHomePage} options={{tabBarLabel: "Home", gestureEnabled: false,}}/> */}

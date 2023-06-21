@@ -6,12 +6,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { COLORS } from '../constants';
 
 import CustomButton from '../components/CustomButton';
-import Header from '../components/header';
 
-import { useNavigation } from '@react-navigation/native';
 
-const LoginPage = () => {
-    const navigation = useNavigation();
+const LoginPage = ({ navigation }) => {
 
     const users = ["Parent/Guardians", "Teacher", "Driver"];
 
@@ -24,15 +21,15 @@ const LoginPage = () => {
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
                 selectedUser = undefined
-                navigation.navigate('ParentsBottomTab');
+                navigation.navigate('ParentBottomTab');
             }
             else if (selectedUser === "Teacher") {
                 selectedUser = undefined
-                navigation.navigate('TeachersBottomTab');
+                navigation.navigate('TeacherBottomTab');
             }
             else if (selectedUser === "Driver") {
                 selectedUser = undefined
-                navigation.navigate('DriversBottomTab');
+                navigation.navigate('DriverBottomTab');
             }
             else{
                 alert("Please select a user from the dropdown list")    

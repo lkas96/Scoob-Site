@@ -1,11 +1,16 @@
-import { View, Text, Alert, StyleSheet, SafeAreaView } from 'react-native'
-import React from 'react'
+import { StyleSheet, SafeAreaView } from 'react-native'
+import React, {useState} from 'react'
 import CustomButton from '../../components/CustomButton';
+
 
 const Settings = ({ navigation }) => {
 
+    const [parent, setParent] = useState([
+        {name: 'John Alexis', id: 'S9876543A', email: 'john@gg.com', phoneNo: '91234567'},
+    ]);
+
     const viewProfileHandler = () => {
-        navigation.navigate('ParentsProfile')
+        navigation.navigate('ParentsProfile', {parentInfo: parent})
     };
 
     const logOutHandler = () => {

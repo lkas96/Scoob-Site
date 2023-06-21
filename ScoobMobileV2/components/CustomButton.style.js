@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
     },
+    
+    text: {
+        fontWeight: 'bold',
+        color: 'white',
+    },
 
     container_PRIMARY: {
         backgroundColor:"#3B71F3",
@@ -22,14 +27,25 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
 
-    text: {
-        fontWeight: 'bold',
-        color: 'white',
-    },
-
     text_TERTIARY: {
         color: 'black',
     },
+
+    container_HOME: {
+        backgroundColor:COLORS.primary,
+        width: '100%',
+        marginBottom: 10,
+        marginTop: 10,
+        borderRadius: 10,
+    },
+
+    text_HOME: {
+        color: 'black',
+        fontSize: 20,
+        padding: 35,
+    },
+
+
 })
 
 export default styles;

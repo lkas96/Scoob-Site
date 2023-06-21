@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ChatPage = () => {
   return (

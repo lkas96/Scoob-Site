@@ -1,12 +1,28 @@
 import { View, Text, SafeAreaView, StyleSheet, Alert } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 import CustomButton from '../../components/CustomButton';
 
-const BusServicePage = () => {
+const BusServicePage = ({ navigation }) => {
+
+  var subscribed = false;
+
+  const okHandler = () => {
+    subscribed = true;
+    Alert.alert("Successfully subscribed");
+    navigation.navigate("ParentsSubscribedPage", subscribed);
+  }
+
 
   const subscriptionHandler = () => {
-    Alert.alert("Successfully subscribed!");
+    Alert.alert('Subscription', 'Do you want to subscribe to bus service?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => okHandler()},
+    ]);
 };
 
   return (

@@ -6,7 +6,7 @@ import DriversTripsPage from '../screens/Drivers/TripsPage';
 
 const Stack = createStackNavigator();
 
-const DriversHomeStack = () => {
+const DriverHomeStack = () => {
   return (
     <Stack.Navigator 
 			screenOptions={{
@@ -19,7 +19,7 @@ const DriversHomeStack = () => {
                 component={DriversHomePage} 
             />
 			<Stack.Screen 
-                name="Trips" 
+                name="DriversTripsPage" 
                 component={DriversTripsPage} 
                 options={{
                     headerShown: true,
@@ -30,4 +30,4 @@ const DriversHomeStack = () => {
   )
 }
 
-export default DriversHomeStack
+export default DriverHomeStack

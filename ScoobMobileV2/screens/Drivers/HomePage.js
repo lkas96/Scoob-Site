@@ -1,10 +1,10 @@
-import { View, StyleSheet} from 'react-native'
+import { View, StyleSheet, ScrollView} from 'react-native'
 import React from 'react'
 import CustomButton from '../../components/CustomButton';
 
 const HomePage = ( { navigation }) => {
   const tripHandler = () => {
-    navigation.navigate('Trips')
+    navigation.navigate('DriversTripsPage')
   };
   
   return (

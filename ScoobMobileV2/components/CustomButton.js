@@ -1,4 +1,4 @@
-import {Text, Pressable } from 'react-native'
+import {Text, Icon, Pressable, View } from 'react-native'
 import React from 'react'
 
 import styles from './CustomButton.style'

@@ -1,10 +1,12 @@
-import { View, Text } from 'react-native'
+import { View, Text} from 'react-native'
 import React from 'react'
 
-const ChildInfoPage = () => {
+const ChildInfoPage = ({route}) => {
+
   return (
     <View>
-      <Text>Child's Info</Text>
+      <Text style={{fontSize:20, fontWeight: 'bold',}}>Name: {route.params.childInfo.name}</Text>
+      <Text style={{fontSize:20, fontWeight: 'bold',}}>NRIC: {route.params.childInfo.id}</Text>
     </View>
   )
 }

@@ -38,17 +38,17 @@ function AuthNavigator() {
             }}
         /> */}
         <Stack.Screen 
-            name="ParentsBottomTab" 
+            name="ParentBottomTab" 
             component={ParentBottomTab} 
             options={{headerShown: false, gestureEnabled: false,}}
         />
         <Stack.Screen 
-            name="DriversBottomTab" 
+            name="DriverBottomTab" 
             component={DriverBottomTab} 
             options={{headerShown: false, gestureEnabled: false,}}
         />
         <Stack.Screen 
-            name="TeachersBottomTab" 
+            name="TeacherBottomTab" 
             component={TeacherBottomTab} 
             options={{headerShown: false, gestureEnabled: false,}}
         />
