@@ -9,7 +9,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './routes/AuthNavigator';
 
 // --------------AWS AMPLIFY ----------
-import { Auth } from 'aws-amplify';
+import { Auth, Amplify } from 'aws-amplify';
+import aws_exports from './src/aws-exports';
+Amplify.configure(aws_exports);
 //-------------------------------------
 
 export default function App() {

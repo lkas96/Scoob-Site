@@ -1,6 +1,6 @@
 import React , { useState, useEffect}from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableWithoutFeedback, Keyboard, Image, Alert } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { COLORS } from '../constants';
@@ -17,10 +17,6 @@ async function Login() {
       }
 }
 
-function test() {
-    
-}
-
 function LoginPage() {
 
     const navigation = useNavigation();
@@ -29,10 +25,23 @@ function LoginPage() {
 
     const [credentials, setCredentials] = useState({username: '', password: ''});
 
-    const onLoginPressed = () => {
+    const onSignInPressed = async (data) => {
+        // const response = await Auth.signIn(data.username, data.password);
+        // console.log(response);
+        try {
+            const user = await Auth.signIn(credentials.username, credentials.password);
+            console.log(user);
+            navigation.navigate('ParentBottomTab');
+        } catch (error) {
+            console.log('error signing in', error);
+        }
+    }
+
+    const onLoginPressed = async (data) => {
         try{
-            console.log(credentials.username, credentials.password);
-            // const user = await Auth.signIn(credentials.username, credentials.password);
+            const response = await Auth.signIn(credentials.username, credentials.password);
+            // console.log(response);
+
             // (selectedUser = undefined) is to reset the variable so when the user logs out,
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
@@ -48,10 +57,12 @@ function LoginPage() {
                 navigation.navigate('DriverBottomTab');
             }
             else{
-                alert("Please select a user from the dropdown list")    
+                Alert.alert("Please select a user from the dropdown list")    
             }
-        } catch(e){
-            alert("Please select a user from the dropdown list")
+        } catch(error){
+            // alert("Please select a user from the dropdown list")
+            console.log('error signing in', error);
+            Alert.alert("Invalid username or password");
         }
     };
 
@@ -67,13 +78,13 @@ function LoginPage() {
                 <TextInput 
                     style={styles.input}
                     placeholder="Username"
-                    onChangeText={(val) => abc.setCredentials({ ...credentials, username: val })}
+                    onChangeText={(val) => setCredentials({ ...credentials, username: val })}
                 />
 
                 <TextInput 
                     style={styles.input}
                     placeholder="Password"
-                    onChangeText={(val) => abc.setCredentials({ ...credentials, password: val })}
+                    onChangeText={(val) => setCredentials({ ...credentials, password: val })}
                     secureTextEntry={true}
                 />
                 
@@ -107,7 +118,7 @@ function LoginPage() {
                 />
 
                 <View style={styles.buttonContainer}>
-                    <CustomButton text='Login' onPress={onLoginPressed}/>
+                    <CustomButton text='Login' data={credentials} onPress={onLoginPressed}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>
