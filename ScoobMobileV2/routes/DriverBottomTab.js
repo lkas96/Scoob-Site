@@ -13,7 +13,8 @@ function DriverBottomTab() {
   return (
     <Tab.Navigator 
         screenOptions={({route}) => ({
-          headerShown: false,
+            headerShown: true,
+            headerTitle: '',
             tabBarShowLabel:false,
             gestureEnabled: false,
             tabBarActiveTintColor: COLORS.white,
@@ -25,6 +26,9 @@ function DriverBottomTab() {
             },
             tabBarIconStyle: {
               paddingBottom: Platform.OS === 'ios' ? 25 : 0,
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary
             },
             // To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
             tabBarIcon: ({color, size, focused}) => {

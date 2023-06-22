@@ -5,16 +5,16 @@ import CustomButton from '../../components/CustomButton';
 const HomePage = ({ navigation }) => {
 
     const [child, setChild] = useState([
-        {name: 'John Alexis', id: '1'},
-        {name: 'Random Man', id: '2'},
-        {name: 'Eternal Blue', id: '3'},
-        {name: 'Long Gone Kid', id: '4'},
-        {name: 'Bareback Brother', id: '5'},
-        {name: 'Toad Mushroom', id: '6'},
-        {name: 'Coder4Lyfe', id: '7'},
-        {name: 'Luigi Mario', id: '8'},
-        {name: 'Peach Bowser', id: '9'},
-        {name: 'Who Is This', id: '10'},
+        {name: 'John Alexis', id: '1', class: '1A', address: 'Jurong'},
+        {name: 'Random Man', id: '2', class: '2A', address: 'Pasir Ris'},
+        {name: 'Eternal Blue', id: '3', class: '3A', address: 'Tampines'},
+        {name: 'Long Gone Kid', id: '4', class: '4A', address: 'Seng Kang'},
+        {name: 'Bareback Brother', id: '5', class: '5A', address: 'Woodlands'},
+        {name: 'Toad Mushroom', id: '6', class: '6A', address: 'Bishan'},
+        {name: 'Coder4Lyfe', id: '7', class: '2B', address: 'Tiong Bahru'},
+        {name: 'Luigi Mario', id: '8', class: '4C', address: 'Redhill'},
+        {name: 'Peach Bowser', id: '9', class: '1D', address: 'Bukit Panjang'},
+        {name: 'Who Is This', id: '10', class: '6F', address: 'Bukit Batok'},
     ]);
 
     return (
@@ -29,7 +29,7 @@ const HomePage = ({ navigation }) => {
                         text={`${item.name}`}
                         type='HOME'
                         onPress={() =>
-                            navigation.navigate('ChildProfile',{childInfo: item})}
+                            navigation.navigate('ChildInfoStack',{childInfo: item})}
                     />
                 )}
             />
@@ -42,8 +42,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 0.4,
         paddingHorizontal: 10,
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
     scrollContainer: {
         paddingHorizontal: 15,

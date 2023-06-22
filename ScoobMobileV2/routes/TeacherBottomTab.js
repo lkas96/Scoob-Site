@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants';
 
 // Need to redo import style
-import TeachersHomePage from "../screens/Teachers/HomePage";
+import TeachersHomeStack from "./TeacherHomeStack";
 import TeachersChatPage from "../screens/Teachers/ChatPage";
 import TeachersSettingsStack from "./TeacherSettingsStack";
 
@@ -13,7 +13,7 @@ const TeacherBottomTab = () => {
   return (
     <Tab.Navigator 
         screenOptions={({route}) => ({
-          headerShown: false,
+            headerShown: false,
             tabBarShowLabel:false,
             gestureEnabled: false,
             tabBarActiveTintColor: COLORS.white,
@@ -41,9 +41,9 @@ const TeacherBottomTab = () => {
                 return <Icon name={iconName} size={22} color={color} />
             }
         })}>
-        <Tab.Screen name="TeachersHome" component={TeachersHomePage} options={{tabBarLabel: "Home"}}/>
+        <Tab.Screen name="TeachersHome" component={TeachersHomeStack} options={{tabBarLabel: "Home"}}/>
         {/* <Tab.Screen name="TeachersHome" component={TeachersHomePage} options={{tabBarLabel: "Home", gestureEnabled: false,}}/> */}
-        <Tab.Screen name="TeachersChat" component={TeachersChatPage} options={{tabBarLabel: "Chat"}}/>
+        <Tab.Screen name="TeachersChat" component={TeachersChatPage} options={{tabBarLabel: "Chat", headerShown: true, headerTitle: '', headerStyle: {backgroundColor: COLORS.primary}}}/>
         <Tab.Screen name="TeachersSettings" component={TeachersSettingsStack} options={{tabBarLabel: "Settings"}}/>
     </Tab.Navigator>
   )

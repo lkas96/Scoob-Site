@@ -45,6 +45,20 @@ const styles = StyleSheet.create({
         padding: 35,
     },
 
+    container_INFO: {
+        backgroundColor:COLORS.primary,
+        width: '75%',
+        marginBottom: 10,
+        marginTop: 10,
+        borderRadius: 10,
+    },
+
+    text_INFO: {
+        color: 'black',
+        fontSize: 20,
+        padding: 15,
+    },
+
 
 })
 

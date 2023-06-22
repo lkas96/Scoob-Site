@@ -2,12 +2,14 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 
 import {COLORS} from '../constants';
-import ParentsHomePage from '../screens/Parents/HomePage';
+
+import TeachersHomePage from '../screens/Teachers/HomePage';
 import ChildInfoStack from './ChildInfoStack';
+
 
 const Stack = createStackNavigator();
 
-const ParentHomeStack = () => {
+const TeacherHomeStack = () => {
 	return (
 		<Stack.Navigator 
 			screenOptions={{
@@ -17,11 +19,11 @@ const ParentHomeStack = () => {
 				backgroundColor: COLORS.primary,
 			},
 			}} 
-			initialRouteName='ParentsHomePage'
+			initialRouteName='TeachersHomePage'
 		>
 			<Stack.Screen 
-                name="ParentsHomePage" 
-                component={ParentsHomePage} 
+                name="TeachersHomePage" 
+                component={TeachersHomePage} 
 				options={{
 					headerLeft: false,
 				}}
@@ -38,4 +40,4 @@ const ParentHomeStack = () => {
 	)
 }
 
-export default ParentHomeStack
+export default TeacherHomeStack;

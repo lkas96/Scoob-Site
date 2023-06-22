@@ -19,6 +19,7 @@ function ParentBottomTab() {
     <Tab.Navigator 
         screenOptions={({route}) => ({
             headerShown: false,
+            headerTitle: "",
             tabBarShowLabel:false,
             gestureEnabled: false,
             tabBarActiveTintColor: COLORS.white,
@@ -30,6 +31,9 @@ function ParentBottomTab() {
             },
             tabBarIconStyle: {
               paddingBottom: Platform.OS === 'ios' ? 25 : 0,
+            },
+            headerStyle: {
+              backgroundColor: COLORS.primary
             },
 
             // To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
@@ -51,8 +55,8 @@ function ParentBottomTab() {
         })}>
         {/* <Tab.Screen name="ParentsHome" component={ParentsHomePage} options={{tabBarLabel: "Home", gestureEnabled: false,}}/> */}
         <Tab.Screen name="ParentsHome" component={ParentsHomeStack} options={{tabBarLabel: "Home", gestureEnabled: false,}}/>
-        <Tab.Screen name="BusService" component={ParentsBusServiceStack} options={{tabBarLabel: "Bus Service"}}/>
-        <Tab.Screen name="ParentsChat" component={ParentsChatPage} options={{tabBarLabel: "Chat"}}/>
+        <Tab.Screen name="BusService" component={ParentsBusServiceStack} options={{tabBarLabel: "Bus Service", headerShown: true, headerTitle: '', headerStyle: {backgroundColor: COLORS.primary}}}/>
+        <Tab.Screen name="ParentsChat" component={ParentsChatPage} options={{tabBarLabel: "Chat", headerShown: true, headerTitle: '', headerStyle: {backgroundColor: COLORS.primary}}}/>
         <Tab.Screen name="ParentsSettings" component={ParentsSettingsStack} options={{tabBarLabel: "Settings"}}/>
     </Tab.Navigator>
   );
