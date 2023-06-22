@@ -4,19 +4,35 @@ import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableWitho
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { COLORS } from '../constants';
-
+import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
 
+import { Auth } from 'aws-amplify';
 
-const LoginPage = ({ navigation }) => {
+async function Login() {
+    try {
+        const user = await Auth.signIn(credentials.username, credentials.password);
+      } catch (error) {
+        console.log('error signing in', error);
+      }
+}
+
+function test() {
+    
+}
+
+function LoginPage() {
+
+    const navigation = useNavigation();
 
     const users = ["Parent/Guardians", "Teacher", "Driver"];
 
     const [credentials, setCredentials] = useState({username: '', password: ''});
-  
+
     const onLoginPressed = () => {
         try{
             console.log(credentials.username, credentials.password);
+            // const user = await Auth.signIn(credentials.username, credentials.password);
             // (selectedUser = undefined) is to reset the variable so when the user logs out,
             // the data will be reset rather than saving the previous data
             if (selectedUser === "Parent/Guardians") {
@@ -51,13 +67,13 @@ const LoginPage = ({ navigation }) => {
                 <TextInput 
                     style={styles.input}
                     placeholder="Username"
-                    onChangeText={(val) => setCredentials({ ...credentials, username: val })}
+                    onChangeText={(val) => abc.setCredentials({ ...credentials, username: val })}
                 />
 
                 <TextInput 
                     style={styles.input}
                     placeholder="Password"
-                    onChangeText={(val) => setCredentials({ ...credentials, password: val })}
+                    onChangeText={(val) => abc.setCredentials({ ...credentials, password: val })}
                     secureTextEntry={true}
                 />
                 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Auth } from 'aws-amplify';
 
 import LoginPage from "../screens/LoginPage";
 import ParentBottomTab from './ParentBottomTab';

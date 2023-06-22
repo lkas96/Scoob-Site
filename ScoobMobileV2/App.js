@@ -8,9 +8,12 @@ import Header from './components/header';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './routes/AuthNavigator';
 
+// --------------AWS AMPLIFY ----------
+import { Auth } from 'aws-amplify';
+//-------------------------------------
+
 export default function App() {
   return (
-    // <Navigator />
     <NavigationContainer>
       <AuthNavigator/>
     </NavigationContainer>
