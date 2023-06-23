@@ -1,3 +1,12 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  //IF HIT SUBMIT
+  //SUCCESSFULLY CREATED POPUP.
+  
+  echo "<script type='text/javascript'>alert('Onboarding as a parent/guardian successful!'); window.location.href = 'onboard-home.php';</script>";
+}
+?>
+
 <html>
 <head>
   <title>Scoob Onboarding Signup</title>
@@ -28,15 +37,15 @@
       </tr>
 
       <tr>
-        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="First Name" required></td>
+        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="First Name" ></td>
       </tr>
 
       <tr>
-        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="Last Name" required></td>
+        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="Last Name" ></td>
       </tr>
 
       <tr>
-        <td><input id="id" name="id" type="text" maxlength="30" style="width:400px;" placeholder="ID" required></td>
+        <td><input id="id" name="id" type="text" maxlength="30" style="width:400px;" placeholder="ID" ></td>
       </tr>
 
       <tr><td>&nbsp</td></tr>
@@ -47,11 +56,11 @@
       </tr>
 
       <tr>
-        <td><input id="email" name="email" type="text" maxlength="30" style="width:400px;" placeholder="Email" required></td>
+        <td><input id="email" name="email" type="text" maxlength="30" style="width:400px;" placeholder="Email" ></td>
       </tr>
 
       <tr>
-        <td><input id="password" name="password" type="password" style="width:400px;" placeholder="Password" required><br></td>
+        <td><input id="password" name="password" type="password" style="width:400px;" placeholder="Password" ><br></td>
       </tr>
 
       <tr><td>&nbsp</td></tr>
