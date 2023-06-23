@@ -16,10 +16,10 @@ const TeacherBottomTab = () => {
             headerShown: false,
             tabBarShowLabel:false,
             gestureEnabled: false,
-            tabBarActiveTintColor: COLORS.white,
+            tabBarActiveTintColor: COLORS.black,
             tabBarActiveBackgroundColor: COLORS.primary,
             tabBarInactiveBackgroundColor: "#003D7C",
-            tabBarInactiveTintColor: COLORS.black,
+            tabBarInactiveTintColor: COLORS.white,
             tabBarStyle: {
               paddingBottom: 0,
             },
