@@ -6,11 +6,15 @@ $type = "";
 
 if(isset($_POST['Login']))
 {
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  //DISABLED FOR DEMO
+  //$email = $_POST['email'];
+  //$password = $_POST['password'];
 
-  $login = new LoginController();
-  $type = $login->login($email, $password);
+  //$login = new LoginController();
+  //$type = $login->login($email, $password);
+
+  //TEMP DEMO LOGIN SELECT
+  $type = $_POST['type'];
 
   if($type == "SystemAdmin")
   {
@@ -20,14 +24,14 @@ if(isset($_POST['Login']))
   {
     header("Location: SCHOOLADMIN/school-home.php");
   }
-  else if($type == "TransportAdmin")
-  {
-    header("Location: TRANSPORTADMIN/transport-home.php");
-  }
-  else
-  {
-    echo "<script>alert('Invalid Username or Password')</script>";
-  }
+  //else if($type == "TransportAdmin")
+  //{
+  //  header("Location: TRANSPORTADMIN/transport-home.php");
+  //}
+  //else
+  //{
+  //  echo "<script>alert('Invalid Username or Password')</script>";
+  //}
 }
 ?>
 
@@ -54,6 +58,14 @@ if(isset($_POST['Login']))
   <!--Login Form-->
   <div class="container">
     <form method="post">
+    &nbsp&nbsp&nbsp<label>Login as: </label>
+      <select id="type" name="type" style="width:300px;" required>
+        <option default hidden selected></option>
+        <option value="SystemAdmin">System Admin</option>
+        <option value="SchoolAdmin">School Admin</option>
+        <option value="SchoolAdmin" disabled>Transport Admin</option>
+      </select><br>
+        <!--<option value="TransportAdmin">Transport Admin</option>-->
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Email: </label>
       <input id="email" name="email" type="text" maxlength="30" style="width:300px;"><br>
       &nbsp<label>Password: </label>
