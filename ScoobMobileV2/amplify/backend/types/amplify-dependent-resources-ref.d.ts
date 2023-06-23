@@ -9,5 +9,11 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolId": "string",
       "UserPoolName": "string"
     }
+  },
+  "storage": {
+    "s3scoobmobilev2storagede8b844b": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

@@ -30,7 +30,9 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ]
+    ],
+    "aws_user_files_s3_bucket": "scoobmobilev2-storage-de8b844b174945-dev",
+    "aws_user_files_s3_bucket_region": "ap-southeast-1"
 };
 
 

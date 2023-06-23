@@ -9,13 +9,6 @@ import CustomButton from '../components/CustomButton';
 
 import { Auth } from 'aws-amplify';
 
-async function Login() {
-    try {
-        const user = await Auth.signIn(credentials.username, credentials.password);
-      } catch (error) {
-        console.log('error signing in', error);
-      }
-}
 
 function LoginPage() {
 
@@ -40,7 +33,7 @@ function LoginPage() {
     const onLoginPressed = async (data) => {
         try{
             const response = await Auth.signIn(credentials.username, credentials.password);
-            // console.log(response);
+            console.log(response.challengeParam.userAttributes.family_name);
 
             // (selectedUser = undefined) is to reset the variable so when the user logs out,
             // the data will be reset rather than saving the previous data
