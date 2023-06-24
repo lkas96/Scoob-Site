@@ -53,63 +53,34 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing All Applications</h1>
-          <div style="display: flex; align-items: center;">
-            <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;">
-            <input type="submit" value="Search">
-          </form>
-        </div>
-      </div>
-
     <div class="data">
-    <table>
-            <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>UEN</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-              <td>School</td>
-              <td>Clementi Primary School</td>
-              <td>12345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>School</td>
-              <td>UOW</td>  
-              <td>22345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>Comfort Buses</td>
-              <td>56739103J</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>SingaBus</td>
-              <td>320582103D</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-    </table>
-  </div>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>UEN</th>
+          <th>School Dismissal Time</th>
+          <th>Estimated Students Requiring Bus Services</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <td>School</td>
+          <td>Clementi Primary School</td>
+          <td>12345678A</td>
+          <td>2:00PM</td>
+          <td>Up till a 100 Students</td>
+          <td><a><button class="edit">Accept</button></a>
+          <a><button class="edit">Reject</button></a></td>
+          
+        </tr>
+      </table>
+
+      </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
 </body>
 </html>
-
 
 
 <style>

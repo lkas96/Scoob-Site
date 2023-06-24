@@ -81,67 +81,67 @@ if (isset($_POST["logout"]))
             <tr>
               <td>A1</td>
               <td>Ms. Ham</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>B1</td>
               <td>Ms. Smith</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>B2</td>
               <td>Dr. Davis</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>C3</td>
               <td>Mr. Thompson</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>D1</td>
               <td>Mr. Johnson</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>E1</td>
               <td>Ms. Williams</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>E2</td>
               <td>Dr. Wilson</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>F1</td>
               <td>Mr. Brown</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>G1</td>
               <td>Ms. Davis</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>G2</td>
               <td>Dr. Anderson</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>H1</td>
               <td>Mr. Thompson</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>I1</td>
               <td>Unassigned</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
           <tr>
               <td>I2</td>
               <td>Unassigned</td>
-              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a></td>
+              <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a> <a><button class="view-button">Delete</button></a></td>
           </tr>
         </table>
       </div> <!-- End of Data -->
