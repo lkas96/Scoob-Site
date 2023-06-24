@@ -54,54 +54,31 @@ if (isset($_POST["logout"]))
 
     <div class="rightPanel">
     <div class="data">
-    <table>
-            <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>UEN</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-              <td>School</td>
-              <td>Clementi Primary School</td>
-              <td>12345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>School</td>
-              <td>UOW</td>  
-              <td>22345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>Comfort Buses</td>
-              <td>56739103J</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>SingaBus</td>
-              <td>320582103D</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-    </table>
-  </div>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>UEN</th>
+          <th>Fleet Size</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <td>Transport</td>
+          <td>Comfort Buses</td>
+          <td>56728991D</td>
+          <td>10 Buses</td>
+          <td><a><button class="edit">Accept</button></a>
+          <a><button class="edit">Reject</button></a></td>
+          
+        </tr>
+      </table>
+
+      </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
 </body>
 </html>
-
-
 
 <style>
         table {

@@ -55,7 +55,19 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-      <h1>Viewing All Teachers</h1>
+
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h1 style="margin: 0;">Viewing All Teachers</h1>
+          <div style="display: flex; align-items: center;">
+          <a style="margin-right: 10px;"><button>Add Teacher</button></a>
+          <form method="get"  style="display: flex; align-items: center;margin-bottom: 0px;">
+            <input type="text" name="searchQuery" placeholder="Search Teacher" style="margin-right: 5px;">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+
+
     <table>
   <tr>
     <th>Teacher</th>

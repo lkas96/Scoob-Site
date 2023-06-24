@@ -106,8 +106,20 @@ if (isset($_POST["logout"]))
 	    </form>
     </div>
 
+
     <div class="rightPanel">
-      <h1>Viewing All Students</h1>
+
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h1 style="margin: 0;">Viewing All Students</h1>
+          <div style="display: flex; align-items: center;">
+          <a style="margin-right: 10px;"><button>Add Student</button></a>
+          <form method="get"  style="display: flex; align-items: center;margin-bottom: 0px;">
+            <input type="text" name="searchQuery" placeholder="Search Student" style="margin-right: 5px;">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+
     <table id="studentTable">
     <tr>
     <th>Student Name</th>

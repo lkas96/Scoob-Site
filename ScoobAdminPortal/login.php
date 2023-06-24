@@ -50,6 +50,7 @@ if(isset($_POST['Login']))
     <a class="navbar-brand" href="login.php">
       <img src="img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp Scoob Admin Portal
     </a>
+    <a href="onboarding/onboard-home.php">Signup</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
