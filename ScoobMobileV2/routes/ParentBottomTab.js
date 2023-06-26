@@ -1,16 +1,16 @@
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../constants";
-import { Platform } from "react-native";
 
 // Need to redo import style
+import ParentsBusServiceStack from "../routes/ParentBusServiceStack";
+import ParentsHomeStack from "../routes/ParentHomeStack";
+import ParentsSettingsStack from "../routes/ParentSettingsStack";
+import ParentsChatPage from "../screens/Parents/ChatPage";
 import ParentsHomePage from "../screens/Parents/HomePage";
 import ParentsProfilePage from "../screens/Parents/ProfilePage";
-import ParentsHomeStack from "../routes/ParentHomeStack";
-import ParentsChatPage from "../screens/Parents/ChatPage";
-import ParentsSettingsStack from "../routes/ParentSettingsStack";
-import ParentsBusServiceStack from "../routes/ParentBusServiceStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,10 +22,10 @@ function ParentBottomTab() {
 				headerTitle: "",
 				tabBarShowLabel: false,
 				gestureEnabled: false,
-				tabBarActiveTintColor: COLORS.black,
 				tabBarActiveBackgroundColor: COLORS.primary,
-				tabBarInactiveBackgroundColor: "#003D7C",
-				tabBarInactiveTintColor: COLORS.white,
+				tabBarInactiveBackgroundColor: COLORS.secondary,
+				tabBarActiveTintColor: COLORS.black,
+				tabBarInactiveTintColor: COLORS.quarternary,
 				tabBarStyle: {
 					paddingBottom: 0,
 				},

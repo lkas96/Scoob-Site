@@ -1,5 +1,5 @@
-import { StyleSheet, SafeAreaView, FlatList, Text } from "react-native";
 import React, { useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
 const HomePage = ({ navigation }) => {

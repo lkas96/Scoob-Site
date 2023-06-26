@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
 import React from "react";
+import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import CustomButton from "../../components/CustomButton";
 

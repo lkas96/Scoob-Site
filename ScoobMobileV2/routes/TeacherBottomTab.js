@@ -1,11 +1,11 @@
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../constants";
 
 // Need to redo import style
-import TeachersHomeStack from "./TeacherHomeStack";
 import TeachersChatPage from "../screens/Teachers/ChatPage";
+import TeachersHomeStack from "./TeacherHomeStack";
 import TeachersSettingsStack from "./TeacherSettingsStack";
 
 const Tab = createBottomTabNavigator();
@@ -18,7 +18,7 @@ const TeacherBottomTab = () => {
 				gestureEnabled: false,
 				tabBarActiveTintColor: COLORS.black,
 				tabBarActiveBackgroundColor: COLORS.primary,
-				tabBarInactiveBackgroundColor: "#003D7C",
+				tabBarInactiveBackgroundColor: COLORS.secondary,
 				tabBarInactiveTintColor: COLORS.white,
 				tabBarStyle: {
 					paddingBottom: 0,

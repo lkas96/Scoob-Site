@@ -1,11 +1,8 @@
 export default {
-    // gradientForm: '#A376F1',
-    primary: '#fd7e14',
-    white: '#f6f6f6',
-    // dark: '#444',
-    // bgColor: '#82ccdd',
-    // warning: '#f0d500',
-    // danger: '#FF0D0E',
-    // gray: '#666666',
-    black: '#191919',
-  };
+	primary: "#f57c23",
+	secondary: "#003D7C",
+	tertiary: "#e8aa42",
+	quarternary: "#f8f1f1",
+	white: "#f6f6f6",
+	black: "#191919",
+};

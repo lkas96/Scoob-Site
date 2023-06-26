@@ -1,10 +1,11 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Auth } from "aws-amplify";
+import React from "react";
 
+import COLORS from "../constants/colors";
 import LoginPage from "../screens/LoginPage";
-import ParentBottomTab from "./ParentBottomTab";
 import DriverBottomTab from "./DriverBottomTab";
+import ParentBottomTab from "./ParentBottomTab";
 import TeacherBottomTab from "./TeacherBottomTab";
 
 const Stack = createStackNavigator();
@@ -14,12 +15,12 @@ function AuthNavigator() {
 		<Stack.Navigator
 			screenOptions={{
 				headerStyle: {
-					backgroundColor: "#fd7e14",
+					backgroundColor: COLORS.primary,
 					shadowColor: "transparent",
 					elevation: 0,
 				},
 				headerTitleAlign: "center",
-				headerTintColor: "#F6F6F6",
+				headerTintColor: COLORS.white,
 			}}
 			initialRouteName="LoginPage"
 		>

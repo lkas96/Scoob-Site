@@ -1,11 +1,10 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 
 import { COLORS } from "../constants";
 import ParentsHomePage from "../screens/Parents/HomePage";
 import ChildInfoStack from "./ChildInfoStack";
 
-const hi = hi;
 const Stack = createStackNavigator();
 
 const ParentHomeStack = () => {

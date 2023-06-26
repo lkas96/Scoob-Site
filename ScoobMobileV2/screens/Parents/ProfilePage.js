@@ -26,8 +26,6 @@ const ProfilePage = ({ route }) => {
 				<Text style={styles.text}>
 					Phone Number: {route.params.parentInfo[0].phoneNo}
 				</Text>
-				{/* <Text style={styles.text}>|lll|||l||ll|||||</Text>
-				<Text style={styles.text}>{route.params.parentInfo[0].id}</Text> */}
 				<Barcode
 					value={route.params.parentInfo[0].id}
 					height={80}
