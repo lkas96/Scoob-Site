@@ -1,41 +1,42 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import {COLORS} from '../constants';
-import ParentsHomePage from '../screens/Parents/HomePage';
-import ChildInfoStack from './ChildInfoStack';
+import { COLORS } from "../constants";
+import ParentsHomePage from "../screens/Parents/HomePage";
+import ChildInfoStack from "./ChildInfoStack";
 
+const hi = hi;
 const Stack = createStackNavigator();
 
 const ParentHomeStack = () => {
 	return (
-		<Stack.Navigator 
+		<Stack.Navigator
 			screenOptions={{
-			headerShown: true,
-			headerTitle: " ",
-			headerStyle: {
-				backgroundColor: COLORS.primary,
-			},
-			}} 
-			initialRouteName='ParentsHomePage'
+				headerShown: true,
+				headerTitle: " ",
+				headerStyle: {
+					backgroundColor: COLORS.primary,
+				},
+			}}
+			initialRouteName="ParentsHomePage"
 		>
-			<Stack.Screen 
-                name="ParentsHomePage" 
-                component={ParentsHomePage} 
+			<Stack.Screen
+				name="ParentsHomePage"
+				component={ParentsHomePage}
 				options={{
 					headerLeft: false,
 				}}
-            />
-			<Stack.Screen 
-                name="ChildInfoStack" 
-                component={ChildInfoStack} 
+			/>
+			<Stack.Screen
+				name="ChildInfoStack"
+				component={ChildInfoStack}
 				options={{
 					headerShown: false,
 					headerTitle: "Child Info",
 				}}
-            />
+			/>
 		</Stack.Navigator>
-	)
-}
+	);
+};
 
-export default ParentHomeStack
+export default ParentHomeStack;
