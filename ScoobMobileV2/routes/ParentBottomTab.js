@@ -24,8 +24,8 @@ function ParentBottomTab() {
 				gestureEnabled: false,
 				tabBarActiveBackgroundColor: COLORS.primary,
 				tabBarInactiveBackgroundColor: COLORS.secondary,
-				tabBarActiveTintColor: COLORS.black,
-				tabBarInactiveTintColor: COLORS.quarternary,
+				tabBarActiveTintColor: COLORS.secondary,
+				tabBarInactiveTintColor: COLORS.white,
 				tabBarStyle: {
 					paddingBottom: 0,
 				},
@@ -33,7 +33,7 @@ function ParentBottomTab() {
 					paddingBottom: Platform.OS === "ios" ? 25 : 0,
 				},
 				headerStyle: {
-					backgroundColor: COLORS.primary,
+					backgroundColor: COLORS.secondary,
 				},
 
 				// To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
@@ -58,7 +58,11 @@ function ParentBottomTab() {
 			<Tab.Screen
 				name="ParentsHome"
 				component={ParentsHomeStack}
-				options={{ tabBarLabel: "Home", gestureEnabled: false }}
+				options={{
+					tabBarLabel: "Home",
+					gestureEnabled: false,
+					headerStyle: { backgroundColor: COLORS.primary },
+				}}
 			/>
 			<Tab.Screen
 				name="BusService"
@@ -83,7 +87,10 @@ function ParentBottomTab() {
 			<Tab.Screen
 				name="ParentsSettings"
 				component={ParentsSettingsStack}
-				options={{ tabBarLabel: "Settings" }}
+				options={{
+					tabBarLabel: "Settings",
+					headerStyle: { backgroundColor: COLORS.primary },
+				}}
 			/>
 		</Tab.Navigator>
 	);

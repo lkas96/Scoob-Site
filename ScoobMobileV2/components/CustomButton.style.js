@@ -3,59 +3,48 @@ import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: COLORS.secondary,
 		width: "100%",
 		padding: 15,
 		alignItems: "center",
 		borderRadius: 5,
 	},
-
 	text: {
 		fontWeight: "bold",
-		color: "white",
+		color: COLORS.white,
 	},
 
-	container_PRIMARY: {
-		backgroundColor: COLORS.secondary,
+	container_SECONDARY: {
+		backgroundColor: COLORS.primary,
+		marginBottom: 10,
+		marginTop: 10,
+		borderRadius: 10,
+	},
+	text_SECONDARY: {
+		color: COLORS.black,
+		fontSize: 20,
+		padding: 35,
 	},
 
 	container_TERTIARY: {
 		backgroundColor: COLORS.primary,
 		width: "75%",
-		padding: 15,
 		margin: 10,
-		alignItems: "center",
-		borderRadius: 5,
 	},
-
 	text_TERTIARY: {
-		color: "black",
+		color: COLORS.black,
 	},
 
-	container_HOME: {
+	container_QUARTERNARY: {
 		backgroundColor: COLORS.primary,
-		width: "100%",
-		marginBottom: 10,
-		marginTop: 10,
+		width: "40%",
+		padding: 0,
+		marginVertical: 10,
 		borderRadius: 10,
 	},
-
-	text_HOME: {
-		color: "black",
-		fontSize: 20,
-		padding: 35,
-	},
-
-	container_INFO: {
-		backgroundColor: COLORS.primary,
-		width: "75%",
-		marginBottom: 10,
-		marginTop: 10,
-		borderRadius: 10,
-	},
-
-	text_INFO: {
-		color: "black",
-		fontSize: 20,
+	text_QUARTERNARY: {
+		color: COLORS.black,
+		fontSize: 15,
 		padding: 15,
 	},
 });

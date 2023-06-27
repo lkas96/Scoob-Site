@@ -1,5 +1,5 @@
-import { Text, StyleSheet, SafeAreaView, FlatList, Alert } from "react-native";
 import React, { useState } from "react";
+import { Alert, FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
 const HomePage = ({ navigation }) => {
@@ -23,7 +23,7 @@ const HomePage = ({ navigation }) => {
 					renderItem={({ item }) => (
 						<CustomButton
 							text={`${item.name}`}
-							type="HOME"
+							type="SECONDARY"
 							onPress={() =>
 								// navigation.navigate('ChildInfoStack',{childInfo: item})}
 								Alert.alert(item.name, "Trip info")

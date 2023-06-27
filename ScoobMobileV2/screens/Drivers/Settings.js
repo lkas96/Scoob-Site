@@ -1,10 +1,17 @@
-import { View, Text, Alert, StyleSheet, SafeAreaView } from "react-native";
+import { Auth } from "aws-amplify";
 import React from "react";
+import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
-const Settings = ({ navigation }) => {
-	const logOutHandler = () => {
-		navigation.navigate("LoginPage");
+function Settings({ navigation }) {
+	const logOutHandler = async (data) => {
+		try {
+			await Auth.signOut();
+			navigation.navigate("LoginPage");
+			console.log("Successfully logged out");
+		} catch (error) {
+			console.log("error signing out: ", error);
+		}
 	};
 
 	return (
@@ -12,7 +19,7 @@ const Settings = ({ navigation }) => {
 			<CustomButton onPress={logOutHandler} text="Logout" type="TERTIARY" />
 		</SafeAreaView>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	container: {

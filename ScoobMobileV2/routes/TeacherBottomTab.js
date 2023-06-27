@@ -16,8 +16,8 @@ const TeacherBottomTab = () => {
 				headerShown: false,
 				tabBarShowLabel: false,
 				gestureEnabled: false,
-				tabBarActiveTintColor: COLORS.black,
-				tabBarActiveBackgroundColor: COLORS.primary,
+				tabBarActiveTintColor: COLORS.primary,
+				tabBarActiveBackgroundColor: COLORS.secondary,
 				tabBarInactiveBackgroundColor: COLORS.secondary,
 				tabBarInactiveTintColor: COLORS.white,
 				tabBarStyle: {

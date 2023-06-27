@@ -3,12 +3,12 @@ import React from "react";
 
 import { COLORS } from "../constants";
 
-import TeachersHomePage from "../screens/Teachers/HomePage";
-import TeacherPickUpStack from "./TeacherPickUpStack";
+import ChildVerifyPage from "../screens/Teachers/PUZInfoPage";
+import ScanID from "../screens/Teachers/ScannerPage";
 
 const Stack = createStackNavigator();
 
-const TeacherHomeStack = () => {
+const TeacherPickUpStack = ({ route }) => {
 	return (
 		<Stack.Navigator
 			screenOptions={{
@@ -18,25 +18,20 @@ const TeacherHomeStack = () => {
 					backgroundColor: COLORS.primary,
 				},
 			}}
-			initialRouteName="TeachersHomePage"
+			initialRouteName="ChildVerifyPage"
 		>
 			<Stack.Screen
-				name="TeachersHomePage"
-				component={TeachersHomePage}
+				name="ChildVerifyPage"
+				component={ChildVerifyPage}
+				// initialParams={route.params.childInfo}
 				options={{
-					headerLeft: false,
-				}}
-			/>
-			<Stack.Screen
-				name="TeacherPickUpStack"
-				component={TeacherPickUpStack}
-				options={{
-					headerShown: false,
+					headerShown: true,
 					headerTitle: "Child Info",
 				}}
 			/>
+			<Stack.Screen name="ScanID" component={ScanID} options={{}} />
 		</Stack.Navigator>
 	);
 };
 
-export default TeacherHomeStack;
+export default TeacherPickUpStack;

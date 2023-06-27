@@ -28,7 +28,7 @@ const HomePage = ({ navigation }) => {
 					renderItem={({ item }) => (
 						<CustomButton
 							text={`${item.name}`}
-							type="HOME"
+							type="SECONDARY"
 							onPress={() =>
 								navigation.navigate("ChildInfoStack", { childInfo: item })
 							}
@@ -50,11 +50,6 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		backgroundColor: "lightgray",
 		margin: 1,
-	},
-	item: {
-		marginTop: 24,
-		backgroundColor: "yellow",
-		fontSize: 24,
 	},
 	scrollViewItem: {
 		justifyContent: "center",

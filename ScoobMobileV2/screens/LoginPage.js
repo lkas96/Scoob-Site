@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useState } from "react";
 import {
+	Alert,
+	FlatList,
+	Image,
+	Keyboard,
+	ScrollView,
 	StyleSheet,
 	Text,
-	View,
 	TextInput,
-	ScrollView,
-	FlatList,
 	TouchableWithoutFeedback,
-	Keyboard,
-	Image,
-	Alert,
+	View,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { COLORS } from "../constants";
-import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/CustomButton";
+import { COLORS } from "../constants";
 
 import { Auth } from "aws-amplify";
 
@@ -51,7 +51,7 @@ function LoginPage() {
 				credentials.username,
 				credentials.password
 			);
-			console.log(response.challengeParam.userAttributes.family_name);
+			console.log(response.challengeParam.userAttributes);
 
 			// (selectedUser = undefined) is to reset the variable so when the user logs out,
 			// the data will be reset rather than saving the previous data
@@ -120,10 +120,10 @@ function LoginPage() {
 					selectedRowStyle={styles.dropdown2SelectedRowStyle}
 					renderDropdownIcon={(isOpened) => {
 						return (
-							<FontAwesome
-								name={isOpened ? "chevron-up" : "chevron-down"}
+							<Icon
+								name={isOpened ? "caret-up" : "caret-down"}
 								color={"#444"}
-								size={18}
+								size={20}
 							/>
 						);
 					}}
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 	input: {
 		backgroundColor: COLORS.white,
 		borderWidth: 1,
-		borderColor: "#777",
+		borderColor: COLORS.black,
 		borderRadius: 10,
 		padding: 8,
 		margin: 5,
@@ -183,6 +183,8 @@ const styles = StyleSheet.create({
 		width: "77%",
 		height: 50,
 		backgroundColor: COLORS.white,
+		borderWidth: 1,
+		borderColor: COLORS.black,
 		borderRadius: 10,
 		marginTop: 10,
 	},
@@ -197,7 +199,6 @@ const styles = StyleSheet.create({
 	},
 	dropdown2RowStyle: {
 		backgroundColor: COLORS.white,
-		borderBottomColor: COLORS.black,
 	},
 	dropdown2RowTxtStyle: {
 		color: COLORS.black,

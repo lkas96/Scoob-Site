@@ -1,9 +1,9 @@
-import { Text, Icon, Pressable, View } from "react-native";
 import React from "react";
+import { Icon, Pressable, Text, View } from "react-native";
 
 import styles from "./CustomButton.style";
 
-const CustomButton = ({ onPress, text, type = "PRIMARY" }) => {
+const CustomButton = ({ onPress, text, type }) => {
 	return (
 		<Pressable
 			onPress={onPress}

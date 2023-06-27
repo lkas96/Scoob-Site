@@ -1,8 +1,9 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { Auth } from "aws-amplify";
 import React, { useState } from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
-const Settings = ({ navigation }) => {
+function Settings({ navigation }) {
 	const [parent, setParent] = useState([
 		{
 			name: "John Alexis",
@@ -16,8 +17,14 @@ const Settings = ({ navigation }) => {
 		navigation.navigate("ParentsProfile", { parentInfo: parent });
 	};
 
-	const logOutHandler = () => {
-		navigation.navigate("LoginPage");
+	const logOutHandler = async (data) => {
+		try {
+			await Auth.signOut();
+			navigation.navigate("LoginPage");
+			console.log("Successfully logged out");
+		} catch (error) {
+			console.log("error signing out: ", error);
+		}
 	};
 
 	return (
@@ -30,8 +37,7 @@ const Settings = ({ navigation }) => {
 			<CustomButton onPress={logOutHandler} text="Logout" type="TERTIARY" />
 		</SafeAreaView>
 	);
-};
-
+}
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

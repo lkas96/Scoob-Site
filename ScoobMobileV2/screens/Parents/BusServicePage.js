@@ -1,7 +1,8 @@
-import { View, Text, SafeAreaView, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
+import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import CustomButton from "../../components/CustomButton";
+import { COLORS } from "../../constants";
 
 const BusServicePage = ({ navigation }) => {
 	var subscribed = false;

@@ -1,7 +1,7 @@
-import { View, Text, Image, StyleSheet, Alert } from "react-native";
-import React from "react";
-import CustomButton from "../../components/CustomButton";
 import Barcode from "@kichiyaki/react-native-barcode-generator";
+import React from "react";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import CustomButton from "../../components/CustomButton";
 import { COLORS } from "../../constants";
 
 const ProfilePage = ({ route }) => {
@@ -34,7 +34,7 @@ const ProfilePage = ({ route }) => {
 			</View>
 			<CustomButton
 				text="Edit Profile"
-				type="INFO"
+				type="QUARTERNARY"
 				onPress={editProfileHandler}
 			/>
 		</View>

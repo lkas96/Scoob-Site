@@ -1,11 +1,11 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 
 import ParentsProfilePage from "../screens/Parents/ProfilePage";
 import ParentsSettingsPage from "../screens/Parents/Settings";
 
-import { COLORS } from "../constants";
 import { Text } from "react-native";
+import { COLORS } from "../constants";
 
 const Stack = createStackNavigator();
 
