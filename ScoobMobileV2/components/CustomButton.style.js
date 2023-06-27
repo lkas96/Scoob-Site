@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	text: {
-		fontWeight: "bold",
+		fontFamily: "Montserrat-Bold",
 		color: COLORS.white,
 	},
 
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	text_SECONDARY: {
+		fontFamily: "Montserrat-Regular",
 		color: COLORS.black,
 		fontSize: 20,
 		padding: 35,
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
 		margin: 10,
 	},
 	text_TERTIARY: {
+		fontFamily: "Montserrat-Regular",
 		color: COLORS.black,
 	},
 
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	text_QUARTERNARY: {
+		fontFamily: "Montserrat-Regular",
 		color: COLORS.black,
 		fontSize: 15,
 		padding: 15,

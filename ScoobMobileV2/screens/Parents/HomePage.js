@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
 		width: 10,
 	},
 	title: {
-		fontWeight: "bold",
 		fontSize: 25,
 		paddingTop: 10,
 		paddingLeft: 10,
+		fontFamily: "Montserrat-Bold",
 	},
 });
 

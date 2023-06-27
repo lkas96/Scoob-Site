@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		backgroundColor: COLORS.white,
+		fontFamily: "Montserrat-Regular",
 		borderWidth: 1,
 		borderColor: COLORS.black,
 		borderRadius: 10,
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
 	dropdown2BtnTxtStyle: {
 		color: COLORS.black,
 		textAlign: "center",
+		fontFamily: "Montserrat-Regular",
 		fontSize: 14,
 	},
 	dropdown2DropdownStyle: {
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
 		color: COLORS.black,
 		textAlign: "center",
 		fontSize: 14,
-		fontWeight: "bold",
+		fontFamily: "Montserrat-Regular",
 	},
 	dropdown2SelectedRowStyle: {
 		backgroundColor: "rgba(255,255,255,0.2)",

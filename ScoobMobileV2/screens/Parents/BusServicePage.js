@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 	},
 	header: {
-		fontWeight: "bold",
 		fontSize: 35,
+		fontFamily: "Montserrat-Bold",
 	},
 });
 export default BusServicePage;

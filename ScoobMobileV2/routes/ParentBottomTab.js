@@ -22,9 +22,9 @@ function ParentBottomTab() {
 				headerTitle: "",
 				tabBarShowLabel: false,
 				gestureEnabled: false,
-				tabBarActiveBackgroundColor: COLORS.primary,
+				tabBarActiveBackgroundColor: COLORS.secondary,
 				tabBarInactiveBackgroundColor: COLORS.secondary,
-				tabBarActiveTintColor: COLORS.secondary,
+				tabBarActiveTintColor: COLORS.primary,
 				tabBarInactiveTintColor: COLORS.white,
 				tabBarStyle: {
 					paddingBottom: 0,
