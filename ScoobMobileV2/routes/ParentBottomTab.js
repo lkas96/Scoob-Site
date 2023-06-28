@@ -28,6 +28,7 @@ function ParentBottomTab() {
 				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					paddingBottom: 0,
+					elevation: 0,
 				},
 				tabBarIconStyle: {
 					paddingBottom: Platform.OS === "ios" ? 25 : 0,
@@ -35,7 +36,6 @@ function ParentBottomTab() {
 				headerStyle: {
 					backgroundColor: COLORS.background,
 				},
-
 				// To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
 				tabBarIcon: ({ color, size, focused }) => {
 					let iconName;
