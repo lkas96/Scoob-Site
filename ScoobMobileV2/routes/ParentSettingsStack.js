@@ -16,7 +16,7 @@ function ParentSettingsStack() {
 				headerShown: true,
 				headerTitle: "",
 				headerStyle: {
-					backgroundColor: COLORS.primary,
+					backgroundColor: COLORS.background,
 				},
 			}}
 			initialRouteName="ParentsSettingsPage"

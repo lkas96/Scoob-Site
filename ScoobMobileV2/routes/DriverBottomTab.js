@@ -13,14 +13,14 @@ function DriverBottomTab() {
 	return (
 		<Tab.Navigator
 			screenOptions={({ route }) => ({
-				headerShown: true,
+				headerShown: false,
 				headerTitle: "",
 				tabBarShowLabel: false,
 				gestureEnabled: false,
+				tabBarActiveBackgroundColor: COLORS.background,
+				tabBarInactiveBackgroundColor: COLORS.background,
 				tabBarActiveTintColor: COLORS.primary,
-				tabBarActiveBackgroundColor: COLORS.secondary,
-				tabBarInactiveBackgroundColor: COLORS.secondary,
-				tabBarInactiveTintColor: COLORS.white,
+				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					paddingBottom: 0,
 				},
@@ -28,7 +28,7 @@ function DriverBottomTab() {
 					paddingBottom: Platform.OS === "ios" ? 25 : 0,
 				},
 				headerStyle: {
-					backgroundColor: COLORS.primary,
+					backgroundColor: COLORS.background,
 				},
 				// To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
 				tabBarIcon: ({ color, size, focused }) => {
@@ -40,14 +40,18 @@ function DriverBottomTab() {
 						iconName = focused ? "settings" : "settings-outline";
 					}
 
-					return <Icon name={iconName} size={22} color={color} />;
+					return <Icon name={iconName} size={25} color={color} />;
 				},
 			})}
 		>
 			<Tab.Screen
 				name="DriversHome"
 				component={DriverHomeStack}
-				options={{ tabBarLabel: "Home", gestureEnabled: false }}
+				options={{
+					tabBarLabel: "Home",
+					gestureEnabled: false,
+					headerStyle: { backgroundColor: COLORS.background },
+				}}
 			/>
 			<Tab.Screen
 				name="DriverSettings"

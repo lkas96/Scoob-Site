@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
 	},
 	details: {
 		fontSize: 20,
-		fontWeight: "bold",
 	},
 	row: {
 		flexDirection: "row",

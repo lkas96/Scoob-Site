@@ -2,51 +2,54 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
+	// -------------------------------
+	// Default style
 	container: {
-		backgroundColor: COLORS.secondary,
+		backgroundColor: COLORS.accent,
 		width: "100%",
 		padding: 15,
 		alignItems: "center",
-		borderRadius: 5,
+		borderRadius: 18,
 	},
 	text: {
-		fontFamily: "Montserrat-Bold",
-		color: COLORS.white,
+		fontFamily: "Urbanist",
+		color: COLORS.text,
 	},
+	// -------------------------------
 
 	container_SECONDARY: {
-		backgroundColor: COLORS.primary,
+		backgroundColor: COLORS.accent,
 		marginBottom: 10,
 		marginTop: 10,
-		borderRadius: 10,
+		borderRadius: 18,
 	},
 	text_SECONDARY: {
-		fontFamily: "Montserrat-Regular",
-		color: COLORS.black,
+		fontFamily: "Urbanist",
+		color: COLORS.text,
 		fontSize: 20,
 		padding: 35,
 	},
 
 	container_TERTIARY: {
-		backgroundColor: COLORS.primary,
+		backgroundColor: COLORS.accent,
 		width: "75%",
 		margin: 10,
 	},
 	text_TERTIARY: {
-		fontFamily: "Montserrat-Regular",
-		color: COLORS.black,
+		fontFamily: "Urbanist",
+		color: COLORS.text,
 	},
 
 	container_QUARTERNARY: {
-		backgroundColor: COLORS.primary,
+		backgroundColor: COLORS.accent,
 		width: "40%",
 		padding: 0,
 		marginVertical: 10,
-		borderRadius: 10,
+		borderRadius: 18,
 	},
 	text_QUARTERNARY: {
-		fontFamily: "Montserrat-Regular",
-		color: COLORS.black,
+		fontFamily: "Urbanist",
+		color: COLORS.text,
 		fontSize: 15,
 		padding: 15,
 	},

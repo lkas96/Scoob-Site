@@ -16,10 +16,10 @@ const TeacherBottomTab = () => {
 				headerShown: false,
 				tabBarShowLabel: false,
 				gestureEnabled: false,
+				tabBarActiveBackgroundColor: COLORS.background,
+				tabBarInactiveBackgroundColor: COLORS.background,
 				tabBarActiveTintColor: COLORS.primary,
-				tabBarActiveBackgroundColor: COLORS.secondary,
-				tabBarInactiveBackgroundColor: COLORS.secondary,
-				tabBarInactiveTintColor: COLORS.white,
+				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					paddingBottom: 0,
 				},
@@ -38,7 +38,7 @@ const TeacherBottomTab = () => {
 						iconName = focused ? "chatbubbles" : "chatbubbles-outline";
 					}
 
-					return <Icon name={iconName} size={22} color={color} />;
+					return <Icon name={iconName} size={25} color={color} />;
 				},
 			})}
 		>
@@ -55,7 +55,7 @@ const TeacherBottomTab = () => {
 					tabBarLabel: "Chat",
 					headerShown: true,
 					headerTitle: "",
-					headerStyle: { backgroundColor: COLORS.primary },
+					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 			<Tab.Screen

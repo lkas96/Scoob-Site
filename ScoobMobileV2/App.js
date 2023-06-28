@@ -13,12 +13,15 @@ import {
 	View,
 } from "react-native";
 import "react-native-gesture-handler";
+import { setCustomText, setCustomTextInput } from "react-native-global-props";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./routes/AuthNavigator";
+
+import COLORS from "./constants/colors";
 
 // --------------AWS AMPLIFY ----------
 import { Amplify, Auth } from "aws-amplify";
@@ -27,10 +30,10 @@ Amplify.configure(aws_exports);
 //-------------------------------------
 
 export default function App() {
+	// ---------------- Load Fonts ----------------
 	const [fontsLoaded] = useFonts({
-		"Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
-		"Montserrat-Bold": require("./assets/fonts/Montserrat-Bold.ttf"),
-		"Montserrat-Italic": require("./assets/fonts/Montserrat-Italic.ttf"),
+		Urbanist: require("./assets/fonts/Urbanist.ttf"),
+		"DMSerifDisplay-Regular": require("./assets/fonts/DMSerifDisplay-Regular.ttf"),
 	});
 
 	useEffect(() => {
@@ -45,6 +48,25 @@ export default function App() {
 	} else {
 		SplashScreen.hideAsync();
 	}
+	// ----------------------------------------------
+
+	// ---------------- Setting Global Styles ----------------
+	const customTextProps = {
+		style: {
+			fontFamily: "Urbanist",
+			color: COLORS.text,
+		},
+	};
+	setCustomText(customTextProps);
+
+	const customTextInputProps = {
+		style: {
+			fontFamily: "Urbanist",
+			color: COLORS.text,
+		},
+	};
+	setCustomTextInput(customTextInputProps);
+	// --------------------------------------------------------
 
 	return (
 		<NavigationContainer>

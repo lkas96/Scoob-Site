@@ -83,7 +83,7 @@ function LoginPage() {
 			<View style={styles.container}>
 				<Image
 					style={styles.image}
-					source={require("../assets/images/ScoobLogo.png")}
+					source={require("../assets/images/ScooB.png")}
 				/>
 				{/* <Header /> */}
 				<StatusBar style="auto" />
@@ -155,44 +155,43 @@ function LoginPage() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.primary,
+		backgroundColor: COLORS.background,
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "flex-start",
 	},
 	image: {
 		resizeMode: "contain",
-		height: 100,
+		height: 200,
 		width: 300,
-		margin: 20,
+		marginTop: 40,
+		marginBottom: 100,
 	},
 	buttonContainer: {
 		marginTop: 20,
-		width: "77%",
+		width: "80%",
 	},
 	input: {
 		backgroundColor: COLORS.white,
-		fontFamily: "Montserrat-Regular",
-		borderWidth: 1,
-		borderColor: COLORS.black,
-		borderRadius: 10,
+		borderWidth: 2,
+		borderColor: COLORS.secondary,
+		borderRadius: 18,
 		padding: 8,
 		margin: 5,
-		width: "77%",
+		width: "80%",
 		height: 50,
 	},
 	dropdown2BtnStyle: {
-		width: "77%",
+		width: "80%",
 		height: 50,
 		backgroundColor: COLORS.white,
-		borderWidth: 1,
-		borderColor: COLORS.black,
-		borderRadius: 10,
+		borderWidth: 2,
+		borderColor: COLORS.secondary,
+		borderRadius: 18,
 		marginTop: 10,
 	},
 	dropdown2BtnTxtStyle: {
 		color: COLORS.black,
 		textAlign: "center",
-		fontFamily: "Montserrat-Regular",
 		fontSize: 14,
 	},
 	dropdown2DropdownStyle: {
@@ -206,7 +205,6 @@ const styles = StyleSheet.create({
 		color: COLORS.black,
 		textAlign: "center",
 		fontSize: 14,
-		fontFamily: "Montserrat-Regular",
 	},
 	dropdown2SelectedRowStyle: {
 		backgroundColor: "rgba(255,255,255,0.2)",

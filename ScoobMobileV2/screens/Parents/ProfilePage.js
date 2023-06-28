@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		alignSelf: "center",
-		fontFamily: "Montserrat-Regular",
 		fontSize: 24,
 		margin: 8,
 	},

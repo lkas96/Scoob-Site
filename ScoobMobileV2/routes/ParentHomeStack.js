@@ -14,7 +14,7 @@ const ParentHomeStack = () => {
 				headerShown: true,
 				headerTitle: " ",
 				headerStyle: {
-					backgroundColor: COLORS.primary,
+					backgroundColor: COLORS.background,
 				},
 			}}
 			initialRouteName="ParentsHomePage"

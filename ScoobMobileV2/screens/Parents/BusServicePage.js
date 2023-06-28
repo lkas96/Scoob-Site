@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 35,
-		fontFamily: "Montserrat-Bold",
+		fontFamily: "DMSerifDisplay-Regular",
 	},
 });
 export default BusServicePage;

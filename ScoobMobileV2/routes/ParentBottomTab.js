@@ -22,10 +22,10 @@ function ParentBottomTab() {
 				headerTitle: "",
 				tabBarShowLabel: false,
 				gestureEnabled: false,
-				tabBarActiveBackgroundColor: COLORS.secondary,
-				tabBarInactiveBackgroundColor: COLORS.secondary,
+				tabBarActiveBackgroundColor: COLORS.background,
+				tabBarInactiveBackgroundColor: COLORS.background,
 				tabBarActiveTintColor: COLORS.primary,
-				tabBarInactiveTintColor: COLORS.white,
+				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					paddingBottom: 0,
 				},
@@ -33,7 +33,7 @@ function ParentBottomTab() {
 					paddingBottom: Platform.OS === "ios" ? 25 : 0,
 				},
 				headerStyle: {
-					backgroundColor: COLORS.secondary,
+					backgroundColor: COLORS.background,
 				},
 
 				// To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
@@ -50,7 +50,7 @@ function ParentBottomTab() {
 						iconName = focused ? "bus" : "bus-outline";
 					}
 
-					return <Icon name={iconName} size={22} color={color} />;
+					return <Icon name={iconName} size={25} color={color} />;
 				},
 			})}
 		>
@@ -61,7 +61,7 @@ function ParentBottomTab() {
 				options={{
 					tabBarLabel: "Home",
 					gestureEnabled: false,
-					headerStyle: { backgroundColor: COLORS.primary },
+					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 			<Tab.Screen
@@ -71,7 +71,7 @@ function ParentBottomTab() {
 					tabBarLabel: "Bus Service",
 					headerShown: true,
 					headerTitle: "",
-					headerStyle: { backgroundColor: COLORS.primary },
+					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 			<Tab.Screen
@@ -81,7 +81,7 @@ function ParentBottomTab() {
 					tabBarLabel: "Chat",
 					headerShown: true,
 					headerTitle: "",
-					headerStyle: { backgroundColor: COLORS.primary },
+					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 			<Tab.Screen
@@ -89,7 +89,7 @@ function ParentBottomTab() {
 				component={ParentsSettingsStack}
 				options={{
 					tabBarLabel: "Settings",
-					headerStyle: { backgroundColor: COLORS.primary },
+					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 		</Tab.Navigator>

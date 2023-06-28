@@ -15,12 +15,12 @@ function AuthNavigator() {
 		<Stack.Navigator
 			screenOptions={{
 				headerStyle: {
-					backgroundColor: COLORS.primary,
+					backgroundColor: COLORS.background,
 					shadowColor: "transparent",
 					elevation: 0,
 				},
 				headerTitleAlign: "center",
-				headerTintColor: COLORS.white,
+				headerTintColor: COLORS.background,
 			}}
 			initialRouteName="LoginPage"
 		>

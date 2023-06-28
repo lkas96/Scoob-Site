@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		paddingTop: 10,
 		paddingLeft: 10,
-		fontFamily: "Montserrat-Bold",
+		fontFamily: "DMSerifDisplay-Regular",
 	},
 });
 
