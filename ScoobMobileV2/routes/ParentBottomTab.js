@@ -1,10 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+	createBottomTabNavigator,
+	useBottomTabBarHeight,
+} from "@react-navigation/bottom-tabs";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../constants";
-
 // Need to redo import style
 import ParentsBusServiceStack from "../routes/ParentBusServiceStack";
 import ParentsHomeStack from "../routes/ParentHomeStack";
@@ -28,7 +30,7 @@ function ParentBottomTab() {
 						? () => (
 								<BlurView
 									tint="light"
-									intensity={75}
+									intensity={90}
 									style={StyleSheet.absoluteFill}
 								/>
 						  )
