@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { BlurView } from "expo-blur";
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS } from "../constants";
 
@@ -22,19 +23,27 @@ function ParentBottomTab() {
 				headerTitle: "",
 				tabBarShowLabel: false,
 				gestureEnabled: false,
-				tabBarActiveBackgroundColor: COLORS.background,
-				tabBarInactiveBackgroundColor: COLORS.background,
+				tabBarBackground:
+					Platform.OS === "ios"
+						? () => (
+								<BlurView
+									tint="light"
+									intensity={75}
+									style={StyleSheet.absoluteFill}
+								/>
+						  )
+						: null,
+				// tabBarActiveBackgroundColor: COLORS.background,
+				// tabBarInactiveBackgroundColor: COLORS.background,
 				tabBarActiveTintColor: COLORS.primary,
 				tabBarInactiveTintColor: COLORS.secondary,
 				tabBarStyle: {
 					paddingBottom: 0,
 					elevation: 0,
+					position: "absolute",
 				},
 				tabBarIconStyle: {
-					paddingBottom: Platform.OS === "ios" ? 25 : 0,
-				},
-				headerStyle: {
-					backgroundColor: COLORS.background,
+					paddingBottom: Platform.OS === "ios" ? 23 : 0,
 				},
 				// To dynamically set bottom tab bar icons to icon pack, name must be the same, KIV
 				tabBarIcon: ({ color, size, focused }) => {
@@ -61,7 +70,7 @@ function ParentBottomTab() {
 				options={{
 					tabBarLabel: "Home",
 					gestureEnabled: false,
-					headerStyle: { backgroundColor: COLORS.background },
+					// headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
 			<Tab.Screen
@@ -70,7 +79,7 @@ function ParentBottomTab() {
 				options={{
 					tabBarLabel: "Bus Service",
 					headerShown: true,
-					headerTitle: "",
+					headerTitle: " ",
 					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
@@ -80,7 +89,7 @@ function ParentBottomTab() {
 				options={{
 					tabBarLabel: "Chat",
 					headerShown: true,
-					headerTitle: "",
+					headerTitle: " ",
 					headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>

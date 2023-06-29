@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
+import {
+	FlatList,
+	SafeAreaView,
+	ScrollView,
+	StyleSheet,
+	Text,
+	View,
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
 
 const HomePage = ({ navigation }) => {
@@ -19,7 +26,7 @@ const HomePage = ({ navigation }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Text style={styles.title}>Child(s)</Text>
-			<SafeAreaView style={styles.scrollContainer}>
+			<View style={styles.scrollContainer}>
 				<FlatList
 					showsVerticalScrollIndicator={false}
 					contentContainerStyle={styles.scrollViewItem}
@@ -35,7 +42,7 @@ const HomePage = ({ navigation }) => {
 						/>
 					)}
 				/>
-			</SafeAreaView>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -65,6 +72,10 @@ const styles = StyleSheet.create({
 		paddingTop: 10,
 		paddingLeft: 10,
 		fontFamily: "DMSerifDisplay-Regular",
+	},
+	text: {
+		fontWeight: "400",
+		fontSize: 18,
 	},
 });
 

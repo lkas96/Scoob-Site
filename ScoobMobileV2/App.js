@@ -55,7 +55,7 @@ export default function App() {
 	const customTextProps = {
 		style: {
 			fontFamily: "NunitoSans",
-			color: COLORS.Text,
+			color: COLORS.text,
 		},
 	};
 	setCustomText(customTextProps);
