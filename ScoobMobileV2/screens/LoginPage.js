@@ -1,12 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
 	Alert,
 	FlatList,
 	Image,
 	Keyboard,
+	KeyboardAvoidingView,
+	SafeAreaView,
 	ScrollView,
+	StatusBar,
 	StyleSheet,
 	Text,
 	TextInput,
@@ -75,80 +78,92 @@ function LoginPage() {
 	};
 
 	return (
-		<TouchableWithoutFeedback
-			onPress={() => {
-				Keyboard.dismiss();
-			}}
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={styles.container}
 		>
-			<View style={styles.container}>
-				<Image
-					style={styles.image}
-					source={require("../assets/images/ScooB.png")}
-				/>
-				{/* <Header /> */}
-				<StatusBar style="auto" />
+			{/* RN statusbar */}
+			<StatusBar
+				barStyle={"dark-content"}
+				backgroundColor={COLORS.background}
+			/>
+			{/* Expo statusbar
+			<StatusBar style="auto"/> */}
 
-				<TextInput
-					style={styles.input}
-					placeholder="Username"
-					onChangeText={(val) =>
-						setCredentials({ ...credentials, username: val })
-					}
-				/>
-
-				<TextInput
-					style={styles.input}
-					placeholder="Password"
-					onChangeText={(val) =>
-						setCredentials({ ...credentials, password: val })
-					}
-					secureTextEntry={true}
-				/>
-
-				<SelectDropdown
-					statlog
-					data={users}
-					defaultButtonText="Select user"
-					onSelect={(selectedItem, index) => {
-						console.log(selectedItem, index);
-					}}
-					buttonStyle={styles.dropdown2BtnStyle}
-					buttonTextStyle={styles.dropdown2BtnTxtStyle}
-					dropdownStyle={styles.dropdown2DropdownStyle}
-					rowStyle={styles.dropdown2RowStyle}
-					rowTextStyle={styles.dropdown2RowTxtStyle}
-					selectedRowStyle={styles.dropdown2SelectedRowStyle}
-					renderDropdownIcon={(isOpened) => {
-						return (
-							<Icon
-								name={isOpened ? "caret-up" : "caret-down"}
-								color={"#444"}
-								size={20}
-							/>
-						);
-					}}
-					buttonTextAfterSelection={(selectedItem, index) => {
-						// text represented after item is selected
-						// if data array is an array of objects then return selectedItem.property to render after item is selected
-						selectedUser = selectedItem;
-						return selectedItem;
-					}}
-					rowTextForSelection={(item, index) => {
-						// text represented for each item in dropdown
-						// if data array is an array of objects then return item.property to represent item in dropdown
-						return item;
-					}}
-				/>
-
-				<View style={styles.buttonContainer}>
-					<CustomButton
-						text="Login"
-						data={credentials}
-						onPress={onLoginPressed}
+			<TouchableWithoutFeedback
+				onPress={() => {
+					Keyboard.dismiss();
+				}}
+			>
+				<SafeAreaView style={styles.inner}>
+					<Image
+						style={styles.logo}
+						source={require("../assets/images/ScooB.png")}
 					/>
-				</View>
-			</View>
-		</TouchableWithoutFeedback>
+					<View style={styles.interactive}>
+						<TextInput
+							style={styles.input}
+							placeholder="Username"
+							onChangeText={(val) =>
+								setCredentials({ ...credentials, username: val })
+							}
+						/>
+
+						<TextInput
+							style={styles.input}
+							placeholder="Password"
+							onChangeText={(val) =>
+								setCredentials({ ...credentials, password: val })
+							}
+							secureTextEntry={true}
+						/>
+
+						<SelectDropdown
+							statlog
+							data={users}
+							defaultButtonText="Select user"
+							onSelect={(selectedItem, index) => {
+								console.log(selectedItem, index);
+							}}
+							buttonStyle={styles.dropdown2BtnStyle}
+							buttonTextStyle={styles.dropdown2BtnTxtStyle}
+							dropdownStyle={styles.dropdown2DropdownStyle}
+							rowStyle={styles.dropdown2RowStyle}
+							rowTextStyle={styles.dropdown2RowTxtStyle}
+							selectedRowStyle={styles.dropdown2SelectedRowStyle}
+							renderDropdownIcon={(isOpened) => {
+								return (
+									<Icon
+										name={isOpened ? "caret-up" : "caret-down"}
+										color={"#444"}
+										size={20}
+									/>
+								);
+							}}
+							buttonTextAfterSelection={(selectedItem, index) => {
+								// text represented after item is selected
+								// if data array is an array of objects then return selectedItem.property to render after item is selected
+								selectedUser = selectedItem;
+								return selectedItem;
+							}}
+							rowTextForSelection={(item, index) => {
+								// text represented for each item in dropdown
+								// if data array is an array of objects then return item.property to represent item in dropdown
+								return item;
+							}}
+						/>
+
+						<View style={styles.buttonContainer}>
+							<CustomButton
+								text="Login"
+								data={credentials}
+								onPress={onLoginPressed}
+							/>
+						</View>
+					</View>
+				</SafeAreaView>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 }
 
@@ -156,19 +171,22 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: COLORS.background,
-		alignItems: "center",
-		justifyContent: "flex-start",
 	},
-	image: {
+	inner: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "space-around",
+	},
+	logo: {
 		resizeMode: "contain",
 		height: 200,
 		width: 300,
-		marginTop: 40,
-		marginBottom: 100,
-	},
-	buttonContainer: {
 		marginTop: 20,
-		width: "80%",
+		marginBottom: 40,
+	},
+	interactive: {
+		alignItems: "center",
+		width: "100%",
 	},
 	input: {
 		backgroundColor: COLORS.white,
@@ -180,6 +198,10 @@ const styles = StyleSheet.create({
 		width: "80%",
 		height: 50,
 	},
+	buttonContainer: {
+		marginTop: 20,
+		width: "80%",
+	},
 	dropdown2BtnStyle: {
 		width: "80%",
 		height: 50,
@@ -187,7 +209,7 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: COLORS.secondary,
 		borderRadius: 18,
-		marginTop: 10,
+		marginTop: 5,
 	},
 	dropdown2BtnTxtStyle: {
 		color: COLORS.black,
@@ -196,7 +218,7 @@ const styles = StyleSheet.create({
 	},
 	dropdown2DropdownStyle: {
 		backgroundColor: COLORS.white,
-		borderRadius: 10,
+		borderRadius: 18,
 	},
 	dropdown2RowStyle: {
 		backgroundColor: COLORS.white,

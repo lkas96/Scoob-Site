@@ -33,6 +33,7 @@ export default function App() {
 	// ---------------- Load Fonts ----------------
 	const [fontsLoaded] = useFonts({
 		Urbanist: require("./assets/fonts/Urbanist.ttf"),
+		NunitoSans: require("./assets/fonts/NunitoSans.ttf"),
 		"DMSerifDisplay-Regular": require("./assets/fonts/DMSerifDisplay-Regular.ttf"),
 	});
 
@@ -53,15 +54,15 @@ export default function App() {
 	// ---------------- Setting Global Styles ----------------
 	const customTextProps = {
 		style: {
-			fontFamily: "Urbanist",
-			color: COLORS.text,
+			fontFamily: "NunitoSans",
+			color: COLORS.Text,
 		},
 	};
 	setCustomText(customTextProps);
 
 	const customTextInputProps = {
 		style: {
-			fontFamily: "Urbanist",
+			fontFamily: "NunitoSans",
 			color: COLORS.text,
 		},
 	};

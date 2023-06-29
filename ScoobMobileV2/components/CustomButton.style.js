@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontFamily: "Urbanist",
+		fontSize: 18,
 		color: COLORS.text,
 	},
 	// -------------------------------
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
 	text_SECONDARY: {
 		fontFamily: "Urbanist",
 		color: COLORS.text,
-		fontSize: 20,
+		fontSize: 18,
 		padding: 35,
 	},
 
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
 	},
 	text_TERTIARY: {
 		fontFamily: "Urbanist",
+		fontSize: 18,
 		color: COLORS.text,
 	},
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
 	text_QUARTERNARY: {
 		fontFamily: "Urbanist",
 		color: COLORS.text,
-		fontSize: 15,
+		fontSize: 18,
 		padding: 15,
 	},
 });

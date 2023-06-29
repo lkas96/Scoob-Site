@@ -29,6 +29,7 @@ function AuthNavigator() {
 				component={LoginPage}
 				options={{
 					headerTitle: " ",
+					headerShown: false,
 				}}
 			/>
 			{/* <Stack.Screen 
