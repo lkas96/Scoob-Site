@@ -12,6 +12,7 @@ import {
 	View,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import TestAnimation from "../../components/TestAnimation";
 import TestButton from "../../components/TestButton";
 
 const ChatPage = () => {
@@ -21,7 +22,7 @@ const ChatPage = () => {
 		<SafeAreaView style={[styles.container]}>
 			<ScrollView>
 				<View style={{ marginBottom: tabBarHeight }}>
-					<Text style={styles.text}>
+					{/* <Text style={styles.text}>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -29,12 +30,13 @@ const ChatPage = () => {
 						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
 						pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 						culpa qui officia deserunt mollit anim id est laborum.
-					</Text>
+					</Text> */}
 					{/* <Image
 					style={{ resizeMode: "contain" }}
 					source={require("../../assets/images/ScooB.png")}
 				/> */}
-					{/* <TestButton /> */}
+					{/* <TestAnimation /> */}
+					<TestButton />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
