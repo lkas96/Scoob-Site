@@ -20,7 +20,7 @@ const ChatPage = () => {
 
 	return (
 		<SafeAreaView style={[styles.container]}>
-			<ScrollView>
+			<ScrollView style={{ width: "100%" }}>
 				<View style={{ marginBottom: tabBarHeight }}>
 					{/* <Text style={styles.text}>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

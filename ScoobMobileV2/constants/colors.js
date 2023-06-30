@@ -10,4 +10,5 @@ export default {
 	primary: "#f98e54",
 	secondary: "#093d65",
 	accent: "#f98e54",
+	pressed: "#f88141",
 };

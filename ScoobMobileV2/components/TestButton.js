@@ -1,7 +1,8 @@
 import React from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { COLORS } from "../constants";
 
-export default function TestAnimation() {
+export default function TestButton() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Pressable
@@ -10,7 +11,7 @@ export default function TestAnimation() {
 				}}
 				style={({ pressed }) => [
 					{
-						backgroundColor: pressed ? "pink" : "grey",
+						backgroundColor: pressed ? COLORS.pressed : COLORS.accent,
 					},
 					styles.button,
 				]}
@@ -27,17 +28,13 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		alignItems: "center",
+		justifyContent: "center",
 		borderRadius: 18,
-		padding: 6,
+		padding: 10,
 		height: 50,
+		minHeight: 50,
 	},
 	text: {
 		fontSize: 20,
-	},
-	ball: {
-		flex: 1,
-		width: 100,
-		height: 100,
-		borderRadius: 100 / 2,
 	},
 });
