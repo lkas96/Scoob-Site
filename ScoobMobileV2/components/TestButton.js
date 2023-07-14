@@ -2,13 +2,11 @@ import React from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { COLORS } from "../constants";
 
-export default function TestButton() {
+export default function TestButton({ onPress }) {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Pressable
-				onPress={() => {
-					// alert("Pressed");
-				}}
+				onPress={onPress}
 				style={({ pressed }) => [
 					{
 						backgroundColor: pressed ? COLORS.pressed : COLORS.accent,
@@ -36,5 +34,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 20,
+		fontFamily: "NunitoSans-Regular",
 	},
 });

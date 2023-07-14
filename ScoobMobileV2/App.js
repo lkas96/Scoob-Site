@@ -33,7 +33,8 @@ export default function App() {
 	// ---------------- Load Fonts ----------------
 	const [fontsLoaded] = useFonts({
 		Urbanist: require("./assets/fonts/Urbanist.ttf"),
-		NunitoSans: require("./assets/fonts/NunitoSans.ttf"),
+		"NunitoSans-Regular": require("./assets/fonts/NunitoSans-Regular.ttf"),
+		"NunitoSans-Bold": require("./assets/fonts/NunitoSans-Bold.ttf"),
 		"DMSerifDisplay-Regular": require("./assets/fonts/DMSerifDisplay-Regular.ttf"),
 	});
 
@@ -54,7 +55,7 @@ export default function App() {
 	// ---------------- Setting Global Styles ----------------
 	const customTextProps = {
 		style: {
-			fontFamily: "NunitoSans",
+			fontFamily: "NunitoSans-Regular",
 			color: COLORS.text,
 		},
 	};
@@ -62,7 +63,7 @@ export default function App() {
 
 	const customTextInputProps = {
 		style: {
-			fontFamily: "NunitoSans",
+			fontFamily: "NunitoSans-Regular",
 			color: COLORS.text,
 		},
 	};

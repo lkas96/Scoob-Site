@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		paddingTop: 10,
 		paddingLeft: 10,
-		fontFamily: "DMSerifDisplay-Regular",
+		fontFamily: "NunitoSans-Bold",
 	},
 	text: {
 		fontWeight: "400",

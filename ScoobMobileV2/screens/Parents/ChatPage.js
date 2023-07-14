@@ -20,7 +20,7 @@ const ChatPage = () => {
 
 	return (
 		<SafeAreaView style={[styles.container]}>
-			<ScrollView style={{ width: "100%" }}>
+			<ScrollView style={{ flex: 1, width: "100%" }}>
 				<View style={{ marginBottom: tabBarHeight }}>
 					{/* <Text style={styles.text}>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -34,9 +34,9 @@ const ChatPage = () => {
 					{/* <Image
 					style={{ resizeMode: "contain" }}
 					source={require("../../assets/images/ScooB.png")}
-				/> */}
+				/>
 					{/* <TestAnimation /> */}
-					<TestButton />
+					<TestButton style={styles.button} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
 	text: {
 		fontWeight: "400",
 		fontSize: 43,
+	},
+	button: {
+		flex: 1,
+		width: "40",
 	},
 });
 
