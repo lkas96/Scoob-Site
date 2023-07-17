@@ -1,9 +1,18 @@
 <?php
+include("OnboardingController.php");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  //IF HIT SUBMIT
-  //SUCCESSFULLY CREATED POPUP.
-  
-  echo "<script type='text/javascript'>alert('Onboarding application successful!'); window.location.href = 'onboard-home.php';</script>";
+  //ON SUBMIT CALL ONBOARDING CONTROLLER
+  $result = new CreateTransportApplication();
+  $success = $result->createTransportApplication($_POST['name'], $_POST['uen'], $_POST['region'], $_POST['size'], $_POST['email'], $_POST['password']);
+
+  //CHECK IF SUCCESSFULLY CREATED
+  if ($success === true){
+    echo "<script type='text/javascript'>alert('Onboarding application successful!'); window.location.href = 'onboard-home.php';</script>";
+  } else {
+    echo "<script type='text/javascript'>alert('$onboardingController->getErrorMessage()');</script>";
+    echo "<script type='text/javascript'>alert('Onboarding application unsuccessful!'); window.location.href = 'onboard-home.php';</script>";
+  }
 }
 ?>
 
@@ -46,8 +55,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <tr>
         <td>
+        <select name="region" id="region" style="width: 400px">
+            <option selected hidden disabled>Area of Service (North/South/East/West/Central)</option>
+            <option value="North">North</option>
+            <option value="South">South</option>
+            <option value="East">East</option>
+            <option value="West">West</option>
+            <option value="Central">Central</option>
+        </select>
+       </td>
+      </tr>
+
+      <tr>
+        <td>
           <select name="size" id="size" style="width: 400px">
-            <option selected hidden disabled>Bus Fleet</option>
+            <option selected hidden disabled>Bus Fleet Availability</option>
             <option value="S">Up to 10 Buses</option>
             <option value="M">Up to 20 Buses</option>
             <option value="L">Up to 30 Buses or more</option>
@@ -68,23 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <tr>
         <td><input id="password" name="password" type="password" style="width:400px;" placeholder="Password" ><br></td>
-      </tr>
-
-      <tr><td>&nbsp</td></tr>
-      <tr><td>&nbsp</td></tr>
-
-      <tr>
-        <td style="text-align: center;"><h3>Data Files Upload</h3></td>
-      </tr>
-
-      <tr>
-        <td style="text-align: right;"><label>Buses CSV: </label>
-        <input type="file" name="fileToUpload" id="class-csv"></td>
-      </tr>
-
-      <tr>
-        <td style="text-align: right;"><label>Drivers CSV: </label>
-        <input type="file" name="fileToUpload" id="teachers-csv"></td>
       </tr>
 
       <tr><td>&nbsp</td></tr>

@@ -1,9 +1,18 @@
 <?php
+include("OnboardingController.php");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  //IF HIT SUBMIT
-  //SUCCESSFULLY CREATED POPUP.
-  
-  echo "<script type='text/javascript'>alert('Onboarding as a parent/guardian successful!'); window.location.href = 'onboard-home.php';</script>";
+  //ON SUBMIT CALL ONBOARDING CONTROLLER
+  $result = new CreateParentGuardianAccount();
+  $success = $result->createParentGuardianAccount($_POST['fname'], $_POST['lname'], $_POST['nric'], $_POST['email'], $_POST['password']);
+
+  //CHECK IF SUCCESSFULLY CREATED
+  if ($success === true){
+    echo "<script type='text/javascript'>alert('Parent/Guardian Account Created Successfully!'); window.location.href = 'onboard-home.php';</script>";
+  } else {
+    echo "<script type='text/javascript'>alert('$onboardingController->getErrorMessage()');</script>";
+    echo "<script type='text/javascript'>alert('Account Creation Unsuccessful!'); window.location.href = 'onboard-home.php';</script>";
+  }
 }
 ?>
 
@@ -37,15 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </tr>
 
       <tr>
-        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="First Name" ></td>
+        <td><input id="fname" name="fname" type="text" maxlength="30" style="width:400px;" placeholder="First Name" ></td>
       </tr>
 
       <tr>
-        <td><input id="name" name="name" type="text" maxlength="30" style="width:400px;" placeholder="Last Name" ></td>
+        <td><input id="lname" name="lname" type="text" maxlength="30" style="width:400px;" placeholder="Last Name" ></td>
       </tr>
 
       <tr>
-        <td><input id="id" name="id" type="text" maxlength="30" style="width:400px;" placeholder="ID" ></td>
+        <td><input id="nric" name="nric" type="text" maxlength="30" style="width:400px;" placeholder="NRIC" ></td>
       </tr>
 
       <tr><td>&nbsp</td></tr>
