@@ -7,7 +7,7 @@ include("../CLASSES/User.php");
 
 
 //DATABASE SETTINGS
-$servername = "localhost";
+$servername = "scoob-db1.czjyxcigkdil.us-east-1.rds.amazonaws.com";;
 $username = "root";
 $password = "";
 $dbname = "SCOOB";

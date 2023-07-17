@@ -12,16 +12,4 @@ class LoginController{
   }
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "SCOOB";
-
-// Create connection
-$mysqli = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if ($mysqli->connect_error) {
-  die("Connection failed: " . $mysqli->connect_error);
-}
 ?>

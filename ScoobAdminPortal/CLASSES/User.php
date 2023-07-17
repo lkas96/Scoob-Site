@@ -1,4 +1,5 @@
 <?php
+include("../dbconn.php");
 
 class User{
 
@@ -14,11 +15,6 @@ class User{
   //LAUNCH DATABASE CONNECTION
   function __construct()
   {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "SCOOB";
-
 		$this->conn = new mysqli($servername, $username, $password, $dbname);
   }
 
