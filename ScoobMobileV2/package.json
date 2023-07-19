@@ -20,8 +20,11 @@
     "amazon-cognito-identity-js": "^6.3.1",
     "aws-amplify": "^5.3.1",
     "expo": "~48.0.18",
+    "expo-barcode-scanner": "~12.3.2",
+    "expo-blur": "~12.2.2",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "mysql": "^2.18.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",
@@ -35,9 +38,7 @@
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4",
-    "expo-barcode-scanner": "~12.3.2",
-    "expo-blur": "~12.2.2"
+    "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -30,7 +30,6 @@ Amplify.configure(aws_exports);
 //-------------------------------------
 
 export default function App() {
-	// ---------------- Load Fonts ----------------
 	const [fontsLoaded] = useFonts({
 		Urbanist: require("./assets/fonts/Urbanist.ttf"),
 		"NunitoSans-Regular": require("./assets/fonts/NunitoSans-Regular.ttf"),
