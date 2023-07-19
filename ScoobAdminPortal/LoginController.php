@@ -1,14 +1,17 @@
 <?php
-include("CLASSES/User.php");
+include('CLASSES/User.php');
 
-class LoginController{
-  function login($email, $password)
+class Login{
+  function login($type, $email, $password)
   {
     $userLogin = new User();
+    $success = $userLogin ->login($type, $email, $password);
 
-    $bool = $userLogin ->login($email, $password);
-
-    return $userLogin->getType();
+    if ($success === true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

@@ -18,15 +18,6 @@ if (isset($_POST["logout"]))
   <script src="../js/jquery-3.5.1.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/live-clock.js"></script>
-
-  <!-- Logout Function -->
-  <?php
-    if (isset($_POST["logout"]))
-    {
-      new LogoutController();
-    }
-  ?>
-
 </head>
 
 <body>
@@ -53,57 +44,60 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing All Applications</h1>
-          <div style="display: flex; align-items: center;">
-            <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;">
-            <input type="submit" value="Search">
-          </form>
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h1 style="margin: 0;">Viewing All Applications</h1>
+            <div style="display: flex; align-items: center;">
+              <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;">
+              <input type="submit" value="Search">
+            </form>
+          </div>
         </div>
-      </div>
 
-    <div class="data">
-    <table>
-            <tr>
-                <th>Type</th>
-                <th>Name</th>
-                <th>UEN</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-              <td>School</td>
-              <td>Clementi Primary School</td>
-              <td>12345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>School</td>
-              <td>UOW</td>  
-              <td>22345678A</td>
-              <td><a href="manage-applications-view-school.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>Comfort Buses</td>
-              <td>56739103J</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-          <tr>
-              <td>Transport</td>
-              <td>SingaBus</td>
-              <td>320582103D</td>
-              <td><a href="manage-applications-view-transport.php"><button class="view-button">View More</button></a>
-              <a ><button class="view-button">Accept</button></a>
-              <a ><button class="view-button">Reject</button></a></td>
-          </tr>
-    </table>
-  </div>
+      <div class="data">
+
+        <?php
+          $aaa = ViewPendingApplications::viewPendingApplications();
+          $result = $_SESSION['viewPendinglApplicationsSQLTable'];
+
+          if (mysqli_num_rows($result) == 0){
+            echo "No Pending Applications.";
+          } else {
+
+              //PRINT TABLE HEADERS
+              echo '<table class="table table-bordered table-sm" style="text-align: center">';
+              echo '<thead class="thead-dark">';
+              echo '<tr>';
+              echo '<th scope="col">Type</th>';
+              echo '<th scope="col">Organisation</th>';
+              echo '<th scope="col">UEN</th>';
+              echo '<th scope="col">Action</th>';
+              echo '</tr>';
+              echo '</thead>';
+
+              $rowNumber = 1;
+
+              while ($row = mysqli_fetch_assoc($result)) {
+              echo '<tbody>';
+              echo '<tr>';
+              echo '<td>'.$row['type']."</td>";
+              echo '<td>'.$row['name']."</td>";
+              echo '<td>'.$row['uen']."</td>";
+
+              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              echo '<td><form action="manage-applications-view-'.$row['type'].'.php" method="post">';
+                    echo '<input type="hidden" name="uen" value="' . $row['uen'] . '">';
+                    echo '<button class="view-button" type="submit">View</button>';
+                    echo '</form></td>';
+              echo "</tr>";
+              echo '</tr>';
+              echo '</tbody>';
+              $rowNumber++;
+            }
+            echo '</table>';
+          }
+        ?>
+        
+      </div>
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
@@ -113,26 +107,31 @@ if (isset($_POST["logout"]))
 
 
 <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .view-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 6px 10px;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  
+  th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+  }
+  
+  .view-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+  }
+
+  form {
+    margin-bottom: 0;
+  }
+</style>

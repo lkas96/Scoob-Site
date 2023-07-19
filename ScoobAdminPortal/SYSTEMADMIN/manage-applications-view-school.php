@@ -51,30 +51,21 @@ if (isset($_POST["logout"]))
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
 	    </form>
     </div>
+    <div class="rightPanel">   
+      <div class="data">
+        <?php
+          if(isset($_POST['uen'])){
+            $uen = $_POST['uen'];
+            $execute = ViewSchoolApplication::viewSchoolApplications($uen);
 
-    <div class="rightPanel">
-    <div class="data">
-      <table>
-        <tr>
-          <th>Type</th>
-          <th>Name</th>
-          <th>UEN</th>
-          <th>School Dismissal Time</th>
-          <th>Estimated Students Requiring Bus Services</th>
-          <th>Actions</th>
-        </tr>
-        <tr>
-          <td>School</td>
-          <td>Clementi Primary School</td>
-          <td>12345678A</td>
-          <td>2:00PM</td>
-          <td>Up till a 100 Students</td>
-          <td><a><button class="edit">Accept</button></a>
-          <a><button class="edit">Reject</button></a></td>
-          
-        </tr>
-      </table>
-
+            if ($execute === true){
+              //GET RESULTS FROM SESSION VARIABLE
+              $result = $_SESSION['viewSchoolApplicationsSQLTable'];
+            } else {
+              echo "<script>alert('Error Retrieving Data. Invalid UEN.');</script>";
+            }
+          }
+        ?>]
       </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
     

@@ -1,37 +1,30 @@
 <?php
-include 'LoginController.php';
-session_start();
+include('LoginController.php');
 
-$type = "";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  //CHECK IF LOGIN BUTTON IS CLICKED
+  if (isset($_POST['Login'])) {
+    $type = $_POST['type'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-if(isset($_POST['Login']))
-{
-  //DISABLED FOR DEMO
-  //$email = $_POST['email'];
-  //$password = $_POST['password'];
+    $userlogin = new Login();
+    $success = $userlogin->login($type, $email, $password);
 
-  //$login = new LoginController();
-  //$type = $login->login($email, $password);
-
-  //TEMP DEMO LOGIN SELECT
-  $type = $_POST['type'];
-
-  if($type == "SystemAdmin")
-  {
-    header("Location: SYSTEMADMIN/manage-applications-home.php");
+    if ($type === "System Admin" && $success === true) {
+      echo "<script>alert('Login Successful. Welcome ". $type.".'); window.location.href = 'systemadmin/manage-applications-home.php';</script>";
+      exit();
+    } else if ($type === "School Admin" && $success === true) {
+      echo "<script>alert('Login Successful. Welcome ". $type.".'); window.location.href = 'schooladmin/school-home.php';</script>";
+      exit();
+    } else if ($type === "Transport Admin" && $success === true) {
+      echo "<script>alert('Login Successful. Welcome ". $type.".'); window.location.href = 'transportadmin/transport-home.php';</script>";
+      exit();
+    } else {
+      echo "<script>alert('Invalid login Credentials or Account Status Pending.');</script>";
+    }
   }
-  else if($type == "SchoolAdmin")
-  {
-    header("Location: SCHOOLADMIN/school-home.php");
-  }
-  //else if($type == "TransportAdmin")
-  //{
-  //  header("Location: TRANSPORTADMIN/transport-home.php");
-  //}
-  //else
-  //{
-  //  echo "<script>alert('Invalid Username or Password')</script>";
-  //}
+
 }
 ?>
 
@@ -62,9 +55,9 @@ if(isset($_POST['Login']))
     &nbsp&nbsp&nbsp<label>Login as: </label>
       <select id="type" name="type" style="width:300px;" required>
         <option default hidden selected></option>
-        <option value="SystemAdmin">System Admin</option>
-        <option value="SchoolAdmin">School Admin</option>
-        <option value="SchoolAdmin" disabled>Transport Admin</option>
+        <option value="System Admin">System Admin</option>
+        <option value="School Admin">School Admin</option>
+        <option value="Transport Admin">Transport Admin</option>
       </select><br>
         <!--<option value="TransportAdmin">Transport Admin</option>-->
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label>Email: </label>

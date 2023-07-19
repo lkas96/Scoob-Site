@@ -1,56 +1,81 @@
 <?php
-include("../dbconn.php");
 
-class User{
+class User {
 
   //VARIBLES
   private $type;
   private $email;
-  private $username;
   private $password;
   private $name;
-  private $uen;
+  private $status;
 	private $conn = NULL;
   
-  //LAUNCH DATABASE CONNECTION
+  //INITIALISE DATABASE CONNECTION
   function __construct()
   {
-		$this->conn = new mysqli($servername, $username, $password, $dbname);
+    $servername = "scoob-database.c8k5fhmymkis.ap-southeast-1.rds.amazonaws.com";
+    $username = "admin";
+    $password = "admin123";
+    $dbname = "scoob";
+  
+    // Create connection
+    $mysqli = mysqli_connect($servername, $username, $password, $dbname);
+  
+    // Check connection
+    if (mysqli_connect_errno()) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $this->conn = $mysqli;
   }
 
   //FUNCTION TO LOGIN
-  public function login($email, $password)
+  public function login($type, $email, $password)
   {
-		$query = "
-      SELECT login, password, uen, type
-      FROM 
-      (
-      SELECT systemadminID as login, password, 'SystemAdmin' AS uen, 'SystemAdmin' AS type FROM systemadmins
-      UNION
-      SELECT email as login, password, uen, 'SchoolAdmin' AS type FROM schooladmin
-      UNION
-      SELECT email as login, password, uen, 'TransportAdmin' AS type FROM transportadmin
-      )
-      AS combined_union
-      WHERE login = '$email' AND password = '$password';
-    ";
+    if ($type == "System Admin") {
+      $query = "SELECT * FROM systemadmins WHERE email = '$email' AND password = '$password'";
+      $result = $this->conn->query($query);
+      $num_rows = mysqli_num_rows($result);
+      if ($num_rows == 1){
+        $this->type = $type;
+        $this->email = $email;
+        $this->password = $password;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    if ($type == "School Admin") {
+      $query = "SELECT * FROM schooladmins left join schools on schooladmins.uen = schools.uen WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
+      $result = $this->conn->query($query);
+      $num_rows = mysqli_num_rows($result);
+      if ($num_rows == 1){
+        $this->type = $type;
+        $this->email = $email;
+        $this->password = $password;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    if ($type == "Transport Admin") {
+      $query = "SELECT * FROM transportadmins WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
+      $result = $this->conn->query($query);
+      $num_rows = mysqli_num_rows($result);
+      if ($num_rows == 1){
+        $this->type = $type;
+        $this->email = $email;
+        $this->password = $password;
+        return true;
+      } else {
+        return false;
+      }
+    }
     
-		$result = $this->conn->query($query);
-
-		if (mysqli_num_rows($result) == 0){
-			return false;
-		}
-    $row = $result->fetch_assoc();
-
-    //SET USER DETAILS THAT IS LOGGED IN
-    $this->email  = $row["login"];
-    $this->username = $row["login"];
-    $this->uen   = $row["uen"];
-    $this->type  = $row["type"];
-
-    $_SESSION['current_user'] = $row["login"];
-
-    return true;
+    else {
+      return false;
+    }
   }
 
   //BASIC FUNCTION - GET TYPE OF USER
@@ -82,4 +107,5 @@ class User{
 
 
 }
+
 ?>
