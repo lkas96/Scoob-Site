@@ -7,6 +7,36 @@ if (isset($_POST["logout"]))
 {
   new LogoutController();
 }
+
+// Handle Approve or Reject actions
+if (isset($_POST["submit-approve"])) {
+  if (isset($_POST["uen2"])) {
+    $uen = $_POST["uen2"];
+    $aaa = ApproveSchool::approveSchool($uen);
+  
+    if ($aaa === true) {
+      echo "<script>alert('UEN Approved.'); window.location.href = 'manage-applications-home.php';</script>";
+      exit; // Important to prevent further execution of the page
+    } else {
+      echo "<script>alert('Error Approving UEN.');</script>";
+    }
+  }
+}
+
+
+if (isset($_POST["submit-reject"])) {
+  if (isset($_POST["uen2"])) {
+    $uen = $_POST["uen2"];
+    $aaa = RejectSchool::rejectSchool($uen);
+  
+    if ($aaa === true) {
+      echo "<script>alert('UEN Rejected.'); window.location.href = 'manage-applications-home.php';</script>";
+      exit; // Important to prevent further execution of the page
+    } else {
+      echo "<script>alert('Error Rejecting UEN.');</script>";
+    }
+  }
+}
 ?>
 
 <html>
@@ -18,15 +48,6 @@ if (isset($_POST["logout"]))
   <script src="../js/jquery-3.5.1.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/live-clock.js"></script>
-
-  <!-- Logout Function -->
-  <?php
-    if (isset($_POST["logout"]))
-    {
-      new LogoutController();
-    }
-  ?>
-
 </head>
 
 <body>
@@ -72,6 +93,7 @@ if (isset($_POST["logout"]))
               echo '<th scope="col">Dismissal Timing</th>';
               echo '<th scope="col">School Region</th>';
               echo '<th scope="col">Size</th>';
+              echo '<th scope="col">Actions</th>';
               echo '</tr>';
               echo '</thead>';
               
@@ -85,13 +107,31 @@ if (isset($_POST["logout"]))
                 echo "<td>" . $row['dismissal'] . "</td>";
                 echo "<td>" . $row['region'] . "</td>";
                 echo "<td>" . $row['size'] . "</td>";
-                echo "</tr>";
+                echo '<td>';
+                    echo '<div="button-container">';
+
+                      // BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+                      echo '<form action="" method="post">';
+                      echo '<input type="hidden" name="uen2" value="' . $row['uen'] . '">';
+
+                      // Separate submit buttons for Approve and Reject actions
+                      echo '<button class="approve-button" type="submit" name="submit-approve">Approve</button>';
+                      echo '<button class="reject-button" type="submit" name="submit-reject">Reject</button>';
+
+                      echo '</form>';
+
+                    echo '</div>';
+                echo '</td>';
                 echo "</tbody>";
               }
               
             echo '</table>';
-
-
+            echo '<br>';
+            echo '<br>';
+            echo '<h6>Size Refers to Estimated Number of Students Requiring Transport Services</h6>';
+            echo 'S : Up to 100 Students<br>';
+            echo 'M : Up to 200 Students<br>';
+            echo 'L : Up to 300 Students and more<br>';
 
             } else {
               echo "<script>alert('Error Retrieving Data. Invalid UEN.');</script>";
@@ -107,26 +147,64 @@ if (isset($_POST["logout"]))
 
 
 <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .view-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 6px 10px;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  
+  th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+  }
+  
+  .view-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+  }
+
+  .approve-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+      width: 100px;
+  }
+
+  .reject-button {
+      background-color: #FF0000;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+      width: 100px;
+  }
+
+  .button-container {
+      display: inline-block;
+  }
+
+
+  form {
+    margin-bottom: 0;
+  }
+</style>

@@ -7,6 +7,36 @@ if (isset($_POST["logout"]))
 {
   new LogoutController();
 }
+
+// Handle Approve or Reject actions
+if (isset($_POST["submit-approve"])) {
+  if (isset($_POST["uen2"])) {
+    $uen = $_POST["uen2"];
+    $aaa = ApproveTransport::approveTransport($uen);
+  
+    if ($aaa === true) {
+      echo "<script>alert('UEN Approved.'); window.location.href = 'manage-applications-home.php';</script>";
+      exit; // Important to prevent further execution of the page
+    } else {
+      echo "<script>alert('Error Approving UEN.');</script>";
+    }
+  }
+}
+
+
+if (isset($_POST["submit-reject"])) {
+  if (isset($_POST["uen2"])) {
+    $uen = $_POST["uen2"];
+    $aaa = RejectTransport::rejectTransport($uen);
+  
+    if ($aaa === true) {
+      echo "<script>alert('UEN Rejected.'); window.location.href = 'manage-applications-home.php';</script>";
+      exit; // Important to prevent further execution of the page
+    } else {
+      echo "<script>alert('Error Rejecting UEN.');</script>";
+    }
+  }
+}
 ?>
 
 <html>
@@ -18,15 +48,6 @@ if (isset($_POST["logout"]))
   <script src="../js/jquery-3.5.1.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/live-clock.js"></script>
-
-  <!-- Logout Function -->
-  <?php
-    if (isset($_POST["logout"]))
-    {
-      new LogoutController();
-    }
-  ?>
-
 </head>
 
 <body>
@@ -53,26 +74,69 @@ if (isset($_POST["logout"]))
     </div>
 
     <div class="rightPanel">
-    <div class="data">
-      <table>
-        <tr>
-          <th>Type</th>
-          <th>Name</th>
-          <th>UEN</th>
-          <th>Fleet Size</th>
-          <th>Actions</th>
-        </tr>
-        <tr>
-          <td>Transport</td>
-          <td>Comfort Buses</td>
-          <td>56728991D</td>
-          <td>10 Buses</td>
-          <td><a><button class="edit">Accept</button></a>
-          <a><button class="edit">Reject</button></a></td>
-          
-        </tr>
-      </table>
+      <div class="data">
+        <?php
+          if(isset($_POST['uen'])){
+            $uen = $_POST['uen'];
+            $execute = ViewTransportApplication::viewTransportApplication($uen);
 
+            if ($execute === true){
+              //GET RESULTS FROM SESSION VARIABLE
+              $result = $_SESSION['viewTransportApplicationSQLTable'];
+
+              //PRINT TABLE HEADERS
+              echo '<table class="table table-bordered table-sm" style="text-align: center">';
+              echo '<thead class="thead-dark">';
+              echo '<tr>';
+              echo '<th scope="col">Type</th>';
+              echo '<th scope="col">Transport Company Name</th>';
+              echo '<th scope="col">UEN</th>';
+              echo '<th scope="col">Region</th>';
+              echo '<th scope="col">Size</th>';
+              echo '<th scope="col">Actions</th>';
+              echo '</tr>';
+              echo '</thead>';
+              
+              //PRINT DATA
+              while($row = mysqli_fetch_assoc($result)) {
+                echo "<tbody>";
+                echo "<tr>";
+                echo "<td>" . $row['type'] . "</td>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td>" . $row['uen'] . "</td>";
+                echo "<td>" . $row['region'] . "</td>";
+                echo "<td>" . $row['size'] . "</td>";
+                echo '<td>';
+                    echo '<div="button-container">';
+
+                      // BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+                      echo '<form action="" method="post">';
+                      echo '<input type="hidden" name="uen2" value="' . $row['uen'] . '">';
+
+                      // Separate submit buttons for Approve and Reject actions
+                      echo '<button class="approve-button" type="submit" name="submit-approve">Approve</button>';
+                      echo '<button class="reject-button" type="submit" name="submit-reject">Reject</button>';
+
+                      echo '</form>';
+
+                    echo '</div>';
+                echo '</td>';
+                echo "</tbody>";
+              }
+              
+            echo '</table>';
+            echo '<br>';
+            echo '<br>';
+            echo '<h6>Size Refers to Estimated Number of Students Requiring Transport Services</h6>';
+            echo 'S : Up to 100 Students<br>';
+            echo 'M : Up to 200 Students<br>';
+            echo 'L : Up to 300 Students and more<br>';
+
+            } else {
+              echo "<script>alert('Error Retrieving Data. Invalid UEN.');</script>";
+            }
+          }
+        ?>
       </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
     
@@ -81,26 +145,64 @@ if (isset($_POST["logout"]))
 </html>
 
 <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .view-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 6px 10px;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  
+  th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+  }
+  
+  .view-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+  }
+
+  .approve-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+      width: 100px;
+  }
+
+  .reject-button {
+      background-color: #FF0000;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      margin-bottom: 0px;
+      width: 100px;
+  }
+
+  .button-container {
+      display: inline-block;
+  }
+
+
+  form {
+    margin-bottom: 0;
+  }
+</style>
