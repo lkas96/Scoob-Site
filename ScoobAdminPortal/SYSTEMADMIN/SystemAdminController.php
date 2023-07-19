@@ -10,7 +10,7 @@ class ViewPendingApplications{
 }
 
 class ViewSchoolApplication{
-    public function viewSchoolApplication($uen){
+    public static function viewSchoolApplication($uen){
         $viewSchoolApplication = new Applications();
         $results = $viewSchoolApplication -> viewSchoolApplication($uen);
         return $results;
@@ -18,7 +18,7 @@ class ViewSchoolApplication{
 }
 
 class ViewTransportApplication{
-    public function viewTransportApplication($uen){
+    public static function viewTransportApplication($uen){
         $viewTransportApplication = new Applications();
         $results = $viewTransportApplication -> viewTransportApplication($uen);
         return $results;

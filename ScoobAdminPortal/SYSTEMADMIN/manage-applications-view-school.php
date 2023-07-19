@@ -56,16 +56,48 @@ if (isset($_POST["logout"]))
         <?php
           if(isset($_POST['uen'])){
             $uen = $_POST['uen'];
-            $execute = ViewSchoolApplication::viewSchoolApplications($uen);
+            $execute = ViewSchoolApplication::viewSchoolApplication($uen);
 
             if ($execute === true){
               //GET RESULTS FROM SESSION VARIABLE
-              $result = $_SESSION['viewSchoolApplicationsSQLTable'];
+              $result = $_SESSION['viewSchoolApplicationSQLTable'];
+
+              //PRINT TABLE HEADERS
+              echo '<table class="table table-bordered table-sm" style="text-align: center">';
+              echo '<thead class="thead-dark">';
+              echo '<tr>';
+              echo '<th scope="col">Type</th>';
+              echo '<th scope="col">School Name</th>';
+              echo '<th scope="col">UEN</th>';
+              echo '<th scope="col">Dismissal Timing</th>';
+              echo '<th scope="col">School Region</th>';
+              echo '<th scope="col">Size</th>';
+              echo '</tr>';
+              echo '</thead>';
+              
+              //PRINT DATA
+              while($row = mysqli_fetch_assoc($result)) {
+                echo "<tbody>";
+                echo "<tr>";
+                echo "<td>" . $row['type'] . "</td>";
+                echo "<td>" . $row['name'] . "</td>";
+                echo "<td>" . $row['uen'] . "</td>";
+                echo "<td>" . $row['dismissal'] . "</td>";
+                echo "<td>" . $row['region'] . "</td>";
+                echo "<td>" . $row['size'] . "</td>";
+                echo "</tr>";
+                echo "</tbody>";
+              }
+              
+            echo '</table>';
+
+
+
             } else {
               echo "<script>alert('Error Retrieving Data. Invalid UEN.');</script>";
             }
           }
-        ?>]
+        ?>
       </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
     

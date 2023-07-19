@@ -49,7 +49,7 @@ class Applications {
   //FUNCTION TO A VIEW SCHOOL APPLICATION
   public function viewSchoolApplication($uen)
   {
-    $query = "SELECT * FROM schools where UEN='$uen'";
+    $query = "SELECT 'School' AS type, name, uen, dismissal, region, size FROM schools where UEN='$uen'";
 
     $result = $this->conn->query($query);
 
