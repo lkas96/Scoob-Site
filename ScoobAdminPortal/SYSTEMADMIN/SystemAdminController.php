@@ -57,5 +57,13 @@ class RejectTransport{
     }
 }
 
+class SearchApplications{
+    public static function searchApplications($searchQuery){
+        $searchApplications = new Applications();
+        $results = $searchApplications -> searchApplications($searchQuery);
+        return $results;
+    }
+}
+
 
 ?>

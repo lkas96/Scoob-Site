@@ -74,6 +74,7 @@ if (isset($_POST["submit-reject"])) {
     </div>
     <div class="rightPanel">   
       <div class="data">
+        <h1>Viewing School Application</h1>
         <?php
           if(isset($_POST['uen'])){
             $uen = $_POST['uen'];
