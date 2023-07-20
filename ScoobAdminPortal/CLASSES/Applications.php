@@ -1,6 +1,7 @@
 <?php
 
-class Applications {
+class Applications
+{
 
   //VARIABLES
   private $conn = null;
@@ -12,13 +13,13 @@ class Applications {
     $username = "admin";
     $password = "admin123";
     $dbname = "scoob";
-  
+
     // Create connection
     $mysqli = mysqli_connect($servername, $username, $password, $dbname);
-  
+
     // Check connection
     if (mysqli_connect_errno()) {
-        die("Connection failed: " . mysqli_connect_error());
+      die("Connection failed: " . mysqli_connect_error());
     }
     $this->conn = $mysqli;
   }
@@ -26,9 +27,10 @@ class Applications {
   //FUNCTION TO VIEW ALL PENDING SCHOOL AND TRANSPORT APPLICATIONS
   public function viewPendingApplications()
   {
-    $query = "SELECT 'School' AS type , name, uen FROM schools WHERE status = 'Pending'
+    $query = "SELECT 'School' AS type , timestamp, name, uen FROM schools WHERE status = 'Pending'
               UNION ALL
-              SELECT 'Transport' AS type , name, uen FROM transports WHERE status = 'Pending';
+              SELECT 'Transport' AS type , timestamp, name, uen FROM transports WHERE status = 'Pending'
+              ORDER BY timestamp asc;
     ";
 
     $result = $this->conn->query($query);
@@ -47,7 +49,7 @@ class Applications {
   //FUNCTION TO A VIEW SCHOOL APPLICATION
   public function viewSchoolApplication($uen)
   {
-    $query = "SELECT 'School' AS type, name, uen, dismissal, region, size FROM schools where UEN='$uen'";
+    $query = "SELECT 'School' AS type, name, uen, dismissal, region, size, timestamp FROM schools where UEN='$uen'";
 
     $result = $this->conn->query($query);
 
@@ -65,17 +67,17 @@ class Applications {
   //FUNCTION TO APPROVE SCHOOL APPLICATION
   public function approveSchool($uen)
   {
-      $query = "UPDATE schools SET status = 'Approved' WHERE UEN = '$uen'";
-  
-      $result = $this->conn->query($query);
-  
-      $row_affected = mysqli_affected_rows($this->conn);
-  
-      if ($result && $row_affected > 0) {
-          return true;
-      } else {
-          return false;
-      }
+    $query = "UPDATE schools SET status = 'Approved' WHERE UEN = '$uen'";
+
+    $result = $this->conn->query($query);
+
+    $row_affected = mysqli_affected_rows($this->conn);
+
+    if ($result && $row_affected > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //FUNCTION TO REJECT SCHOOL APPLICATION
@@ -95,7 +97,7 @@ class Applications {
   //FUNCTION TO A VIEW TRANSPORT APPLICATION
   public function viewTransportApplication($uen)
   {
-    $query = "SELECT 'Transport' AS type, name, uen, region, size FROM transports where UEN='$uen'";
+    $query = "SELECT 'Transport' AS type, name, uen, region, size , timestamp FROM transports where UEN='$uen'";
 
     $result = $this->conn->query($query);
 
@@ -113,25 +115,25 @@ class Applications {
   //FUNCTION TO APPROVE TRANSPORT APPLICATION
   public function approveTransport($uen)
   {
-      $query = "UPDATE transports SET status = 'Approved' WHERE UEN = '$uen'";
-  
-      // Debugging: Output the query to see if it's correct
-      // echo $query;
-  
-      $result = $this->conn->query($query);
-  
-      // Debugging: Output any error messages from the query execution
-      // if (!$result) {
-      //     echo "Query Error: " . $this->conn->error;
-      // }
-  
-      $row_affected = mysqli_affected_rows($this->conn);
-  
-      if ($result && $row_affected > 0) {
-          return true;
-      } else {
-          return false;
-      }
+    $query = "UPDATE transports SET status = 'Approved' WHERE UEN = '$uen'";
+
+    // Debugging: Output the query to see if it's correct
+    // echo $query;
+
+    $result = $this->conn->query($query);
+
+    // Debugging: Output any error messages from the query execution
+    // if (!$result) {
+    //     echo "Query Error: " . $this->conn->error;
+    // }
+
+    $row_affected = mysqli_affected_rows($this->conn);
+
+    if ($result && $row_affected > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //FUNCTION TO REJECT TRANSPORT APPLICATION
@@ -151,9 +153,10 @@ class Applications {
   //FUNCTION TO SEARCH APPLICATIONS
   public function searchApplications($searchQuery)
   {
-    $query = "SELECT 'School' AS type , name, uen FROM schools WHERE status = 'Pending' AND name LIKE '%$searchQuery%' OR status = 'Pending' AND  uen LIKE '%$searchQuery%'
+    $query = "SELECT 'School' AS type , name, uen , timestamp FROM schools WHERE status = 'Pending' AND name LIKE '%$searchQuery%' OR status = 'Pending' AND  uen LIKE '%$searchQuery%'
               UNION ALL
-              SELECT 'Transport' AS type , name, uen FROM transports WHERE status = 'Pending' AND name LIKE '%$searchQuery%' OR status = 'Pending' AND uen LIKE '%$searchQuery%';
+              SELECT 'Transport' AS type , name, uen, timestamp FROM transports WHERE status = 'Pending' AND name LIKE '%$searchQuery%' OR status = 'Pending' AND uen LIKE '%$searchQuery%'
+              ORDER BY timestamp asc;
     ";
 
     $result = $this->conn->query($query);
@@ -168,7 +171,4 @@ class Applications {
       return false;
     }
   }
-
-
 }
-?>

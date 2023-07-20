@@ -1,6 +1,7 @@
 <?php
 
-class User {
+class User
+{
 
   //VARIBLES
   private $type;
@@ -8,8 +9,8 @@ class User {
   private $password;
   private $name;
   private $status;
-	private $conn = NULL;
-  
+  private $conn = NULL;
+
   //INITIALISE DATABASE CONNECTION
   function __construct()
   {
@@ -17,13 +18,13 @@ class User {
     $username = "admin";
     $password = "admin123";
     $dbname = "scoob";
-  
+
     // Create connection
     $mysqli = mysqli_connect($servername, $username, $password, $dbname);
-  
+
     // Check connection
     if (mysqli_connect_errno()) {
-        die("Connection failed: " . mysqli_connect_error());
+      die("Connection failed: " . mysqli_connect_error());
     }
     $this->conn = $mysqli;
   }
@@ -35,7 +36,7 @@ class User {
       $query = "SELECT * FROM systemadmins WHERE email = '$email' AND password = '$password'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
-      if ($num_rows == 1){
+      if ($num_rows == 1) {
         $this->type = $type;
         $this->email = $email;
         $this->password = $password;
@@ -49,7 +50,7 @@ class User {
       $query = "SELECT * FROM schooladmins left join schools on schooladmins.uen = schools.uen WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
-      if ($num_rows == 1){
+      if ($num_rows == 1) {
         $this->type = $type;
         $this->email = $email;
         $this->password = $password;
@@ -60,10 +61,10 @@ class User {
     }
 
     if ($type == "Transport Admin") {
-      $query = "SELECT * FROM transportadmins WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
+      $query = "SELECT * FROM transportadmins left join transports on transportadmins.uen = transports.uen WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
-      if ($num_rows == 1){
+      if ($num_rows == 1) {
         $this->type = $type;
         $this->email = $email;
         $this->password = $password;
@@ -71,9 +72,7 @@ class User {
       } else {
         return false;
       }
-    }
-    
-    else {
+    } else {
       return false;
     }
   }
@@ -101,11 +100,4 @@ class User {
   {
     return $this->uen;
   }
-
-
-
-
-
 }
-
-?>

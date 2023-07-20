@@ -53,7 +53,6 @@ if (isset($_POST["logout"])) {
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>
             <input type="submit" value="search">
           </form>
-
         </div>
       </div>
 
@@ -78,6 +77,7 @@ if (isset($_POST["logout"])) {
           echo '<th scope="col">Type</th>';
           echo '<th scope="col">Organisation</th>';
           echo '<th scope="col">UEN</th>';
+          echo '<th scope="col">Applied On</th>';
           echo '<th scope="col">Action</th>';
           echo '</tr>';
           echo '</thead>';
@@ -90,6 +90,7 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['type'] . "</td>";
             echo '<td>' . $row['name'] . "</td>";
             echo '<td>' . $row['uen'] . "</td>";
+            echo '<td>' . $row['timestamp'] . "</td>";
 
             //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
             echo '<td><form action="manage-applications-view-' . $row['type'] . '.php" method="post">';
