@@ -1,10 +1,12 @@
 <?php
 
 class LogoutController{
-  function __construct(){
+  function logout(){
+    session_start();
     session_unset();
     session_destroy();
     header("Location: ../login.php");
+    exit;
   }
 }
 

@@ -3,8 +3,14 @@ include 'SystemAdminController.php';
 include '../LogoutController.php';
 session_start();
 
+//VERIFY IF SYSTEMADMIN SESSION TYPE
+if ($_SESSION['type'] != "System Admin") {
+  header("Location: ../login.php");
+}
+
 if (isset($_POST["logout"])) {
-  new LogoutController();
+  $logout = new LogoutController();
+  $logout->logout();
 }
 ?>
 

@@ -1,5 +1,6 @@
 <?php
 include('LoginController.php');
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   //CHECK IF LOGIN BUTTON IS CLICKED

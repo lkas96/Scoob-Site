@@ -4,11 +4,6 @@ class User
 {
 
   //VARIBLES
-  private $type;
-  private $email;
-  private $password;
-  private $name;
-  private $status;
   private $conn = NULL;
 
   //INITIALISE DATABASE CONNECTION
@@ -33,13 +28,11 @@ class User
   public function login($type, $email, $password)
   {
     if ($type == "System Admin") {
+      $_SESSION['type'] = $type;
       $query = "SELECT * FROM systemadmins WHERE email = '$email' AND password = '$password'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
       if ($num_rows == 1) {
-        $this->type = $type;
-        $this->email = $email;
-        $this->password = $password;
         return true;
       } else {
         return false;
@@ -47,13 +40,11 @@ class User
     }
 
     if ($type == "School Admin") {
+      $_SESSION['type'] = $type;
       $query = "SELECT * FROM schooladmins left join schools on schooladmins.uen = schools.uen WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
       if ($num_rows == 1) {
-        $this->type = $type;
-        $this->email = $email;
-        $this->password = $password;
         return true;
       } else {
         return false;
@@ -61,13 +52,11 @@ class User
     }
 
     if ($type == "Transport Admin") {
+      $_SESSION['type'] = $type;
       $query = "SELECT * FROM transportadmins left join transports on transportadmins.uen = transports.uen WHERE email = '$email' AND password = '$password' AND status = 'Approved'";
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
       if ($num_rows == 1) {
-        $this->type = $type;
-        $this->email = $email;
-        $this->password = $password;
         return true;
       } else {
         return false;
@@ -77,27 +66,4 @@ class User
     }
   }
 
-  //BASIC FUNCTION - GET TYPE OF USER
-  public function getType()
-  {
-    return $this->type;
-  }
-
-  //BASIC FUNCTION - GET EMAIL OF USER
-  public function getEmail()
-  {
-    return $this->email;
-  }
-
-  //BASIC FUNCTION - GET USERNAME OF USER
-  public function getUsername()
-  {
-    return $this->username;
-  }
-
-  //BASIC FUNCTION - GET UEN OF USER
-  public function getUen()
-  {
-    return $this->uen;
-  }
 }
