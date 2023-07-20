@@ -1,0 +1,11 @@
+appid,status,name,uen,dismissal,region,size,timestamp
+1,Pending,Clementi Primary School,94758361,1430,West,S,2023/07/24 09:10:00
+2,Pending,Pei Tong Primary School,38475924,1530,East,M,2023/07/24 16:40:00
+3,Pending,Admiralty Primary School,47385732,1630,North,L,2023/07/25 11:25:00
+4,Pending,Fengshan Primary School,11275839,1200,East,S,2023/07/26 15:35:00
+5,Pending,Temasek Primary School,44372852,1215,East,S,2023/07/27 07:50:00
+6,Pending,Evergreen Primary School,28374095,1600,Central,L,2023/07/21 10:45:00
+7,Pending,Blossom Primary School,10294859,1615,West,M,2023/07/21 14:30:00
+8,Pending,Harmony Primary School,10394853,1800,South,S,2023/07/22 08:15:00
+9,Pending,Sparkle Primary School,29503144,1545,South,L,2023/07/22 18:20:00
+10,Pending,Rainbow Springs Primary School,55039241,1730,East,L,2023/07/23 13:55:00
