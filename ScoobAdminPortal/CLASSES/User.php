@@ -45,6 +45,9 @@ class User
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
       if ($num_rows == 1) {
+        //SET SESSION UEN
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['uen'] = $row['uen'];
         return true;
       } else {
         return false;
@@ -57,6 +60,9 @@ class User
       $result = $this->conn->query($query);
       $num_rows = mysqli_num_rows($result);
       if ($num_rows == 1) {
+        //SET SESSION UEN
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['uen'] = $row['uen'];
         return true;
       } else {
         return false;
