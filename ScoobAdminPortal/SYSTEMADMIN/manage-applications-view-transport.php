@@ -87,7 +87,7 @@ if (isset($_POST["submit-reject"])) {
         <div style="display: flex; align-items: center;">
           <form action="manage-applications-view-search.php" method="post">
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>
-            <input type="submit" value="search">
+            <input type="submit" value="Search">
           </form>
         </div>
       </div>
