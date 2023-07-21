@@ -3,9 +3,14 @@ include 'SchoolAdminController.php';
 include '../LogoutController.php';
 session_start();
 
-if (isset($_POST["logout"]))
-{
-  new LogoutController();
+//VERIFY IF SYSTEMADMIN SESSION TYPE
+if ($_SESSION['type'] != "School Admin") {
+  header("Location: ../login.php");
+}
+
+if (isset($_POST["logout"])) {
+  $logout = new LogoutController();
+  $logout->logout();
 }
 ?>
 
@@ -18,15 +23,6 @@ if (isset($_POST["logout"]))
   <script src="../js/jquery-3.5.1.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/live-clock.js"></script>
-
-  <!-- Logout Function -->
-  <?php
-    if (isset($_POST["logout"]))
-    {
-      new LogoutController();
-    }
-  ?>
-
 </head>
 
 <body>
@@ -49,6 +45,7 @@ if (isset($_POST["logout"]))
       <button class="customButton" type="button" onclick="window.location.href='school-manage-classes.php'"> <span>Manage Classes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-teachers.php'"> <span>Manage Teachers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-students.php'"> <span>Manage Students</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-import.php'">          <span>Import Data</span></button><br><br>
       <form method="post">
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
 	    </form>
@@ -60,7 +57,7 @@ if (isset($_POST["logout"]))
         <h1 style="margin: 0;">Viewing All Teachers</h1>
           <div style="display: flex; align-items: center;">
           <a style="margin-right: 10px;"><button>Add Teacher</button></a>
-          <form method="get"  style="display: flex; align-items: center;margin-bottom: 0px;">
+          <form method="post"  style="display: flex; align-items: center;margin-bottom: 0px;">
             <input type="text" name="searchQuery" placeholder="Search Teacher" style="margin-right: 5px;">
             <input type="submit" value="Search">
           </form>
