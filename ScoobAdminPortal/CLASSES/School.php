@@ -34,7 +34,7 @@ class School
             LEFT JOIN teacher ON class.class = teacher.class
             LEFT JOIN student ON class.class = student.class
             WHERE class.uen = '$uen'
-            GROUP BY student.class;
+            GROUP BY class.class;
     ";
 
     $result = $this->conn->query($sql);
@@ -59,7 +59,7 @@ class School
             LEFT JOIN teacher ON class.class = teacher.class
             LEFT JOIN student ON class.class = student.class
             WHERE class.uen ='$uen' AND class.class = '$class'
-            GROUP BY student.class;
+            GROUP BY class.class;
     ";
 
     $result = $this->conn->query($sql);
@@ -98,10 +98,34 @@ class School
 
     $sql = "INSERT INTO class (uen, class) VALUES ('$uen', '$class');
     ";
-    
+
     $result = $this->conn->query($sql);
 
     if ($result === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO SEARCH A CLASS
+  public function searchClass($searchQuery)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT class.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teacher, COUNT(student.uen) AS 'number of students'
+            FROM class
+            LEFT JOIN teacher ON class.class = teacher.class
+            LEFT JOIN student ON class.class = student.class
+            WHERE class.uen ='$uen' AND class.class LIKE '%$searchQuery%' OR class.uen ='$uen' AND teacher.fname LIKE '%$searchQuery%' OR class.uen ='$uen' AND teacher.lname LIKE '%$searchQuery%'
+            GROUP BY class.class;
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewSearchClassesSQLTable'] = $result;
       return true;
     } else {
       return false;
