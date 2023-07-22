@@ -57,7 +57,7 @@ if (isset($_POST["logout"])) {
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing All Students</h1>
+        <h1 style="margin: 0;">Matching Search Results</h1>
         <div style="display: flex; align-items: center;">
           <a style="margin-right: 10px;"><button>Add Student</button></a>
           <form method="post" action="school-manage-students-search.php">
@@ -69,16 +69,16 @@ if (isset($_POST["logout"])) {
 
       <div class="data">
         <?php
-          $aaa = viewAllStudents::viewAllStudents();
-          $result = NULL; //PLACEHOLDER
-          
-          if (isset($_SESSION['viewAllStudentsSQLTable'])) {
-            $result = $_SESSION['viewAllStudentsSQLTable'];
-          }
-  
-          if ($result == NULL) {
+        if (isset($_POST["searchQuery"])) {
+          // Get the search query from the form
+          $searchQuery = $_POST["searchQuery"];
+
+          $execute = SearchStudent::searchStudent($searchQuery);
+
+          if ($execute === false) {
             echo 'No Students found.';
           } else {
+            $result = $_SESSION['viewSearchStudentSQLTable'];
             //PRINT TABLE HEADERS
             echo '<table class="table table-bordered table-sm" style="text-align: center">';
             echo '<thead class="thead-dark">';
@@ -90,17 +90,17 @@ if (isset($_POST["logout"])) {
             echo '<th scope="col">Action</th>';
             echo '</tr>';
             echo '</thead>';
-          
+
             $rowNumber = 1;
-  
+
             while ($row = mysqli_fetch_assoc($result)) {
               echo '<tbody>';
               echo '<tr>';
-              echo '<td>'. $rowNumber . "</td>";
+              echo '<td>' . $rowNumber . "</td>";
               echo '<td>' . $row['studentid'] . "</td>";
               echo '<td>' . $row['studentname'] . "</td>";
               echo '<td>' . $row['class'] . "</td>";
-  
+
               //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
               echo '<td><form action="school-manage-students-view.php" method="post">';
               echo '<input type="hidden" name="student" value="' . $row['studentid'] . '">';
@@ -113,7 +113,7 @@ if (isset($_POST["logout"])) {
             }
             echo '</table>';
           }
-
+        }
         ?>
       </div>
     </div> <!-- End of RightPanel -->

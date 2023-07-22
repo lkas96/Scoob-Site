@@ -147,4 +147,72 @@ class School
       return false;
     }
   }
+
+  //FUNCTION TO VIEW ALL STUDENTS
+  public function viewAllStudents()
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT student.class, CONCAT(student.fname, ' ', student.lname) AS studentname, student.studentid
+            FROM student
+            JOIN class on student.class = class.class
+            WHERE class.uen = '$uen'
+            ORDER BY student.class;
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewAllStudentsSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO VIEW SPECIFIC STUDENT DETAILS
+  public function viewStudent($studentid)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT studentid, parentid, CONCAT(fname, ' ', lname) AS name, student.class, subscription from student WHERE uen = '$uen' AND studentid = '$studentid';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewStudentSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO SEARCH A STUDENT
+  public function searchStudent($searchQuery)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT student.class, CONCAT(student.fname, ' ', student.lname) AS studentname, student.studentid
+            FROM student
+            JOIN class on student.class = class.class
+            WHERE student.uen = '$uen' AND studentid LIKE '%$searchQuery%' 
+            OR student.uen = '$uen' AND CONCAT(student.fname , ' ', student.lname) LIKE '%$searchQuery%'
+            OR student.uen = '$uen' AND fname LIKE '%$searchQuery%'
+            OR student.uen = '$uen' AND lname LIKE '%$searchQuery%';
+               
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewSearchStudentSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
