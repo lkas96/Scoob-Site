@@ -41,4 +41,12 @@ class DeleteClass{
     }
 }
 
+class AddStudent{
+    public static function addStudent($fname, $lname, $studentid, $parentid){
+        $addStudent = new School();
+        $results = $addStudent->addStudent($fname, $lname, $studentid, $parentid);
+        return $results;
+    }
+}
+
 ?>

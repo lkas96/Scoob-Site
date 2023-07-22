@@ -147,4 +147,21 @@ class School
       return false;
     }
   }
+
+    //FUNCTION TO ADD A STUDENT
+    public function addStudent($fname, $lname, $studentid, $parentid)
+    {
+      $uen = $_SESSION['uen'];
+  
+      $sql = "INSERT INTO student (fname, lname, studentid, parentid) VALUES ('$fname', '$lname', '$studentid', '$parentid');
+      ";
+  
+      $result = $this->conn->query($sql);
+  
+      if ($result === true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 }

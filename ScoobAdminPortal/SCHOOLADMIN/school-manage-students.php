@@ -118,7 +118,7 @@ if (isset($_POST["logout"])) {
     <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing All Students</h1>
           <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Student</button></a>
+          <a href="school-manage-students-add.php" style="margin-right: 10px;"><button>Add Student</button></a>
           <form method="post"  style="display: flex; align-items: center;margin-bottom: 0px;">
             <input type="text" name="searchQuery" placeholder="Search Student" style="margin-right: 5px;">
             <input type="submit" value="Search">
