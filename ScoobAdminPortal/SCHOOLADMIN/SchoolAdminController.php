@@ -33,10 +33,18 @@ class SearchClass{
     }
 }
 
-class DeleteClass{
-    public static function deleteClass($class){
-        $deleteClass = new School();
-        $results = $deleteClass->deleteClass($class);
+// class DeleteClass{
+//     public static function deleteClass($class){
+//         $deleteClass = new School();
+//         $results = $deleteClass->deleteClass($class);
+//         return $results;
+//     }
+// }
+
+class ViewAllStudents{
+    public static function viewAllStudents(){
+        $viewAllStudents = new School();
+        $results = $viewAllStudents->viewAllStudents();
         return $results;
     }
 }
@@ -45,8 +53,22 @@ class AddStudent{
     public static function addStudent($fname, $lname, $studentid, $parentid){
         $addStudent = new School();
         $results = $addStudent->addStudent($fname, $lname, $studentid, $parentid);
+    }
+}
+
+class ViewStudent{
+    public static function viewStudent($studentid){
+        $viewStudent = new School();
+        $results = $viewStudent->viewStudent($studentid);
         return $results;
     }
 }
 
+class SearchStudent{
+    public static function searchStudent($searchQuery){
+        $searchStudent = new School();
+        $results = $searchStudent->searchStudent($searchQuery);
+        return $results;
+    }
+}
 ?>
