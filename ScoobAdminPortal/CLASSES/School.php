@@ -149,11 +149,11 @@ class School
   }
 
     //FUNCTION TO ADD A STUDENT
-    public function addStudent($fname, $lname, $studentid, $parentid)
+    public function addStudent($fname, $lname, $studentid, $parentid, $class, $subscription)
     {
       $uen = $_SESSION['uen'];
   
-      $sql = "INSERT INTO student (fname, lname, studentid, parentid) VALUES ('$fname', '$lname', '$studentid', '$parentid');
+      $sql = "INSERT INTO student (fname, lname, studentid, parentid, class, subscription, uen) VALUES ('$fname', '$lname', '$studentid', '$parentid', '$class', '$subscription', '$uen');
       ";
   
       $result = $this->conn->query($sql);

@@ -50,9 +50,10 @@ class ViewAllStudents{
 }
 
 class AddStudent{
-    public static function addStudent($fname, $lname, $studentid, $parentid){
+    public static function addStudent($fname, $lname, $studentid, $parentid, $class, $subscription){
         $addStudent = new School();
-        $results = $addStudent->addStudent($fname, $lname, $studentid, $parentid);
+        $results = $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
+        return $results;
     }
 }
 

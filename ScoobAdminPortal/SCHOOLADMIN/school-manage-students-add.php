@@ -66,6 +66,11 @@ if (isset($_POST["logout"])) {
           <input type="text" name="studentID" placeholder="Enter new Student's ID" required><br><br>
           <label>Parent ID: </label>
           <input type="text" name="parentID" placeholder="Enter Parent ID" required><br><br>
+          <label>Class: </label>
+          <input type="text" name="class" placeholder="Enter Class" required><br><br>
+          <label>Subscription to Bus: </label>
+          <input type="text" name="subscription" placeholder="Enter Yes/No" required><br><br>
+
 
           <input type="submit" name="submit" value="Add Student">
         </form>
@@ -76,9 +81,11 @@ if (isset($_POST["logout"])) {
             $lname = $_POST["studentLastName"];       
             $studentid = $_POST["studentID"];
             $parentid = $_POST["parentID"];
+            $class = $_POST["class"];
+            $subscription = $_POST["subscription"];
            
             $addStudent = new AddStudent();
-            $addStudent->addStudent($fname, $lname, $studentid, $parentid);
+            $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
 
             if ($addStudent == true) {
               echo "<script>alert('Student successfully added'); window.location.href = 'school-manage-students.php';</script>";
