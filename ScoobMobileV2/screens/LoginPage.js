@@ -38,21 +38,6 @@ function LoginPage() {
 	});
 	const { setUserEmail } = useContext(UserContext);
 
-	// const onSignInPressed = async (data) => {
-	// 	// const response = await Auth.signIn(data.username, data.password);
-	// 	// console.log(response);
-	// 	try {
-	// 		const user = await Auth.signIn(
-	// 			credentials.username,
-	// 			credentials.password
-	// 		);
-	// 		console.log(user);
-	// 		navigation.navigate("ParentBottomTab");
-	// 	} catch (error) {
-	// 		console.log("error signing in", error);
-	// 	}
-	// };
-
 	const onLoginPressed = async () => {
 		try {
 			// Make a POST request to the login route in the Lambda function
@@ -98,36 +83,6 @@ function LoginPage() {
 			alert('Failed to perform login');
 		}
 	};
-
-	// const onLoginPressed = async (data) => {
-	// 	try {
-	// 		const response = await Auth.signIn(
-	// 			credentials.username,
-	// 			credentials.password
-	// 		);
-	// 		console.log(response.challengeParam.userAttributes);
-
-	// 		// (selectedUser = undefined) is to reset the variable so when the user logs out,
-	// 		// the data will be reset rather than saving the previous data
-	// 		if (selectedUser === "Parent/Guardians") {
-	// 			selectedUser = undefined;
-	// 			navigation.navigate("ParentBottomTab");
-	// 		} else if (selectedUser === "Teacher") {
-	// 			selectedUser = undefined;
-	// 			navigation.navigate("TeacherBottomTab");
-	// 		} else if (selectedUser === "Driver") {
-	// 			selectedUser = undefined;
-	// 			navigation.navigate("DriverBottomTab");
-	// 		} else {
-	// 			Alert.alert("Please select a user from the dropdown list");
-	// 		}
-	// 	} catch (error) {
-	// 		// alert("Please select a user from the dropdown list")
-	// 		console.log("error signing in", error);
-	// 		Alert.alert("Invalid username or password");
-	// 	}
-	// };
-
 
 	return (
 		<KeyboardAvoidingView
