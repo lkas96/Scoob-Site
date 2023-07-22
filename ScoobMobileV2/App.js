@@ -2,32 +2,21 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import {
-	Button,
-	FlatList,
-	Keyboard,
-	ScrollView,
-	StyleSheet,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	TouchableWithoutFeedback,
-	View,
-} from "react-native";
 import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { setCustomText, setCustomTextInput } from "react-native-global-props";
-
+import AuthNavigator from './routes/AuthNavigator'
 import { NavigationContainer } from "@react-navigation/native";
-import AuthNavigator from "./routes/AuthNavigator";
 
 import COLORS from "./constants/colors";
 
 // --------------AWS AMPLIFY ----------
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify } from "aws-amplify";
 import aws_exports from "./src/aws-exports";
 Amplify.configure(aws_exports);
 //-------------------------------------
+
+import { UserProvider } from './context/UserContext';
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -70,10 +59,12 @@ export default function App() {
 	// --------------------------------------------------------
 
 	return (
-		<GestureHandlerRootView style={{ flex: 1 }}>
-			<NavigationContainer>
-				<AuthNavigator />
-			</NavigationContainer>
-		</GestureHandlerRootView>
+		<UserProvider>
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<NavigationContainer>
+					<AuthNavigator />
+				</NavigationContainer>
+			</GestureHandlerRootView>
+		</UserProvider>
 	);
 }

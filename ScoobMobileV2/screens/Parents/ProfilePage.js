@@ -1,13 +1,34 @@
 import Barcode from "@kichiyaki/react-native-barcode-generator";
-import React from "react";
-import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { Alert, Image, StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { COLORS } from "../../constants";
+import axios from 'axios';
+import UserContext from '../../context/UserContext';
+
 
 const ProfilePage = ({ route }) => {
 	const editProfileHandler = () => {
 		Alert.alert("Edit profile");
 	};
+
+	const { userEmail } = useContext(UserContext);
+	const [profileData, setProfileData] = useState(null);
+
+	const lambdaEndpoint = 'https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod';
+
+	useEffect(() => {
+		// Fetch data from the Lambda function when the component mounts
+		axios
+			.get(`${lambdaEndpoint}/parent/${userEmail}`)
+			.then((response) => {
+				// Handle the response and set the profile data in the state
+				setProfileData(response.data);
+			})
+			.catch((error) => {
+				console.error('Error fetching profile data:', error);
+			});
+	}, [userEmail]);
 
 	return (
 		<View style={styles.container}>
@@ -16,16 +37,20 @@ const ProfilePage = ({ route }) => {
 				source={require("../../assets/images/kemal.jpg")}
 			/>
 			<View style={styles.details}>
-				<Text style={styles.text}>Name: {route.params.parentInfo[0].name}</Text>
-				<Text style={styles.text}>
-					NRIC/FIN: {route.params.parentInfo[0].id}
-				</Text>
-				<Text style={styles.text}>
-					Email: {route.params.parentInfo[0].email}
-				</Text>
-				<Text style={styles.text}>
-					Phone Number: {route.params.parentInfo[0].phoneNo}
-				</Text>
+				{profileData ? (
+					<>
+						<Text style={styles.text}>Name: {profileData.fname} {profileData.lname}</Text>
+						<Text style={styles.text}>NRIC/FIN: {profileData.nric}</Text>
+						<Text style={styles.text}>Email: {profileData.email}</Text>
+						<Text style={styles.text}>Phone Number: {profileData.phone}</Text>
+						{/* Add more profile details as needed */}
+					</>
+				) : (
+					<View style={styles.loading}>
+						<ActivityIndicator size="large" color="#fd7e14" />
+						<Text>Loading...</Text>
+					</View>
+				)}
 				<Barcode
 					value={route.params.parentInfo[0].id}
 					height={80}

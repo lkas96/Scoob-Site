@@ -10,14 +10,6 @@
       "StackName": "amplify-scoobmobilev2-dev-174945",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:769838765134:stack/amplify-scoobmobilev2-dev-174945/2578a160-10e2-11ee-9f73-0a2646c16102",
       "AmplifyAppId": "d97e5mhrp189f"
-    },
-    "categories": {
-      "auth": {
-        "ScoobMobileV2": {}
-      },
-      "storage": {
-        "s3scoobmobilev2storagede8b844b": {}
-      }
     }
   }
 }

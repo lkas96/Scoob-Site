@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 // import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
 	Alert,
 	FlatList,
@@ -20,62 +20,114 @@ import SelectDropdown from "react-native-select-dropdown";
 import Icon from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/CustomButton";
 import { COLORS } from "../constants";
+import axios from 'axios';
+import UserContext from "../context/UserContext";
 
-import { Auth } from "aws-amplify";
-
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+NEED TO CHANGE LAMBDA QUERY IF WANT TO USE "Parents/Guardians"
+NOW CAN ONLY USE "Parent" IF NOT CANNOT GET FROM DB
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 function LoginPage() {
 	const navigation = useNavigation();
 
-	const users = ["Parent/Guardians", "Teacher", "Driver"];
+	const users = ["Parent", "Teacher", "Driver"];
 
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
 	});
+	const { setUserEmail } = useContext(UserContext);
 
-	const onSignInPressed = async (data) => {
-		// const response = await Auth.signIn(data.username, data.password);
-		// console.log(response);
+	// const onSignInPressed = async (data) => {
+	// 	// const response = await Auth.signIn(data.username, data.password);
+	// 	// console.log(response);
+	// 	try {
+	// 		const user = await Auth.signIn(
+	// 			credentials.username,
+	// 			credentials.password
+	// 		);
+	// 		console.log(user);
+	// 		navigation.navigate("ParentBottomTab");
+	// 	} catch (error) {
+	// 		console.log("error signing in", error);
+	// 	}
+	// };
+
+	const onLoginPressed = async () => {
 		try {
-			const user = await Auth.signIn(
-				credentials.username,
-				credentials.password
-			);
-			console.log(user);
-			navigation.navigate("ParentBottomTab");
-		} catch (error) {
-			console.log("error signing in", error);
-		}
-	};
+			// Make a POST request to the login route in the Lambda function
+			const response = await axios.post('https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
+				email: credentials.username,
+				password: credentials.password,
+				userType: selectedUser.toLowerCase(),
+			});
 
-	const onLoginPressed = async (data) => {
-		try {
-			const response = await Auth.signIn(
-				credentials.username,
-				credentials.password
-			);
-			console.log(response.challengeParam.userAttributes);
+			// Check the response data for the login status
+			if (response.data.message === 'Login successful') {
+				const userType = response.data.userType;
 
-			// (selectedUser = undefined) is to reset the variable so when the user logs out,
-			// the data will be reset rather than saving the previous data
-			if (selectedUser === "Parent/Guardians") {
-				selectedUser = undefined;
-				navigation.navigate("ParentBottomTab");
-			} else if (selectedUser === "Teacher") {
-				selectedUser = undefined;
-				navigation.navigate("TeacherBottomTab");
-			} else if (selectedUser === "Driver") {
-				selectedUser = undefined;
-				navigation.navigate("DriverBottomTab");
+				// Set the user's email using the setUserEmail function from the UserContext
+				setUserEmail(credentials.username);
+
+				switch (userType) {
+					case 'teacher':
+						//alert('Switch statement case teacher');
+						navigation.navigate('TeacherBottomTab');
+						break;
+					case 'driver':
+						//alert('Switch statement case driver');
+						navigation.navigate('DriverBottomTab');
+						break;
+					case 'parent':
+						//alert('Switch statement case parent');
+						navigation.navigate('ParentBottomTab');
+						break;
+					default:
+						//alert('Switch statement case none');
+
+						// Handle other user types (if applicable)
+						break;
+				}
 			} else {
-				Alert.alert("Please select a user from the dropdown list");
+				// Incorrect details, display an error message
+				alert('Incorrect details');
 			}
-		} catch (error) {
-			// alert("Please select a user from the dropdown list")
-			console.log("error signing in", error);
-			Alert.alert("Invalid username or password");
+		} catch (err) {
+			// Handle any errors that occur during the login process
+			console.error('Error logging in:', err);
+			alert('Failed to perform login');
 		}
 	};
+
+	// const onLoginPressed = async (data) => {
+	// 	try {
+	// 		const response = await Auth.signIn(
+	// 			credentials.username,
+	// 			credentials.password
+	// 		);
+	// 		console.log(response.challengeParam.userAttributes);
+
+	// 		// (selectedUser = undefined) is to reset the variable so when the user logs out,
+	// 		// the data will be reset rather than saving the previous data
+	// 		if (selectedUser === "Parent/Guardians") {
+	// 			selectedUser = undefined;
+	// 			navigation.navigate("ParentBottomTab");
+	// 		} else if (selectedUser === "Teacher") {
+	// 			selectedUser = undefined;
+	// 			navigation.navigate("TeacherBottomTab");
+	// 		} else if (selectedUser === "Driver") {
+	// 			selectedUser = undefined;
+	// 			navigation.navigate("DriverBottomTab");
+	// 		} else {
+	// 			Alert.alert("Please select a user from the dropdown list");
+	// 		}
+	// 	} catch (error) {
+	// 		// alert("Please select a user from the dropdown list")
+	// 		console.log("error signing in", error);
+	// 		Alert.alert("Invalid username or password");
+	// 	}
+	// };
+
 
 	return (
 		<KeyboardAvoidingView
