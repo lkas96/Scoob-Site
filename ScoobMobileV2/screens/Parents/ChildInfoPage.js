@@ -36,8 +36,9 @@ const ChildInfoPage = ({ route, navigation }) => {
 					// keyExtractor={(item) => item.id} //if you want to extract key value
 					data={[
 						{
-							name: route.params.name,
-							id: route.params.id,
+							fname: route.params.fname,
+							lname: route.params.lname,
+							id: route.params.studentid,
 							class: route.params.class,
 							address: route.params.address,
 						},
@@ -46,10 +47,10 @@ const ChildInfoPage = ({ route, navigation }) => {
 						<View>
 							<Text style={styles.details}>
 								Name:{space}
-								{item.name}
+								{item.fname} {item.lname}
 							</Text>
 							<Text style={styles.details}>
-								NRIC: {space} {item.id}
+								NRIC: {space}{item.id}
 							</Text>
 							<Text style={styles.details}>
 								Class: {space}

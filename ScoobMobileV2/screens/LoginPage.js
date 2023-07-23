@@ -41,11 +41,20 @@ function LoginPage() {
 	const onLoginPressed = async () => {
 		try {
 			// Make a POST request to the login route in the Lambda function
-			const response = await axios.post('https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
+			// Arshad's endpoint
+			// const response = await axios.post('https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
+			// 	email: credentials.username,
+			// 	password: credentials.password,
+			// 	userType: selectedUser.toLowerCase(),
+			// });
+
+			// Jaron's endpoint
+			const response = await axios.post('https://kooz36ngo7.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
 				email: credentials.username,
 				password: credentials.password,
 				userType: selectedUser.toLowerCase(),
 			});
+
 
 			// Check the response data for the login status
 			if (response.data.message === 'Login successful') {
