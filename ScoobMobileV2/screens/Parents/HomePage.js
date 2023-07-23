@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	FlatList,
 	SafeAreaView,
@@ -8,20 +9,20 @@ import {
 	View,
 } from "react-native";
 import CustomButton from "../../components/CustomButton";
-import axios from 'axios';
-import UserContext from '../../context/UserContext';
-
+import UserContext from "../../context/UserContext";
 
 const HomePage = ({ navigation }) => {
-
 	const { userEmail } = "S9876543Z";
-	const [childData, setChildData] = useState('');
+	const [childData, setChildData] = useState("");
 
 	// Arshad's endpoint
 	// const lambdaEndpoint = 'https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod';
 
 	// Jaron's endpoint
-	const lambdaEndpoint = 'https://kooz36ngo7.execute-api.ap-southeast-1.amazonaws.com/prod';
+	// const lambdaEndpoint = 'https://kooz36ngo7.execute-api.ap-southeast-1.amazonaws.com/prod';
+
+	const lambdaEndpoint =
+		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
 	// const [child, setChild] = useState([
 	// 	{ name: "John Alexis", id: "1", class: "1A", address: "Jurong" },
@@ -46,7 +47,7 @@ const HomePage = ({ navigation }) => {
 				setChildData(response.data);
 			})
 			.catch((error) => {
-				console.error('Error fetching profile data:', error);
+				console.error("Error fetching profile data:", error);
 			});
 	}, [userEmail]);
 	console.log(childData);
