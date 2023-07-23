@@ -50,7 +50,8 @@ const ChildInfoPage = ({ route, navigation }) => {
 								{item.fname} {item.lname}
 							</Text>
 							<Text style={styles.details}>
-								NRIC: {space}{item.id}
+								NRIC: {space}
+								{item.id}
 							</Text>
 							<Text style={styles.details}>
 								Class: {space}

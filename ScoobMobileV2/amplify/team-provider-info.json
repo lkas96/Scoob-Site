@@ -10,6 +10,20 @@
       "StackName": "amplify-scoobmobilev2-dev-174945",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:769838765134:stack/amplify-scoobmobilev2-dev-174945/2578a160-10e2-11ee-9f73-0a2646c16102",
       "AmplifyAppId": "d97e5mhrp189f"
+    },
+    "categories": {
+      "storage": {
+        "s3scoobmobilev2storagede8b844b": {}
+      },
+      "function": {
+        "expressFunction": {
+          "deploymentBucketName": "amplify-scoobmobilev2-dev-174945-deployment",
+          "s3Key": "amplify-builds/expressFunction-386d317859765a464567-build.zip"
+        }
+      },
+      "api": {
+        "expressAPI": {}
+      }
     }
   }
 }

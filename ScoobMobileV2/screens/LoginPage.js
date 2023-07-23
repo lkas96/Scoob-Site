@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 // import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	Alert,
 	FlatList,
@@ -20,7 +21,6 @@ import SelectDropdown from "react-native-select-dropdown";
 import Icon from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/CustomButton";
 import { COLORS } from "../constants";
-import axios from 'axios';
 import UserContext from "../context/UserContext";
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -41,40 +41,34 @@ function LoginPage() {
 	const onLoginPressed = async () => {
 		try {
 			// Make a POST request to the login route in the Lambda function
-			// Arshad's endpoint
-			// const response = await axios.post('https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
-			// 	email: credentials.username,
-			// 	password: credentials.password,
-			// 	userType: selectedUser.toLowerCase(),
-			// });
-
-			// Jaron's endpoint
-			const response = await axios.post('https://kooz36ngo7.execute-api.ap-southeast-1.amazonaws.com/prod/login', {
-				email: credentials.username,
-				password: credentials.password,
-				userType: selectedUser.toLowerCase(),
-			});
-
+			const response = await axios.post(
+				"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/login",
+				{
+					email: credentials.username,
+					password: credentials.password,
+					userType: selectedUser.toLowerCase(),
+				}
+			);
 
 			// Check the response data for the login status
-			if (response.data.message === 'Login successful') {
+			if (response.data.message === "Login successful") {
 				const userType = response.data.userType;
 
 				// Set the user's email using the setUserEmail function from the UserContext
 				setUserEmail(credentials.username);
 
 				switch (userType) {
-					case 'teacher':
+					case "teacher":
 						//alert('Switch statement case teacher');
-						navigation.navigate('TeacherBottomTab');
+						navigation.navigate("TeacherBottomTab");
 						break;
-					case 'driver':
+					case "driver":
 						//alert('Switch statement case driver');
-						navigation.navigate('DriverBottomTab');
+						navigation.navigate("DriverBottomTab");
 						break;
-					case 'parent':
+					case "parent":
 						//alert('Switch statement case parent');
-						navigation.navigate('ParentBottomTab');
+						navigation.navigate("ParentBottomTab");
 						break;
 					default:
 						//alert('Switch statement case none');
@@ -84,12 +78,12 @@ function LoginPage() {
 				}
 			} else {
 				// Incorrect details, display an error message
-				alert('Incorrect details');
+				alert("Incorrect details");
 			}
 		} catch (err) {
 			// Handle any errors that occur during the login process
-			console.error('Error logging in:', err);
-			alert('Failed to perform login');
+			console.error("Error logging in:", err);
+			alert("Failed to perform login");
 		}
 	};
 
