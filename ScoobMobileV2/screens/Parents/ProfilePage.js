@@ -15,12 +15,7 @@ const ProfilePage = ({ route }) => {
 	const { userEmail } = useContext(UserContext);
 	const [profileData, setProfileData] = useState(null);
 
-	// Arshad's endpoint
-	// const lambdaEndpoint = 'https://zmgz7zj1xa.execute-api.ap-southeast-1.amazonaws.com/prod';
-
-	// Jaron's endpoint
-	const lambdaEndpoint = 'https://kooz36ngo7.execute-api.ap-southeast-1.amazonaws.com/prod';
-
+	const lambdaEndpoint = "https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/";
 	useEffect(() => {
 		// Fetch data from the Lambda function when the component mounts
 		axios

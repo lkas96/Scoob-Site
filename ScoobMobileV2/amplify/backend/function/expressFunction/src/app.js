@@ -46,9 +46,9 @@ db.getConnection((err, connection) => {
 /**********************
  * Example get method *
  **********************/
-app.get("/hello", (req, res) => {
-	res.send("Hello World!");
-});
+// app.get("/hello", (req, res) => {
+// 	res.send("Hello World!");
+// });
 
 app.get("/temp", function (req, res) {
 	// Add your code here
@@ -109,50 +109,112 @@ app.get("/student/:parentid", (req, res) => {
 /****************************
  * Example post method *
  ****************************/
+// Login route Original
+// app.post("/login", async (req, res) => {
+// 	const { email, password, userType } = req.body;
+
+// 	try {
+// 		let tableName;
+// 		switch (userType) {
+// 			case "teacher":
+// 				tableName = "teacher";
+// 				break;
+// 			case "driver":
+// 				tableName = "driver";
+// 				break;
+// 			case "parent":
+// 				tableName = "parent";
+// 				break;
+// 			default:
+// 				// Invalid userType, send error response
+// 				return res.status(400).json({ error: "Invalid userType" });
+// 		}
+
+// 		// SQL query to check if the user exists in the specified table
+// 		const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
+
+// 		db.query(sql, [email, password], (err, results) => {
+// 			if (err) {
+// 				console.error("Error executing query:", err);
+// 				return res.status(500).json({ error: "Failed to perform login" });
+// 			}
+
+// 			if (results.length === 0) {
+// 				// No matching user found, send error response
+// 				return res.status(401).json({ error: "Incorrect credentials" });
+// 			}
+
+// 			// User authenticated, send success response with userType
+// 			res.json({ message: "Login successful", userType });
+// 		});
+// 	} catch (err) {
+// 		// Handle any database query errors
+// 		console.error("Error executing query:", err);
+// 		res.status(500).json({ error: "Failed to perform login" });
+// 	}
+// });
+
 // Login route
 app.post("/login", async (req, res) => {
 	const { email, password, userType } = req.body;
-
+  
 	try {
-		let tableName;
-		switch (userType) {
-			case "teacher":
-				tableName = "teacher";
-				break;
-			case "driver":
-				tableName = "driver";
-				break;
-			case "parent":
-				tableName = "parent";
-				break;
-			default:
-				// Invalid userType, send error response
-				return res.status(400).json({ error: "Invalid userType" });
+	  let tableName;
+	  let idColumn; // Variable to store the respective user ID column
+  
+	  switch (userType) {
+		case "teacher":
+		  tableName = "teacher";
+		  idColumn = "teacherid";
+		  break;
+		case "driver":
+		  tableName = "driver";
+		  idColumn = "driverid";
+		  break;
+		case "parent":
+		  tableName = "parent";
+		  idColumn = "parentid";
+		  break;
+		default:
+		  // Invalid userType, send error response
+		  return res.status(400).json({ error: "Invalid userType" });
+	  }
+
+	  console.log("userType:", userType);
+	  console.log("idColumn:", idColumn);
+  
+	  // SQL query to fetch all user details from the specified table
+	  const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
+  
+	  db.query(sql, [email, password], (err, results) => {
+		if (err) {
+		  console.error("Error executing query:", err);
+		  return res.status(500).json({ error: "Failed to perform login" });
 		}
-
-		// SQL query to check if the user exists in the specified table
-		const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
-
-		db.query(sql, [email, password], (err, results) => {
-			if (err) {
-				console.error("Error executing query:", err);
-				return res.status(500).json({ error: "Failed to perform login" });
-			}
-
-			if (results.length === 0) {
-				// No matching user found, send error response
-				return res.status(401).json({ error: "Incorrect credentials" });
-			}
-
-			// User authenticated, send success response with userType
-			res.json({ message: "Login successful", userType });
-		});
+  
+		if (results.length === 0) {
+		  // No matching user found, send error response
+		  return res.status(401).json({ error: "Incorrect credentials" });
+		}
+  
+		// User authenticated, send success response with all user details
+		const user = results[0];
+		const { fname, lname } = user;
+  
+		// Extract the respective user ID based on the user type
+		const userId = user[idColumn];
+  
+		// Send all user details, including the respective user ID
+		res.json({ message: "Login successful", userType, fname, lname, userId });
+	  });
 	} catch (err) {
-		// Handle any database query errors
-		console.error("Error executing query:", err);
-		res.status(500).json({ error: "Failed to perform login" });
+	  // Handle any database query errors
+	  console.error("Error executing query:", err);
+	  res.status(500).json({ error: "Failed to perform login" });
 	}
-});
+  });
+  
+  
 
 app.post("/temp", function (req, res) {
 	// Add your code here
