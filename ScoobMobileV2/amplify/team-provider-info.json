@@ -12,14 +12,14 @@
       "AmplifyAppId": "d97e5mhrp189f"
     },
     "categories": {
-      "storage": {
-        "s3scoobmobilev2storagede8b844b": {}
-      },
       "function": {
         "expressFunction": {
           "deploymentBucketName": "amplify-scoobmobilev2-dev-174945-deployment",
           "s3Key": "amplify-builds/expressFunction-47596759417778445779-build.zip"
         }
+      },
+      "storage": {
+        "s3scoobmobilev2storagede8b844b": {}
       },
       "api": {
         "expressAPI": {}
