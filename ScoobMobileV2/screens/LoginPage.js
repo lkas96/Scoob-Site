@@ -1,5 +1,3 @@
-
-
 // //Original below
 
 // import { useNavigation } from "@react-navigation/native";
@@ -249,14 +247,6 @@
 
 // export default LoginPage;
 
-
-
-
-
-
-
-
-
 // // //test below
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -307,7 +297,7 @@ function LoginPage() {
 				// Set the user's details (including the ID) using the setUserDetails function from the UserContext
 				setUserDetails(response.data); // Save all user details from the response
 				// Display the values using Alert
-				Alert.alert("User Type", userType);
+				// Alert.alert("User Type", userType);
 
 				switch (userType) {
 					case "teacher":
