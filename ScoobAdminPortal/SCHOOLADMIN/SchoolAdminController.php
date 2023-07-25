@@ -72,4 +72,21 @@ class SearchStudent{
         return $results;
     }
 }
+
+class ViewAllTeachers{
+    public static function viewAllTeachers(){
+        $viewAllTeachers = new School();
+        $results = $viewAllTeachers->viewAllTeachers();
+        return $results;
+    }
+}
+
+class AddTeacher{
+    public static function addTeacher($fname, $lname, $teacherid, $class, $email, $password){
+        $addTeacher = new School();
+        $results = $addTeacher->addTeacher($fname, $lname, $teacherid, $class, $email, $password);
+        return $results;
+    }
+}
+
 ?>

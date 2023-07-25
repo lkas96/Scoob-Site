@@ -164,6 +164,7 @@ class School
         return false;
       }
     }
+
   //FUNCTION TO VIEW ALL STUDENTS
   public function viewAllStudents()
   {
@@ -231,4 +232,45 @@ class School
       return false;
     }
   }
+
+    //FUNCTION TO VIEW ALL TEACHERS
+    public function viewAllTeachers()
+    {
+      $uen = $_SESSION['uen'];
+  
+      $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
+              FROM teacher
+              JOIN class on teacher.class = class.class
+              WHERE class.uen = '$uen'
+              ORDER BY teacher.class;
+      ";
+  
+      $result = $this->conn->query($sql);
+  
+      if ($result->num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewAllTeachersSQLTable'] = $result;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+        //FUNCTION TO ADD A TEACHER
+        public function addTeacher($fname, $lname, $teacherid, $class, $email, $password)
+        {
+          $uen = $_SESSION['uen'];
+      
+          $sql = "INSERT INTO teacher (fname, lname, teacherid, class, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$class', '$email', '$password', '$uen');
+          ";
+      
+          $result = $this->conn->query($sql);
+      
+          if ($result === true) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
 }

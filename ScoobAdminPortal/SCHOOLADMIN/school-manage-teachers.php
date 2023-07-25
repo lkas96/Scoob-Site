@@ -15,6 +15,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>School Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +36,9 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
 	</nav>
 
@@ -53,18 +56,75 @@ if (isset($_POST["logout"])) {
 
     <div class="rightPanel">
 
-    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing All Teachers</h1>
-          <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Teacher</button></a>
-          <form method="post"  style="display: flex; align-items: center;margin-bottom: 0px;">
+        <div style="display: flex; align-items: center;">
+          <a href="school-manage-teachers-add.php" style="margin-right: 10px;"><button>Add Teacher</button></a>
+
+          <form method="post" action="school-manage-teachers-search.php">
             <input type="text" name="searchQuery" placeholder="Search Teacher" style="margin-right: 5px;">
             <input type="submit" value="Search">
           </form>
         </div>
       </div>
 
+      <div class="data">
+        <?php
+          $aaa = viewAllTeachers::viewAllTeachers();
+          $result = NULL; //PLACEHOLDER
+          
+          if (isset($_SESSION['viewAllTeachersSQLTable'])) {
+            $result = $_SESSION['viewAllTeachersSQLTable'];
+          }
+  
+          if ($result == NULL) {
+            echo 'No Teachers found.';
+          } else {
+            //PRINT TABLE HEADERS
+            echo '<table class="table table-bordered table-sm" style="text-align: center">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>';
+            echo '<th scope="col">S/N</th>';
+            echo '<th scope="col">Teacher ID</th>';
+            echo '<th scope="col">Teacher Name</th>';
+            echo '<th scope="col">Class</th>';
+            echo '<th scope="col">Action</th>';
+            echo '</tr>';
+            echo '</thead>';
+          
+            $rowNumber = 1;
+  
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo '<tbody>';
+              echo '<tr>';
+              echo '<td>'. $rowNumber . "</td>";
+              echo '<td>' . $row['teacherid'] . "</td>";
+              echo '<td>' . $row['teachername'] . "</td>";
+              echo '<td>' . $row['class'] . "</td>";
+  
+              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              echo '<td><form action="school-manage-teachers-view.php" method="post">';
+              echo '<input type="hidden" name="teacher" value="' . $row['teacherid'] . '">';
+              echo '<button class="view-button" type="submit">View</button>';
+              echo '</form></td>';
+              echo "</tr>";
+              echo '</tr>';
+              echo '</tbody>';
+              $rowNumber++;
+            }
+            echo '</table>';
+          }
 
+        ?>
+      </div>
+
+    </div> <!-- End of RightPanel -->
+    
+  </div> <!-- End of Container -->
+</body>
+</html>
+
+<!--
     <table>
   <tr>
     <th>Teacher</th>
@@ -137,12 +197,9 @@ if (isset($_POST["logout"])) {
     <td><a href="school-manage-classes-detailedview.php"><button class="view-button">View More</button></a>  <a><button class="view-button">Update</button></a> <a><button class="view-button">Delete</button></a> </td>
   </tr>
 </table>
+-->
 
-    </div> <!-- End of RightPanel -->
-    
-  </div> <!-- End of Container -->
-</body>
-</html>
+ 
 
 
 
