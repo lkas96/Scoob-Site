@@ -262,17 +262,17 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import {
-  Alert,
-  Image,
-  Keyboard,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
+	Alert,
+	Image,
+	Keyboard,
+	KeyboardAvoidingView,
+	SafeAreaView,
+	StatusBar,
+	StyleSheet,
+	Text,
+	TextInput,
+	TouchableWithoutFeedback,
+	View,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -281,63 +281,57 @@ import { COLORS } from "../constants";
 import UserContext from "../context/UserContext";
 
 function LoginPage() {
-  const navigation = useNavigation();
-  const { setUserEmail, setUserDetails } = useContext(UserContext); // Get setUserEmail and setUserDetails from the context
+	const navigation = useNavigation();
+	const { setUserEmail, setUserDetails } = useContext(UserContext); // Get setUserEmail and setUserDetails from the context
 
-  const users = ["Parent", "Teacher", "Driver"];
+	const users = ["Parent", "Teacher", "Driver"];
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+	const [credentials, setCredentials] = useState({
+		username: "",
+		password: "",
+	});
 
-  const onLoginPressed = async () => {
-    try {
-      const response = await axios.post(
-        "https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/login",
-        {
-          email: credentials.username,
-          password: credentials.password,
-          userType: selectedUser.toLowerCase(),
-        }
-      );
+	const onLoginPressed = async () => {
+		try {
+			const response = await axios.post(
+				"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/login",
+				{
+					email: credentials.username,
+					password: credentials.password,
+					userType: selectedUser.toLowerCase(),
+				}
+			);
+			if (response.data.message === "Login successful") {
+				const userType = response.data.userType;
+				setUserEmail(credentials.username); // Set the user's email using the setUserEmail function from the UserContext
+				// Set the user's details (including the ID) using the setUserDetails function from the UserContext
+				setUserDetails(response.data); // Save all user details from the response
+				// Display the values using Alert
+				Alert.alert("User Type", userType);
 
-      if (response.data.message === "Login successful") {
-        const userType = response.data.userType;
-
-        setUserEmail(credentials.username); // Set the user's email using the setUserEmail function from the UserContext
-
-        // Set the user's details (including the ID) using the setUserDetails function from the UserContext
-        setUserDetails(response.data); // Save all user details from the response
-		// Display the values using Alert
-		Alert.alert("User Type", userType);
-
-        switch (userType) {
-          case "teacher":
-			alert('Switch statement case teacher');
-            navigation.navigate("TeacherBottomTab");
-            break;
-          case "driver":
-			alert('Switch statement case driver');
-            navigation.navigate("DriverBottomTab");
-            break;
-          case "parent":
-			alert('Switch statement case parent');
-            navigation.navigate("ParentBottomTab");
-            break;
-          default:
-            break;
-        }
-      } else {
-        // Incorrect details, display an error message
-        Alert.alert("Incorrect details");
-      }
-    } catch (err) {
-      // Handle any errors that occur during the login process
-      console.error("Error logging in:", err);
-      Alert.alert("Failed to perform login");
-    }
-  };
+				switch (userType) {
+					case "teacher":
+						navigation.navigate("TeacherBottomTab");
+						break;
+					case "driver":
+						navigation.navigate("DriverBottomTab");
+						break;
+					case "parent":
+						navigation.navigate("ParentBottomTab");
+						break;
+					default:
+						break;
+				}
+			} else {
+				// Incorrect details, display an error message
+				Alert.alert("Incorrect details");
+			}
+		} catch (err) {
+			// Handle any errors that occur during the login process
+			console.error("Error logging in:", err);
+			Alert.alert("Failed to perform login");
+		}
+	};
 
 	return (
 		<KeyboardAvoidingView

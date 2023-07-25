@@ -39,7 +39,7 @@ const ProfilePage = ({ route }) => {
 				{profileData ? (
 					<>
 						<Text style={styles.text}>Name: {profileData.fname} {profileData.lname}</Text>
-						<Text style={styles.text}>NRIC/FIN: {profileData.nric}</Text>
+						<Text style={styles.text}>NRIC/FIN: {profileData.parentid}</Text>
 						<Text style={styles.text}>Email: {profileData.email}</Text>
 						<Text style={styles.text}>Phone Number: {profileData.phone}</Text>
 						{/* Add more profile details as needed */}
