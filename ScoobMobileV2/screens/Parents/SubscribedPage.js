@@ -1,24 +1,27 @@
 import React from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+	Button,
+	SafeAreaView,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
+import { COLORS } from "../../constants";
 
 const SubscribedPage = () => {
+	function something() {}
+
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* <Text>SubscribedPage</Text> */}
 			<View>
-				<Button title="BUtton0" />
-				<Button title="BUtton0.5" />
-			</View>
-			<View style={styles.parent}>
-				{/* <CustomButton text="Button1" type="QUARTERNARY" />
-				<CustomButton text="Button2" type="QUARTERNARY" /> */}
-				<Button title="BUtton1" />
-				<Button title="BUtton2" />
-			</View>
-			<View>
-				<Button title="BUtton3" />
-				<Button title="BUtton4" />
+				<TouchableOpacity
+					style={styles.buttonStyle}
+					onPress={() => something()}
+				>
+					<Text style={styles.buttonTextStyle}>Generate QR Code</Text>
+				</TouchableOpacity>
 			</View>
 		</SafeAreaView>
 	);
@@ -31,6 +34,21 @@ const styles = StyleSheet.create({
 	parent: {
 		flexDirection: "row",
 		justifyContent: "space-evenly",
+	},
+	buttonStyle: {
+		backgroundColor: COLORS.primary,
+		borderWidth: 0,
+		color: COLORS.white,
+		borderColor: COLORS.primary,
+		alignItems: "center",
+		borderRadius: 5,
+		marginTop: 30,
+		padding: 10,
+	},
+	buttonTextStyle: {
+		color: COLORS.black,
+		paddingVertical: 10,
+		fontSize: 16,
 	},
 });
 

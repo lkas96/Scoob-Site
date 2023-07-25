@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
 	SafeAreaView,
 	StyleSheet,
@@ -7,65 +7,45 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-
 import QRCode from "react-native-qrcode-svg";
+import CustomButton from "../../components/CustomButton";
+import { COLORS } from "../../constants";
+import UserContext from "../../context/UserContext";
 
-function QR() {
-	return <QRCode value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />;
-}
+const ThirdPartyQR = ({ route }) => {
+	const { userDetails } = useContext(UserContext);
 
-const ThirdPartyQR = () => {
-	// return (
-	// 	<View style={styles.container}>
-	// 		<QR />
-	// 	</View>
-	// );
-	const [inputText, setInputText] = useState("");
-	const [qrvalue, setQrvalue] = useState("");
+	function QR() {}
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View style={styles.container}>
-				<Text style={styles.titleStyle}>
-					Generation of QR Code in React Native
-				</Text>
-				<QRCode
-					//QR code value
-					value={qrvalue ? qrvalue : "NA"}
-					//size of QR Code
-					size={250}
-					//Color of the QR Code (Optional)
-					color="black"
-					//Background Color of the QR Code (Optional)
-					backgroundColor="white"
-					//Logo of in the center of QR Code (Optional)
-					logo={{
-						url: "https://raw.githubusercontent.com/AboutReact/sampleresource/master/logosmalltransparen.png",
-					}}
-					//Center Logo size  (Optional)
-					logoSize={30}
-					//Center Logo margin (Optional)
-					logoMargin={2}
-					//Center Logo radius (Optional)
-					logoBorderRadius={15}
-					//Center Logo background (Optional)
-					logoBackgroundColor="yellow"
-				/>
-				<Text style={styles.textStyle}>
-					Please insert any value to generate QR code
-				</Text>
-				<TextInput
-					style={styles.textInputStyle}
-					onChangeText={(inputText) => setInputText(inputText)}
-					placeholder="Enter Any Value"
-					value={inputText}
-				/>
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => setQrvalue(inputText)}
-				>
+				<Text style={styles.title}>Third Party QR</Text>
+				<View style={styles.QRStyle}>
+					<QRCode
+						//QR code value
+						value={`${userDetails.userId},${route.params.studentid}`}
+						// data=result.split(",") // to read the data from ^
+						//size of QR Code
+						size={250}
+						//Color of the QR Code (Optional)
+						color={COLORS.black}
+						//Background Color of the QR Code (Optional)
+						backgroundColor={COLORS.white}
+						//Logo of in the center of QR Code (Optional)
+						logo={require("../../assets/images/icon.png")}
+						//Center Logo size  (Optional)
+						logoSize={50}
+						logoMargin={-1}
+						//Center Logo radius (Optional)
+						logoBorderRadius={15}
+						//Center Logo background (Optional)
+						logoBackgroundColor={COLORS.white}
+					/>
+				</View>
+				{/* <TouchableOpacity style={styles.buttonStyle} onPress={() => QR()}>
 					<Text style={styles.buttonTextStyle}>Generate QR Code</Text>
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 			</View>
 		</SafeAreaView>
 	);
@@ -75,7 +55,30 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "flex-start",
+	},
+	title: {
+		fontSize: 35,
+		padding: 50,
+		fontFamily: "NunitoSans-Bold",
+	},
+	QRStyle: {
+		padding: 50,
+	},
+	buttonStyle: {
+		backgroundColor: COLORS.primary,
+		borderWidth: 0,
+		color: COLORS.white,
+		borderColor: COLORS.primary,
+		alignItems: "center",
+		borderRadius: 5,
+		marginTop: 30,
+		padding: 10,
+	},
+	buttonTextStyle: {
+		color: COLORS.black,
+		paddingVertical: 10,
+		fontSize: 16,
 	},
 });
 

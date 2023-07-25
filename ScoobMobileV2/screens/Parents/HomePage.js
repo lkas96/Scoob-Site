@@ -20,7 +20,6 @@ const HomePage = ({ navigation }) => {
 
 	useEffect(() => {
 		// Fetch data from the Lambda function when the component mounts
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!! get parentid using parameter
 		axios
 			.get(`${lambdaEndpoint}/student/${userDetails.userId}`)
 			.then((response) => {

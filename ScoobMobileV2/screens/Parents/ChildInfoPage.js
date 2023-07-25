@@ -12,26 +12,25 @@ import CustomButton from "../../components/CustomButton";
 
 const ChildInfoPage = ({ route, navigation }) => {
 	const generateQR = () => {
-		navigation.navigate("ThirdPartyQR");
+		navigation.navigate("ThirdPartyQR", route.params);
 	};
-
 	const selfPickUpHandler = () => {
 		Alert.alert("Changed");
 	};
-
 	const pickUpHandler = () => {
 		Alert.alert("Picking up");
 	};
-
 	const arrivedHandler = () => {
 		Alert.alert("Arrived");
 	};
 	const space = "     ";
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={{ alignItems: "center" }}>
 				<FlatList
 					showsVerticalScrollIndicator={false}
+					scrollEnabled={false}
 					contentContainerStyle={styles.scrollViewItem}
 					// keyExtractor={(item) => item.id} //if you want to extract key value
 					data={[
