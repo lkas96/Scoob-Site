@@ -43,7 +43,10 @@ function AuthNavigator() {
 			<Stack.Screen
 				name="ParentBottomTab"
 				component={ParentBottomTab}
-				options={{ headerShown: false, gestureEnabled: false }}
+				options={{
+					headerShown: false,
+					gestureEnabled: false,
+				}}
 			/>
 			<Stack.Screen
 				name="DriverBottomTab"

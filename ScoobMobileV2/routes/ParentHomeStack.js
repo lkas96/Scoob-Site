@@ -23,6 +23,7 @@ const ParentHomeStack = () => {
 				name="ParentsHomePage"
 				component={ParentsHomePage}
 				options={{
+					headerShown: false,
 					headerLeft: false,
 				}}
 			/>

@@ -80,7 +80,7 @@ function ParentBottomTab() {
 				component={ParentsBusServiceStack}
 				options={{
 					tabBarLabel: "Bus Service",
-					headerShown: true,
+					headerShown: false,
 					headerTitle: " ",
 					headerStyle: { backgroundColor: COLORS.background },
 				}}

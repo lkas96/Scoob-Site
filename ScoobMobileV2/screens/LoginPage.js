@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
 	inner: {
 		flex: 1,
 		alignItems: "center",
-		justifyContent: "space-around",
+		justifyContent: "center",
 	},
 	logo: {
 		resizeMode: "contain",
