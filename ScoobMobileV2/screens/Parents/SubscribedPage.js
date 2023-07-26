@@ -1,5 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import {
+	Alert,
 	Button,
 	SafeAreaView,
 	StyleSheet,
@@ -11,22 +13,34 @@ import CustomButton from "../../components/CustomButton";
 import { COLORS } from "../../constants";
 
 const SubscribedPage = () => {
-	function something() {}
+	const [updatedAt, setUpdatedAt] = useState("");
+	const lambdaEndpoint =
+		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
+
+	function unsubscribe() {
+		axios
+			.put(`${lambdaEndpoint}/student/12345/subscribed`)
+			.then((response) => {
+				// Handle the response and set the profile data in the state
+				(response) => setUpdatedAt(response.data.updatedAt);
+			})
+			.catch((error) => {
+				console.error("Error updating profile data:", error);
+			});
+		subscribed = true;
+		Alert.alert("Unsubscribed");
+	}
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<View>
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => something()}
-				>
-					<Text style={styles.buttonTextStyle}>Generate QR Code</Text>
+				<TouchableOpacity style={styles.buttonStyle} onPress={unsubscribe}>
+					<Text style={styles.buttonTextStyle}>Unsubscribe</Text>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>
 	);
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

@@ -15,6 +15,12 @@ import Icon from "react-native-vector-icons/Ionicons";
 import TestAnimation from "../../components/TestAnimation";
 import TestButton from "../../components/TestButton";
 
+import { Button } from "@react-native-material/core";
+import { HStack, Stack, VStack } from "react-native-flex-layout";
+
+import { Input } from "@rneui/base";
+import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
+
 const ChatPage = () => {
 	const tabBarHeight = useBottomTabBarHeight();
 
@@ -37,6 +43,42 @@ const ChatPage = () => {
 				/>
 					{/* <TestAnimation /> */}
 					<TestButton style={styles.button} />
+					<HStack m={4} spacing={6} justify="center">
+						<Button title="Contained" />
+						<Button variant="outlined" title="Outlined" />
+						<Button variant="text" title="Text" />
+					</HStack>
+					<VStack m={4} spacing={6} justify="center">
+						<Input
+							containerStyle={{}}
+							disabledInputStyle={{ background: "#ddd" }}
+							inputContainerStyle={{}}
+							errorStyle={{}}
+							errorProps={{}}
+							inputStyle={{}}
+							label="Login"
+							labelStyle={{}}
+							labelProps={{}}
+							leftIcon={<Icon name="person" size={20} />}
+							leftIconContainerStyle={{}}
+							rightIconContainerStyle={{}}
+							placeholder="Enter Username"
+						/>
+						<Input
+							containerStyle={{}}
+							disabledInputStyle={{ background: "#ddd" }}
+							inputContainerStyle={{}}
+							errorStyle={{}}
+							errorProps={{}}
+							inputStyle={{}}
+							labelStyle={{}}
+							labelProps={{}}
+							leftIcon={<Icon name="lock-closed" size={20} />}
+							leftIconContainerStyle={{}}
+							rightIconContainerStyle={{}}
+							placeholder="Enter Password"
+						/>
+					</VStack>
 				</View>
 			</ScrollView>
 		</SafeAreaView>

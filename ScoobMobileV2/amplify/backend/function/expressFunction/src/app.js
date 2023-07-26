@@ -1,3 +1,11 @@
+/*
+Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+	http://aws.amazon.com/apache2.0/
+or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+*/
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
@@ -42,15 +50,15 @@ db.getConnection((err, connection) => {
 // 	res.send("Hello World!");
 // });
 
-// app.get("/temp", function (req, res) {
-// 	// Add your code here
-// 	res.json({ success: "get call succeed!", url: req.url });
-// });
+app.get("/temp", function (req, res) {
+	// Add your code here
+	res.json({ success: "get call succeed!", url: req.url });
+});
 
-// app.get("/temp/*", function (req, res) {
-// 	// Add your code here
-// 	res.json({ success: "get call succeed!", url: req.url });
-// });
+app.get("/temp/*", function (req, res) {
+	// Add your code here
+	res.json({ success: "get call succeed!", url: req.url });
+});
 
 // Route to get data for a specific parent using the email parameter
 app.get("/parent/:email", (req, res) => {
@@ -75,7 +83,7 @@ app.get("/parent/:email", (req, res) => {
 	});
 });
 
-// Route to get data for a specific parent using the email parameter
+// GET CHILD USING PARENTID
 app.get("/student/:parentid", (req, res) => {
 	const parentid = req.params.parentid;
 
@@ -91,6 +99,29 @@ app.get("/student/:parentid", (req, res) => {
 		if (results.length === 0) {
 			// No parent data found for the given email
 			return res.status(404).json({ error: "Parent data not found" });
+		}
+
+		// Parent data found, send the data as the response
+		res.json(results);
+	});
+});
+
+// GET SUBSCRIPTION STATUS
+app.get("/student/:studentid/subscriptionStatus", (req, res) => {
+	const studentId = req.params.studentid;
+
+	// SQL query to select all columns from the 'parent' table where the email matches
+	const sql = "SELECT studentid, subscription FROM student WHERE studentid = ?";
+
+	db.query(sql, [studentId], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get student data" });
+		}
+
+		if (results.length === 0) {
+			// No parent data found for the given email
+			return res.status(404).json({ error: "Subscription data not found" });
 		}
 
 		// Parent data found, send the data as the response
@@ -225,9 +256,62 @@ app.put("/temp", function (req, res) {
 	res.json({ success: "put call succeed!", url: req.url, body: req.body });
 });
 
-app.put("/temp/*", function (req, res) {
+// SUBSCRIBE
+app.put("/student/:studentid/notSubscribed", function (req, res) {
 	// Add your code here
-	res.json({ success: "put call succeed!", url: req.url, body: req.body });
+	const studentId = req.params.studentid;
+
+	try {
+		// SQL query to fetch all user details from the specified table
+		const sql = `UPDATE student SET subscription = 'Yes' WHERE studentid = ?`;
+
+		db.query(sql, [studentId], (err, results) => {
+			if (err) {
+				console.error("Error executing query:", err);
+				return res.status(500).json({ error: "Failed to perform login" });
+			}
+
+			if (results.length === 0) {
+				// No matching user found, send error response
+				return res.status(401).json({ error: "None updated" });
+			}
+			// Send all user details, including the respective user ID
+			res.json({ message: "Update successful" });
+		});
+	} catch (err) {
+		// Handle any database query errors
+		console.error("Error executing query:", err);
+		res.status(500).json({ error: "Failed to update data" });
+	}
+});
+
+// UNSUBSCRIBE
+app.put("/student/:studentid/subscribed", function (req, res) {
+	// Add your code here
+	const studentId = req.params.studentid;
+
+	try {
+		// SQL query to fetch all user details from the specified table
+		const sql = `UPDATE student SET subscription = 'No' WHERE studentid = ?`;
+
+		db.query(sql, [studentId], (err, results) => {
+			if (err) {
+				console.error("Error executing query:", err);
+				return res.status(500).json({ error: "Failed to perform login" });
+			}
+
+			if (results.length === 0) {
+				// No matching user found, send error response
+				return res.status(401).json({ error: "None updated" });
+			}
+			// Send all user details, including the respective user ID
+			res.json({ message: "Update successful" });
+		});
+	} catch (err) {
+		// Handle any database query errors
+		console.error("Error executing query:", err);
+		res.status(500).json({ error: "Failed to update data" });
+	}
 });
 
 /****************************

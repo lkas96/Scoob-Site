@@ -21,6 +21,10 @@ import CustomButton from "../components/CustomButton";
 import { COLORS } from "../constants";
 import UserContext from "../context/UserContext";
 
+import { Input } from "@rneui/base";
+import { Button } from "@rneui/themed";
+import { HStack, Stack, VStack } from "react-native-flex-layout";
+
 function LoginPage() {
 	LogBox.ignoreAllLogs();
 	const navigation = useNavigation();
@@ -101,7 +105,7 @@ function LoginPage() {
 						source={require("../assets/images/ScooB.png")}
 					/>
 					<View style={styles.interactive}>
-						<TextInput
+						{/* <TextInput
 							style={styles.input}
 							placeholder="Username"
 							onChangeText={(val) =>
@@ -116,8 +120,45 @@ function LoginPage() {
 								setCredentials({ ...credentials, password: val })
 							}
 							secureTextEntry={true}
+						/> */}
+						{/* <VStack m={4} spacing={6} justify="center"> */}
+						<Input
+							containerStyle={{ width: "90%" }}
+							disabledInputStyle={{ background: "#ddd" }}
+							inputContainerStyle={{}}
+							errorStyle={{}}
+							errorProps={{}}
+							inputStyle={{}}
+							label="LOGIN"
+							labelStyle={{}}
+							labelProps={{}}
+							leftIcon={<Icon name="person" size={20} />}
+							leftIconContainerStyle={{}}
+							rightIconContainerStyle={{}}
+							placeholder="Enter Username"
+							onChangeText={(val) =>
+								setCredentials({ ...credentials, username: val })
+							}
 						/>
-
+						<Input
+							containerStyle={{ width: "90%" }}
+							disabledInputStyle={{ background: "#ddd" }}
+							inputContainerStyle={{}}
+							errorStyle={{}}
+							errorProps={{}}
+							inputStyle={{}}
+							labelStyle={{}}
+							labelProps={{}}
+							leftIcon={<Icon name="lock-closed" size={20} />}
+							leftIconContainerStyle={{}}
+							rightIconContainerStyle={{}}
+							placeholder="Enter Password"
+							secureTextEntry={true}
+							onChangeText={(val) =>
+								setCredentials({ ...credentials, password: val })
+							}
+						/>
+						{/* </VStack> */}
 						<SelectDropdown
 							statlog
 							data={users}
@@ -154,10 +195,36 @@ function LoginPage() {
 						/>
 
 						<View style={styles.buttonContainer}>
-							<CustomButton
+							{/* <CustomButton
 								text="Login"
 								data={credentials}
 								onPress={onLoginPressed}
+							/> */}
+							<Button
+								buttonStyle={{
+									width: "100%",
+									backgroundColor: COLORS.primary,
+									borderRadius: 8,
+									height: 50,
+								}}
+								containerStyle={{ margin: 5 }}
+								disabledStyle={{
+									borderWidth: 2,
+									borderColor: "#00F",
+								}}
+								disabledTitleStyle={{ color: "#00F" }}
+								linearGradientProps={null}
+								iconContainerStyle={{ background: "#000" }}
+								loadingProps={{ animating: true }}
+								loadingStyle={{}}
+								onPress={onLoginPressed}
+								title="Login"
+								uppercase={true}
+								titleProps={{}}
+								titleStyle={{
+									marginHorizontal: 5,
+									color: COLORS.black,
+								}}
 							/>
 						</View>
 					</View>
@@ -200,15 +267,15 @@ const styles = StyleSheet.create({
 	},
 	buttonContainer: {
 		marginTop: 20,
-		width: "80%",
+		width: "90%",
 	},
 	dropdown2BtnStyle: {
-		width: "80%",
+		width: "90%",
 		height: 50,
 		backgroundColor: COLORS.white,
-		borderWidth: 2,
-		borderColor: COLORS.secondary,
-		borderRadius: 18,
+		// borderWidth: 2,
+		// borderColor: COLORS.secondary,
+		// borderRadius: 18,
 		marginTop: 5,
 	},
 	dropdown2BtnTxtStyle: {
@@ -218,7 +285,7 @@ const styles = StyleSheet.create({
 	},
 	dropdown2DropdownStyle: {
 		backgroundColor: COLORS.white,
-		borderRadius: 18,
+		borderRadius: 8,
 	},
 	dropdown2RowStyle: {
 		backgroundColor: COLORS.white,

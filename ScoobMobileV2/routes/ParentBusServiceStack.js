@@ -1,8 +1,9 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 
 import ParentsBusServicePage from "../screens/Parents/BusServicePage";
 import ParentsSubscribedPage from "../screens/Parents/SubscribedPage";
+import ParentsSubscribePage from "../screens/Parents/SubscribePage";
 
 import { Text } from "react-native";
 
@@ -21,6 +22,10 @@ function ParentBusServiceStack() {
 			<Stack.Screen
 				name="ParentsSubscribedPage"
 				component={ParentsSubscribedPage}
+			/>
+			<Stack.Screen
+				name="ParentsSubscribePage"
+				component={ParentsSubscribePage}
 			/>
 		</Stack.Navigator>
 	);

@@ -26,7 +26,7 @@ const ChildInfoStack = ({ route }) => {
 				initialParams={route.params.childInfo}
 				options={{
 					headerShown: true,
-					headerTitle: "Child Info",
+					headerTitle: " ",
 				}}
 			/>
 			<Stack.Screen name="ThirdPartyQR" component={ThirdPartyQR} options={{}} />
