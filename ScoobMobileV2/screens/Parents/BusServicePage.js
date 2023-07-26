@@ -1,186 +1,176 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import Icon from "react-native-vector-icons/Ionicons";
+import {
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Alert,
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { COLORS } from "../../constants";
 import UserContext from "../../context/UserContext";
 
+import { Text } from "@react-native-material/core";
+import { Avatar, ListItem } from "@rneui/base";
+import COLORS from "../../constants/colors";
+import { Icon } from "react-native-elements";
+
 const BusServicePage = ({ navigation }) => {
-	const [count, setCount] = useState("");
-	const { userDetails } = useContext(UserContext);
-	const [childData, setChildData] = useState("");
-	const [childName, setChildName] = useState([]);
-	const [updatedAt, setUpdatedAt] = useState("");
-	const [subscriptionStatus, setSubscriptionStatus] = useState("");
+  const { userDetails } = useContext(UserContext);
+  const [childData, setChildData] = useState("");
 
-	const lambdaEndpoint =
-		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
+  const lambdaEndpoint =
+    "https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
-	useEffect(() => {
-		// Fetch data from the Lambda function when the component mounts
-		axios
-			.get(`${lambdaEndpoint}/student/${userDetails.userId}`)
-			.then((response) => {
-				// Handle the response and set the profile data in the state
-				setChildData(response.data);
-			})
-			.catch((error) => {
-				console.error("Error fetching profile data:", error);
-			});
-	}, [userDetails]);
+  useEffect(() => {
+    // Sends a GET request to the API endpoint using Axios, retrieves the data from the response, and sets it in the 
+	// childData state
+    axios
+      .get(`${lambdaEndpoint}/student/${userDetails.userId}`)
+      .then((response) => {
+        // Handle the response and set the profile data in the state
+		console.log("Response data 1:", response.data); // Log the fetched data
+        setChildData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+  }, [userDetails]);
 
-	const subscriptionHandler = () => {
-		Alert.alert("Subscription", "Do you want to subscribe to bus service?", [
-			{
-				text: "Cancel",
-				onPress: () => console.log("Cancel Pressed"),
-				style: "cancel",
-			},
-			{ text: "OK", onPress: () => okHandler() },
-		]);
-	};
-	const checkHandler = () => {
-		console.log("studentid: " + childData[count].studentid);
-		axios
-			.get(
-				`${lambdaEndpoint}/student/${childData[count].studentid}/subscriptionStatus`
-			)
-			.then((response) => {
-				// Handle the response and set the profile data in the state
-				console.log(response.data[0].subscription);
-				setSubscriptionStatus(response.data[0].subscription);
-				setTest(response.data[0].subscription);
-			})
-			.catch((error) => {
-				console.error("Error fetching subscription data:", error);
-			});
-		console.log("subscriptionStatus: " + subscriptionStatus);
-		console.log("testStatus: " + testRef.current);
-		// if (subscriptionStatus === "No") {
-		// 	navigation.navigate("ParentsSubscribePage");
-		// } else if (subscriptionStatus === "Yes") {
-		// 	navigation.navigate("ParentsSubscribedPage");
-		// }
-	};
-	const checkNum = () => {
-		// console.log(subscriptionStatus[0].subscription);
-		console.log("count: " + count);
-		console.log("studentid: " + childData[count].studentid);
-		console.log("subscriptionStatusCheckNum: " + subscriptionStatus);
-	};
+  const handleChildPress = (child) => { // Sending in the 'item' object
+	console.log("Child info 2:", child); // Log the selected child info
+    if (child.subscription === "Yes") {
+      // If the child is subscribed, navigate to SubscribedPage
+	  console.log("Child is subscribed. Navigating to SubscribedPage.");
+      navigation.navigate("ParentsSubscribedPage", { childInfo: child });
+    } else {
+      // If the child is not subscribed, display a prompt
+	  console.log("Child is not subscribed. Displaying prompt.")
+      Alert.alert(
+        "Child Not Subscribed",
+        "Your child is not subscribed. Do you want to be redirected to the child's profile page for subscription?",
+        [
+          {
+            text: "No",
+            style: "cancel",
+          },
+          {
+            text: "Yes",
+            onPress: () => {
+              // Redirect to the ChildInfoPage for subscription
+			  console.log("User chose 'Yes'. Navigating to ChildInfoStack.");
+              navigation.navigate("ChildInfoStack", { childInfo: child });
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  };
 
-	const okHandler = () => {
-		// Fetch data from the Lambda function when the component mounts
-		axios
-			.put(`${lambdaEndpoint}/student/12345/notSubscribed`)
-			.then((response) => {
-				// Handle the response and set the profile data in the state
-				(response) => setUpdatedAt(response.data.updatedAt);
-			})
-			.catch((error) => {
-				console.error("Error updating profile data:", error);
-			});
-		Alert.alert("Subscribed");
-		navigation.navigate("ParentsSubscribedPage", subscribed);
-	};
-
-	if (childData.length !== 0 && childName.length < childData.length) {
-		childData.map((child) => {
-			return childName.push(child.fname + " " + child.lname);
-		});
-		console.log(childData);
-	}
-	return (
-		<SafeAreaView style={styles.container}>
-			{/* <Text style={styles.header}>Subscribe to Bus Service</Text> */}
-			<SelectDropdown
-				statlog
-				data={childName}
-				defaultButtonText="Select child"
-				onSelect={(selectedItem, index) => {
-					console.log(selectedItem, index);
-					setCount(index);
-				}}
-				buttonStyle={styles.dropdown2BtnStyle}
-				buttonTextStyle={styles.dropdown2BtnTxtStyle}
-				dropdownStyle={styles.dropdown2DropdownStyle}
-				rowStyle={styles.dropdown2RowStyle}
-				rowTextStyle={styles.dropdown2RowTxtStyle}
-				selectedRowStyle={styles.dropdown2SelectedRowStyle}
-				statusBarTranslucent={true}
-				renderDropdownIcon={(isOpened) => {
-					return (
-						<Icon
-							name={isOpened ? "caret-up" : "caret-down"}
-							color={"#444"}
-							size={20}
-						/>
-					);
-				}}
-				buttonTextAfterSelection={(selectedItem, index) => {
-					// text represented after item is selected
-					// if data array is an array of objects then return selectedItem.property to render after item is selected
-					selectedUser = selectedItem;
-					return selectedItem;
-				}}
-				rowTextForSelection={(item, index) => {
-					// text represented for each item in dropdown
-					// if data array is an array of objects then return item.property to represent item in dropdown
-					console.log(item);
-					return item;
-				}}
-			/>
-
-			<CustomButton
-				onPress={subscriptionHandler}
-				text="Subscribe"
-				type="TERTIARY"
-			/>
-			<CustomButton onPress={checkHandler} text="Check" type="TERTIARY" />
-			<CustomButton onPress={checkNum} text="CheckNum" type="TERTIARY" />
-		</SafeAreaView>
-	);
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text variant="h4" style={styles.title}>
+        Child(s)
+      </Text>
+      <View style={styles.scrollContainer}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollViewItem}
+          data={childData}
+          renderItem={({ item }) => (
+            <ListItem
+              bottomDivider
+              Component={TouchableHighlight}
+              containerStyle={{
+                height: 150,
+              }}
+              disabledStyle={{ opacity: 0.5 }}
+              onLongPress={() => console.log("onLongPress()")}
+              onPress={() => handleChildPress(item)} // Use the handleChildPress function here
+              pad={20}
+            >
+              <Avatar
+                rounded
+                title={`${item.fname[0]}`}
+                containerStyle={{ backgroundColor: "grey" }}
+              />
+              <ListItem.Content>
+                <ListItem.Title>
+                  <Text variant="h5" style={styles.text}>{`${item.fname} ${item.lname}`}</Text>
+                </ListItem.Title>
+                <ListItem.Subtitle>
+                  <Text>{`${item.studentid}, ${item.class}`}</Text>
+                </ListItem.Subtitle>
+                {/* Display the subscription status indicator here */}
+                {item.subscription === "Yes" ? (
+                  // You can use any icon or text component to show the subscription status
+                  <Icon
+                    name="check"
+                    type="font-awesome" // Use the appropriate icon library/type
+                    color="green"
+                  />
+                ) : (
+                  <Icon
+                    name="times"
+                    type="font-awesome" // Use the appropriate icon library/type
+                    color="red"
+                  />
+                )}
+              </ListItem.Content>
+            </ListItem>
+          )}
+        />
+      </View>
+    </SafeAreaView>
+  );
 };
+
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	header: {
-		fontSize: 35,
-		fontFamily: "DMSerifDisplay-Regular",
-	},
-	dropdown2BtnStyle: {
-		width: "90%",
-		height: 50,
-		backgroundColor: COLORS.white,
-		// borderWidth: 2,
-		// borderColor: COLORS.secondary,
-		// borderRadius: 18,
-		marginTop: 5,
-	},
-	dropdown2BtnTxtStyle: {
-		color: COLORS.black,
-		textAlign: "center",
-		fontSize: 14,
-	},
-	dropdown2DropdownStyle: {
-		backgroundColor: COLORS.white,
-		borderRadius: 8,
-	},
-	dropdown2RowStyle: {
-		backgroundColor: COLORS.white,
-	},
-	dropdown2RowTxtStyle: {
-		color: COLORS.black,
-		textAlign: "center",
-		fontSize: 14,
-	},
-	dropdown2SelectedRowStyle: {
-		backgroundColor: "rgba(255,255,255,0.2)",
-	},
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  scrollContainer: {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: "lightgray",
+    margin: 10,
+  },
+  scrollViewItem: {
+    justifyContent: "center",
+    alignSelf: "stretch",
+  },
+  image: {
+    resizeMode: "contain",
+    height: 20,
+    width: 10,
+  },
+  title: {
+    padding: 15,
+    fontWeight: "bold",
+  },
+  text: {
+    fontWeight: "bold",
+  },
 });
+
 export default BusServicePage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

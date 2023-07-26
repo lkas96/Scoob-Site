@@ -132,50 +132,6 @@ app.get("/student/:studentid/subscriptionStatus", (req, res) => {
 /****************************
  * Example post method *
  ****************************/
-// Login route Original
-// app.post("/login", async (req, res) => {
-// 	const { email, password, userType } = req.body;
-
-// 	try {
-// 		let tableName;
-// 		switch (userType) {
-// 			case "teacher":
-// 				tableName = "teacher";
-// 				break;
-// 			case "driver":
-// 				tableName = "driver";
-// 				break;
-// 			case "parent":
-// 				tableName = "parent";
-// 				break;
-// 			default:
-// 				// Invalid userType, send error response
-// 				return res.status(400).json({ error: "Invalid userType" });
-// 		}
-
-// 		// SQL query to check if the user exists in the specified table
-// 		const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
-
-// 		db.query(sql, [email, password], (err, results) => {
-// 			if (err) {
-// 				console.error("Error executing query:", err);
-// 				return res.status(500).json({ error: "Failed to perform login" });
-// 			}
-
-// 			if (results.length === 0) {
-// 				// No matching user found, send error response
-// 				return res.status(401).json({ error: "Incorrect credentials" });
-// 			}
-
-// 			// User authenticated, send success response with userType
-// 			res.json({ message: "Login successful", userType });
-// 		});
-// 	} catch (err) {
-// 		// Handle any database query errors
-// 		console.error("Error executing query:", err);
-// 		res.status(500).json({ error: "Failed to perform login" });
-// 	}
-// });
 
 // Login route
 app.post("/login", async (req, res) => {
@@ -255,6 +211,40 @@ app.put("/temp", function (req, res) {
 	// Add your code here
 	res.json({ success: "put call succeed!", url: req.url, body: req.body });
 });
+
+// PUT request to update the subscription status of a child. update the subscription status of a child in the student 
+// table based on the provided studentid. The route will first validate the subscription value to ensure it's either "yes"
+// or "no". Then it will execute the SQL query to update the subscription value for the corresponding child in the database
+app.put("/updateSubscription/:studentid", (req, res) => {
+	//extracting the values here
+	const studentid = req.params.studentid;
+	const { subscription } = req.body;
+  
+	// Validate the 'subscription' value (should be either 'yes' or 'no')
+	if (subscription !== "Yes" && subscription !== "No") {
+	  return res.status(400).json({ error: "Invalid subscription value" });
+	}
+  
+	// SQL query to update the 'subscription' value for the given 'studentid'
+	const sql = "UPDATE student SET subscription = ? WHERE studentid = ?";
+	
+	// Actual values are passed as an array here
+	db.query(sql, [subscription, studentid], (err, result) => {
+	  if (err) {
+		console.error("Error executing query:", err);
+		return res.status(500).json({ error: "Failed to update subscription status" });
+	  }
+  
+	  // Check if the update was successful
+	  if (result.affectedRows === 0) {
+		// No child found with the given 'studentid'
+		return res.status(404).json({ error: "Child not found" });
+	  }
+  
+	  // Subscription status update successful
+	  res.json({ message: "Subscription status updated successfully" });
+	});
+  });
 
 // SUBSCRIBE
 app.put("/student/:studentid/notSubscribed", function (req, res) {
