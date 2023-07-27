@@ -67,7 +67,7 @@ class Applications
   //FUNCTION TO APPROVE SCHOOL APPLICATION
   public function approveSchool($uen)
   {
-    $query = "UPDATE schools SET status = 'Approved' WHERE UEN = '$uen'";
+    $query = "UPDATE schools SET status = 'Approved', actiontimestamp = NOW() WHERE UEN = '$uen'";
 
     $result = $this->conn->query($query);
 
@@ -83,7 +83,7 @@ class Applications
   //FUNCTION TO REJECT SCHOOL APPLICATION
   public function rejectSchool($uen)
   {
-    $query = "UPDATE schools SET status = 'Rejected' WHERE UEN = '$uen'";
+    $query = "UPDATE schools SET status = 'Rejected', actiontimestamp = NOW() WHERE UEN = '$uen'";
 
     $result = $this->conn->query($query);
 
@@ -115,7 +115,7 @@ class Applications
   //FUNCTION TO APPROVE TRANSPORT APPLICATION
   public function approveTransport($uen)
   {
-    $query = "UPDATE transports SET status = 'Approved' WHERE UEN = '$uen'";
+    $query = "UPDATE transports SET status = 'Approved', actiontimestamp = NOW() WHERE UEN = '$uen'";
 
     // Debugging: Output the query to see if it's correct
     // echo $query;
@@ -139,7 +139,7 @@ class Applications
   //FUNCTION TO REJECT TRANSPORT APPLICATION
   public function rejectTransport($uen)
   {
-    $query = "UPDATE transports SET status = 'Rejected' WHERE UEN = '$uen'";
+    $query = "UPDATE transports SET status = 'Rejected', actiontimestamp = NOW() WHERE UEN = '$uen'";
 
     $result = $this->conn->query($query);
 
@@ -171,4 +171,85 @@ class Applications
       return false;
     }
   }
+
+  //FUNCTION TO VIEW ALL PAST SCHOOL AND TRANSPORT APPLICATIONS
+  public function viewPastApplications()
+  {
+    $query = "SELECT 'School' AS type , timestamp, name, uen, status,  actiontimestamp FROM schools WHERE status != 'Pending'
+              UNION ALL
+              SELECT 'Transport' AS type , timestamp, name, uen, status, actiontimestamp FROM transports WHERE status != 'Pending'
+              ORDER BY actiontimestamp desc;
+    ";
+
+    $result = $this->conn->query($query);
+
+    $num_rows = mysqli_num_rows($result);
+
+    if ($result && $num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewPastApplicationsSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+    //FUNCTION TO A VIEW PAST SCHOOL APPLICATION
+    public function viewPastSchoolApplication($uen)
+    {
+      $query = "SELECT 'School' AS type, name, uen, dismissal, region, size, timestamp, status, actiontimestamp FROM schools where UEN='$uen'";
+  
+      $result = $this->conn->query($query);
+  
+      $num_rows = mysqli_num_rows($result);
+  
+      if ($result && $num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewPastSchoolApplicationSQLTable'] = $result;
+        return true;
+      } else {
+        return false;
+      }
+    }
+    
+      //FUNCTION TO A VIEW PAST TRANSPORT APPLICATION
+  public function viewPastTransportApplication($uen)
+  {
+    $query = "SELECT 'Transport' AS type, name, uen, region, size , timestamp, status, actiontimestamp FROM transports where UEN='$uen'";
+
+    $result = $this->conn->query($query);
+
+    $num_rows = mysqli_num_rows($result);
+
+    if ($result && $num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewPastTransportApplicationSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+    //FUNCTION TO SEARCH PAST APPLICATIONS
+    public function searchPastApplications($searchQuery)
+    {
+      $query = "SELECT 'School' AS type , name, uen , timestamp, status, actiontimestamp FROM schools WHERE status != 'Pending' AND name LIKE '%$searchQuery%' OR status != 'Pending' AND  uen LIKE '%$searchQuery%'
+                UNION ALL
+                SELECT 'Transport' AS type , name, uen, timestamp, status, actiontimestamp FROM transports WHERE status != 'Pending' AND name LIKE '%$searchQuery%' OR status != 'Pending' AND uen LIKE '%$searchQuery%'
+                ORDER BY timestamp desc;
+      ";
+  
+      $result = $this->conn->query($query);
+  
+      $num_rows = mysqli_num_rows($result);
+  
+      if ($result && $num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewSearchPastApplicationSQLTable'] = $result;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
 }

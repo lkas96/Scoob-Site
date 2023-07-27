@@ -28,9 +28,9 @@ class CreateTransportApplication{
 }
 
 class CreateParentGuardianAccount{
-  public function createParentGuardianAccount($fname, $lname, $nric, $email, $password) {
+  public function createParentGuardianAccount($fname, $lname, $parentid, $email, $password) {
     $result = new Onboarding();
-    $success = $result->createParentGuardianAccount($fname, $lname, $nric, $email, $password);
+    $success = $result->createParentGuardianAccount($fname, $lname, $parentid, $email, $password);
     
     if ($success === true) {
       return true;

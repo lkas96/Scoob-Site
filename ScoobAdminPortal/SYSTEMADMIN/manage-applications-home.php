@@ -46,6 +46,7 @@ if (isset($_POST["logout"])) {
   <div class="bodyContainer">
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='manage-applications-home.php'"> <span>Manage Applications</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='manage-applications-past.php'"> <span>Application History</span></button><br><br>
       <form method="post">
         <button class="logoutButton" tpe="button" name="logout">Logout</button>
       </form>
@@ -53,7 +54,7 @@ if (isset($_POST["logout"])) {
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing All Applications</h1>
+        <h1 style="margin: 0;">Pending Applications</h1>
         <div style="display: flex; align-items: center;">
           <form action="manage-applications-view-search.php" method="post">
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>

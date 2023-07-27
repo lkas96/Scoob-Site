@@ -59,10 +59,10 @@ CREATE TABLE transportadmins (
 CREATE TABLE parentguardians (
     fname varchar(30),
     lname varchar(30),
-    nric varchar(50),
+    parentid varchar(50),
     email varchar(50),
     password varchar(50),
-    PRIMARY KEY (nric)
+    PRIMARY KEY (parentid)
     );
 
 CREATE TABLE class (
@@ -98,13 +98,13 @@ CREATE TABLE student (
     );
 
 CREATE TABLE 3pp (
-    nric varchar(50),
+    parentid varchar(50),
     fname varchar(30),
     lname varchar(30),
     phone varchar(20),
     parentid varchar(50),
-    PRIMARY KEY (nric),
-    CONSTRAINT 3pp_parentid_fk FOREIGN KEY (parentid) REFERENCES parentguardians (nric)
+    PRIMARY KEY (parentid),
+    CONSTRAINT 3pp_parentid_fk FOREIGN KEY (parentid) REFERENCES parentguardians (parentid)
     );
     
     CREATE TABLE driver (

@@ -12,36 +12,6 @@ if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
 }
-
-// Handle Approve or Reject actions
-if (isset($_POST["submit-approve"])) {
-  if (isset($_POST["uen2"])) {
-    $uen = $_POST["uen2"];
-    $aaa = ApproveTransport::approveTransport($uen);
-
-    if ($aaa === true) {
-      echo "<script>alert('UEN Approved.'); window.location.href = 'manage-applications-home.php';</script>";
-      exit; // Important to prevent further execution of the page
-    } else {
-      echo "<script>alert('Error Approving UEN.');</script>";
-    }
-  }
-}
-
-
-if (isset($_POST["submit-reject"])) {
-  if (isset($_POST["uen2"])) {
-    $uen = $_POST["uen2"];
-    $aaa = RejectTransport::rejectTransport($uen);
-
-    if ($aaa === true) {
-      echo "<script>alert('UEN Rejected.'); window.location.href = 'manage-applications-home.php';</script>";
-      exit; // Important to prevent further execution of the page
-    } else {
-      echo "<script>alert('Error Rejecting UEN.');</script>";
-    }
-  }
-}
 ?>
 
 <html>
@@ -84,9 +54,9 @@ if (isset($_POST["submit-reject"])) {
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing Transport Application</h1>
+        <h1 style="margin: 0;">Transport Application History</h1>
         <div style="display: flex; align-items: center;">
-          <form action="manage-applications-view-search.php" method="post">
+          <form action="manage-applications-view-search-past.php" method="post">
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
           </form>
@@ -97,11 +67,11 @@ if (isset($_POST["submit-reject"])) {
         <?php
         if (isset($_POST['uen'])) {
           $uen = $_POST['uen'];
-          $execute = ViewTransportApplication::viewTransportApplication($uen);
+          $execute = ViewPastTransportApplication::viewPastTransportApplication($uen);
 
           if ($execute === true) {
             //GET RESULTS FROM SESSION VARIABLE
-            $result = $_SESSION['viewTransportApplicationSQLTable'];
+            $result = $_SESSION['viewPastTransportApplicationSQLTable'];
 
             //PRINT TABLE HEADERS
             echo '<table class="table table-bordered table-sm" style="text-align: center">';
@@ -113,7 +83,8 @@ if (isset($_POST["submit-reject"])) {
             echo '<th scope="col">Region</th>';
             echo '<th scope="col">Size</th>';
             echo '<th scope="col">Applied On</th>';
-            echo '<th scope="col">Actions</th>';
+            echo '<th scope="col">Status</th>';
+            echo '<th scope="col">Approved/Rejected On</th>';
             echo '</tr>';
             echo '</thead>';
 
@@ -127,23 +98,10 @@ if (isset($_POST["submit-reject"])) {
               echo "<td>" . $row['region'] . "</td>";
               echo "<td>" . $row['size'] . "</td>";
               echo '<td>' . $row['timestamp'] . "</td>";
+              echo '<td>' . $row['status'] . "</td>";
+              echo '<td>' . $row['actiontimestamp'] . "</td>";
               echo '<td>';
               echo '<div="button-container">';
-
-              // BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-              echo '<form action="" method="post">';
-              echo '<input type="hidden" name="uen2" value="' . $row['uen'] . '">';
-
-              // Separate submit buttons for Approve and Reject actions
-              echo '<button class="approve-button" type="submit" name="submit-approve">Approve</button>';
-              echo '&nbsp';
-              echo '<button class="reject-button" type="submit" name="submit-reject">Reject</button>';
-
-              echo '</form>';
-
-              echo '</div>';
-              echo '</td>';
-              echo "</tbody>";
             }
 
             echo '</table>';

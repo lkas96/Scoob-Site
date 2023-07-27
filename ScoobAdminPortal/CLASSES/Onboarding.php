@@ -97,11 +97,11 @@ class Onboarding
 
 
   //FUNCTION TO CREATE NEW PARENT/GUARDIAN ACCOUNT
-  public function createParentGuardianAccount($fname, $lname, $nric, $email, $password)
+  public function createParentGuardianAccount($fname, $lname, $parentid, $email, $password)
   {
     $query = "
-      INSERT INTO parentguardians (fname, lname, nric, email, password)
-      VALUES ('$fname', '$lname', '$nric', '$email', '$password');
+      INSERT INTO parentguardians (fname, lname, parentid, email, password)
+      VALUES ('$fname', '$lname', '$parentid', '$email', '$password');
     ";
 
     $result = $this->conn->query($query);

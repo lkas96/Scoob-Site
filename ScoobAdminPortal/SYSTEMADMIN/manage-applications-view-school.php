@@ -76,6 +76,7 @@ if (isset($_POST["submit-reject"])) {
   <div class="bodyContainer">
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='manage-applications-home.php'"> <span>Manage Applications</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='manage-applications-past.php'"> <span>Application History</span></button><br><br>
       <form method="post">
         <button class="logoutButton" tpe="button" name="logout">Logout</button>
       </form>
