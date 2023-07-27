@@ -1,7 +1,4 @@
 <?php
-
-ob_start();
-
 //SETTING TO ENSURE NO MEMORY LIMITS AND EXECUTION TIME LIMITS
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 0);
@@ -17,10 +14,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 //CHECK CONNECTION
 if ($conn->connect_error) {
-    die(json_encode(array('success' => false, 'message' => 'Connection failed: ' . $conn->connect_error)));
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Function to insert CSV data into the database using prepared statements
+// Function to insert CSV data into the database
 function insertCSVData($conn, $table, $columns, $data) {
     $values = array();
     foreach ($data as $row) {

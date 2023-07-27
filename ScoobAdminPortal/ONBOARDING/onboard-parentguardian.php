@@ -4,7 +4,7 @@ include("OnboardingController.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   //ON SUBMIT CALL ONBOARDING CONTROLLER
   $result = new CreateParentGuardianAccount();
-  $success = $result->createParentGuardianAccount($_POST['fname'], $_POST['lname'], $_POST['nric'], $_POST['email'], $_POST['password']);
+  $success = $result->createParentGuardianAccount($_POST['fname'], $_POST['lname'], $_POST['parentid'], $_POST['email'], $_POST['password']);
 
   //CHECK IF SUCCESSFULLY CREATED
   if ($success === true){
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </tr>
 
       <tr>
-        <td><input id="nric" name="nric" type="text" maxlength="30" style="width:400px;" placeholder="NRIC" ></td>
+        <td><input id="parentid" name="parentid" type="text" maxlength="30" style="width:400px;" placeholder="parentid" ></td>
       </tr>
 
       <tr><td>&nbsp</td></tr>

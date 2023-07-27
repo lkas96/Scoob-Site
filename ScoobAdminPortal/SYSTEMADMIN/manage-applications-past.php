@@ -54,75 +54,78 @@ if (isset($_POST["logout"])) {
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Matching Results</h1>
+        <h1 style="margin: 0;">Application History</h1>
         <div style="display: flex; align-items: center;">
-          <form action="manage-applications-view-search.php" method="post">
+          <form action="manage-applications-view-search-past.php" method="post">
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
           </form>
-
         </div>
       </div>
+
       <div class="data">
+
         <?php
-        if (isset($_POST["searchQuery"])) {
-          // Get the search query from the form
-          $searchQuery = $_POST["searchQuery"];
+        $aaa = ViewPastApplications::viewPastApplications();
+        $result = NULL; //PLACEHOLDER
 
-          $execute = SearchApplications::searchApplications($searchQuery);
+        if (isset($_SESSION['viewPastApplicationsSQLTable'])) {
+          $result = $_SESSION['viewPastApplicationsSQLTable'];
+        }
 
+        if ($result == NULL) {
+          echo "No Application History at the moment.";
+        } else {
 
-          if ($execute === true) {
-            $result = $_SESSION['viewSearchApplicationSQLTable'];
+          //PRINT TABLE HEADERS
+          echo '<table class="table table-bordered table-sm" style="text-align: center">';
+          echo '<thead class="thead-dark">';
+          echo '<tr>';
+          echo '<th scope="col">Type</th>';
+          echo '<th scope="col">Organisation</th>';
+          echo '<th scope="col">UEN</th>';
+          echo '<th scope="col">Applied On</th>';
+          echo '<th scope="col">Status</th>';
+          echo '<th scope="col">Approved/Rejected On</th>';
+          echo '<th scope="col">Action</th>';
+          echo '</tr>';
+          echo '</thead>';
 
-            //PRINT TABLE HEADERS
-            echo '<table class="table table-bordered table-sm" style="text-align: center">';
-            echo '<thead class="thead-dark">';
+          $rowNumber = 1;
+
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tbody>';
             echo '<tr>';
-            echo '<th scope="col">Type</th>';
-            echo '<th scope="col">Organisation</th>';
-            echo '<th scope="col">UEN</th>';
-            echo '<th scope="col">Applied On</th>';
-            echo '<th scope="col">Action</th>';
+            echo '<td>' . $row['type'] . "</td>";
+            echo '<td>' . $row['name'] . "</td>";
+            echo '<td>' . $row['uen'] . "</td>";
+            echo '<td>' . $row['timestamp'] . "</td>";
+            echo '<td>' . $row['status'] . "</td>";
+            echo '<td>' . $row['actiontimestamp'] . "</td>";
+
+            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+            echo '<td><form action="manage-applications-view-' . $row['type'] . '-past.php" method="post">';
+            echo '<input type="hidden" name="uen" value="' . $row['uen'] . '">';
+            echo '<button class="view-button" type="submit">View</button>';
+            echo '</form></td>';
+            echo "</tr>";
             echo '</tr>';
-            echo '</thead>';
-
-            $rowNumber = 1;
-
-            while ($row = mysqli_fetch_assoc($result)) {
-              echo '<tbody>';
-              echo '<tr>';
-              echo '<td>' . $row['type'] . "</td>";
-              echo '<td>' . $row['name'] . "</td>";
-              echo '<td>' . $row['uen'] . "</td>";
-              echo '<td>' . $row['timestamp'] . "</td>";
-
-              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-              echo '<td><form action="manage-applications-view-' . $row['type'] . '.php" method="post">';
-              echo '<input type="hidden" name="uen" value="' . $row['uen'] . '">';
-              echo '<button class="view-button" type="submit">View</button>';
-              echo '</form></td>';
-              echo "</tr>";
-              echo '</tr>';
-              echo '</tbody>';
-              $rowNumber++;
-            }
-
-            echo '</table>';
-          } else {
-            echo 'No results found. Try a different search term.';
+            echo '</tbody>';
+            $rowNumber++;
           }
+          echo '</table>';
         }
         ?>
 
-
-      </div> <!-- End of Data -->
+      </div>
     </div> <!-- End of RightPanel -->
 
   </div> <!-- End of Container -->
 </body>
 
 </html>
+
+
 
 <style>
   table {
@@ -149,39 +152,6 @@ if (isset($_POST["logout"])) {
     cursor: pointer;
     margin-bottom: 0px;
   }
-
-  .approve-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 6px 10px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    margin-bottom: 0px;
-    width: 100px;
-  }
-
-  .reject-button {
-    background-color: #FF0000;
-    color: white;
-    padding: 6px 10px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    margin-bottom: 0px;
-    width: 100px;
-  }
-
-  .button-container {
-    display: inline-block;
-  }
-
 
   form {
     margin-bottom: 0;

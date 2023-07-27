@@ -12,36 +12,6 @@ if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
 }
-
-// Handle Approve or Reject actions
-if (isset($_POST["submit-approve"])) {
-  if (isset($_POST["uen2"])) {
-    $uen = $_POST["uen2"];
-    $aaa = ApproveTransport::approveTransport($uen);
-
-    if ($aaa === true) {
-      echo "<script>alert('UEN Approved.'); window.location.href = 'manage-applications-home.php';</script>";
-      exit; // Important to prevent further execution of the page
-    } else {
-      echo "<script>alert('Error Approving UEN.');</script>";
-    }
-  }
-}
-
-
-if (isset($_POST["submit-reject"])) {
-  if (isset($_POST["uen2"])) {
-    $uen = $_POST["uen2"];
-    $aaa = RejectTransport::rejectTransport($uen);
-
-    if ($aaa === true) {
-      echo "<script>alert('UEN Rejected.'); window.location.href = 'manage-applications-home.php';</script>";
-      exit; // Important to prevent further execution of the page
-    } else {
-      echo "<script>alert('Error Rejecting UEN.');</script>";
-    }
-  }
-}
 ?>
 
 <html>
@@ -81,39 +51,39 @@ if (isset($_POST["submit-reject"])) {
         <button class="logoutButton" tpe="button" name="logout">Logout</button>
       </form>
     </div>
-
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing Transport Application</h1>
+        <h1 style="margin: 0;">School Application History</h1>
         <div style="display: flex; align-items: center;">
-          <form action="manage-applications-view-search.php" method="post">
+          <form action="manage-applications-view-search-past.php" method="post">
             <input type="text" name="searchQuery" placeholder="Search Applications" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
           </form>
         </div>
       </div>
-
       <div class="data">
         <?php
         if (isset($_POST['uen'])) {
           $uen = $_POST['uen'];
-          $execute = ViewTransportApplication::viewTransportApplication($uen);
+          $execute = ViewPastSchoolApplication::viewPastSchoolApplication($uen);
 
           if ($execute === true) {
             //GET RESULTS FROM SESSION VARIABLE
-            $result = $_SESSION['viewTransportApplicationSQLTable'];
+            $result = $_SESSION['viewPastSchoolApplicationSQLTable'];
 
             //PRINT TABLE HEADERS
             echo '<table class="table table-bordered table-sm" style="text-align: center">';
             echo '<thead class="thead-dark">';
             echo '<tr>';
             echo '<th scope="col">Type</th>';
-            echo '<th scope="col">Transport Company Name</th>';
+            echo '<th scope="col">School Name</th>';
             echo '<th scope="col">UEN</th>';
-            echo '<th scope="col">Region</th>';
+            echo '<th scope="col">Dismissal Timing</th>';
+            echo '<th scope="col">School Region</th>';
             echo '<th scope="col">Size</th>';
             echo '<th scope="col">Applied On</th>';
-            echo '<th scope="col">Actions</th>';
+            echo '<th scope="col">Status</th>';
+            echo '<th scope="col">Approved/Rejected On</th>';
             echo '</tr>';
             echo '</thead>';
 
@@ -124,35 +94,22 @@ if (isset($_POST["submit-reject"])) {
               echo "<td>" . $row['type'] . "</td>";
               echo "<td>" . $row['name'] . "</td>";
               echo "<td>" . $row['uen'] . "</td>";
+              echo "<td>" . $row['dismissal'] . "</td>";
               echo "<td>" . $row['region'] . "</td>";
               echo "<td>" . $row['size'] . "</td>";
               echo '<td>' . $row['timestamp'] . "</td>";
-              echo '<td>';
-              echo '<div="button-container">';
-
-              // BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-              echo '<form action="" method="post">';
-              echo '<input type="hidden" name="uen2" value="' . $row['uen'] . '">';
-
-              // Separate submit buttons for Approve and Reject actions
-              echo '<button class="approve-button" type="submit" name="submit-approve">Approve</button>';
-              echo '&nbsp';
-              echo '<button class="reject-button" type="submit" name="submit-reject">Reject</button>';
-
-              echo '</form>';
-
-              echo '</div>';
-              echo '</td>';
+              echo '<td>' . $row['status'] . "</td>";
+              echo '<td>' . $row['actiontimestamp'] . "</td>";
               echo "</tbody>";
             }
 
             echo '</table>';
             echo '<br>';
             echo '<br>';
-            echo '<h6><u>Size Refers to Number Buses Available</u></h6>';
-            echo 'S : Up to 10 fleet<br>';
-            echo 'M : Up to 20 fleet<br>';
-            echo 'L : Up to 30 fleet and more<br>';
+            echo '<h6><u>Size Refers to Estimated Number of Students Requiring Transport Services</u></h6>';
+            echo 'S : Up to 100 Students<br>';
+            echo 'M : Up to 200 Students<br>';
+            echo 'L : Up to 300 Students and more<br>';
           } else {
             echo "<script>alert('Error Retrieving Data. Invalid UEN.');</script>";
           }
@@ -165,6 +122,7 @@ if (isset($_POST["submit-reject"])) {
 </body>
 
 </html>
+
 
 <style>
   table {

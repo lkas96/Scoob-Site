@@ -93,7 +93,9 @@ if (isset($_POST["logout"])) {
       processData: false,
       success: function(response) {
         // Parse JSON response
+        console.log(response); // Add this line to inspect the response
         var data = JSON.parse(response);
+        
         // Show the success message as a script popup (JavaScript alert)
         if (data.success) {
           alert(data.message);

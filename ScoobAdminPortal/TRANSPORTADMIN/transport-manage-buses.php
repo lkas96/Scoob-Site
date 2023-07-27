@@ -3,9 +3,14 @@ include 'TransportAdminController.php';
 include '../LogoutController.php';
 session_start();
 
-if (isset($_POST["logout"]))
-{
-  new LogoutController();
+//VERIFY IF SYSTEMADMIN SESSION TYPE
+if ($_SESSION['type'] != "School Admin") {
+  header("Location: ../login.php");
+}
+
+if (isset($_POST["logout"])) {
+  $logout = new LogoutController();
+  $logout->logout();
 }
 ?>
 
@@ -18,15 +23,6 @@ if (isset($_POST["logout"]))
   <script src="../js/jquery-3.5.1.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/live-clock.js"></script>
-
-  <!-- Logout Function -->
-  <?php
-    if (isset($_POST["logout"]))
-    {
-      new LogoutController();
-    }
-  ?>
-
 </head>
 
 <body>

@@ -80,3 +80,43 @@ class SearchApplications
         return $results;
     }
 }
+
+class ViewPastApplications
+{
+    public static function viewPastApplications()
+    {
+        $viewPastApplications = new Applications();
+        $results = $viewPastApplications->viewPastApplications();
+        return $results;
+    }
+}
+
+class ViewPastSchoolApplication
+{
+    public static function viewPastSchoolApplication($uen)
+    {
+        $viewPastSchoolApplication = new Applications();
+        $results = $viewPastSchoolApplication->viewPastSchoolApplication($uen);
+        return $results;
+    }
+}
+
+class ViewPastTransportApplication
+{
+    public static function viewPastTransportApplication($uen)
+    {
+        $viewPastTransportApplication = new Applications();
+        $results = $viewPastTransportApplication->viewPastTransportApplication($uen);
+        return $results;
+    }
+}
+
+class SearchPastApplications
+{
+    public static function searchPastApplications($searchQuery)
+    {
+        $searchPastApplications = new Applications();
+        $results = $searchPastApplications->searchPastApplications($searchQuery);
+        return $results;
+    }
+}
