@@ -83,7 +83,7 @@ app.get("/parent/:email", (req, res) => {
 	});
 });
 
-// GET CHILD USING PARENTID
+// GET ALL CHILDREN USING PARENTID
 app.get("/student/:parentid", (req, res) => {
 	const parentid = req.params.parentid;
 
@@ -106,28 +106,30 @@ app.get("/student/:parentid", (req, res) => {
 	});
 });
 
-// GET SUBSCRIPTION STATUS
-app.get("/student/:studentid/subscriptionStatus", (req, res) => {
-	const studentId = req.params.studentid;
-
-	// SQL query to select all columns from the 'parent' table where the email matches
-	const sql = "SELECT studentid, subscription FROM student WHERE studentid = ?";
-
-	db.query(sql, [studentId], (err, results) => {
-		if (err) {
-			console.error("Error executing query:", err);
-			return res.status(500).json({ error: "Failed to get student data" });
-		}
-
-		if (results.length === 0) {
-			// No parent data found for the given email
-			return res.status(404).json({ error: "Subscription data not found" });
-		}
-
-		// Parent data found, send the data as the response
-		res.json(results);
+// GET CHILD USING STUDENTID
+app.get("/student/:studentid", (req, res) => {
+	const studentid = req.params.studentid;
+  
+	// SQL query to select all columns from the 'student' table where the studentid matches
+	const sql = "SELECT * FROM student WHERE studentid = ?";
+  
+	db.query(sql, [studentid], (err, results) => {
+	  if (err) {
+		console.error("Error executing query:", err);
+		return res.status(500).json({ error: "Failed to get student data" });
+	  }
+  
+	  if (results.length === 0) {
+		// No student data found for the given studentid
+		return res.status(404).json({ error: "Student data not found" });
+	  }
+  
+	  // Student data found, send the data as the response
+	  res.json(results[0]); // Assuming studentid is unique, so we get the first result
 	});
-});
+  });
+
+
 
 /****************************
  * Example post method *
@@ -212,39 +214,30 @@ app.put("/temp", function (req, res) {
 	res.json({ success: "put call succeed!", url: req.url, body: req.body });
 });
 
-// PUT request to update the subscription status of a child. update the subscription status of a child in the student 
-// table based on the provided studentid. The route will first validate the subscription value to ensure it's either "yes"
-// or "no". Then it will execute the SQL query to update the subscription value for the corresponding child in the database
-app.put("/updateSubscription/:studentid", (req, res) => {
-	//extracting the values here
+// UPDATE SUBSCRIPTION STATUS FOR A STUDENT
+app.put("/student/:studentid", (req, res) => {
 	const studentid = req.params.studentid;
 	const { subscription } = req.body;
   
-	// Validate the 'subscription' value (should be either 'yes' or 'no')
-	if (subscription !== "Yes" && subscription !== "No") {
-	  return res.status(400).json({ error: "Invalid subscription value" });
-	}
-  
-	// SQL query to update the 'subscription' value for the given 'studentid'
+	// SQL query to update the subscription status in the 'student' table
 	const sql = "UPDATE student SET subscription = ? WHERE studentid = ?";
-	
-	// Actual values are passed as an array here
-	db.query(sql, [subscription, studentid], (err, result) => {
+  
+	db.query(sql, [subscription, studentid], (err, results) => {
 	  if (err) {
 		console.error("Error executing query:", err);
 		return res.status(500).json({ error: "Failed to update subscription status" });
 	  }
   
-	  // Check if the update was successful
-	  if (result.affectedRows === 0) {
-		// No child found with the given 'studentid'
-		return res.status(404).json({ error: "Child not found" });
+	  if (results.affectedRows === 0) {
+		// No student data found for the given studentid
+		return res.status(404).json({ error: "Student data not found" });
 	  }
   
-	  // Subscription status update successful
+	  // Subscription status updated successfully
 	  res.json({ message: "Subscription status updated successfully" });
 	});
   });
+  
 
 // SUBSCRIBE
 app.put("/student/:studentid/notSubscribed", function (req, res) {
