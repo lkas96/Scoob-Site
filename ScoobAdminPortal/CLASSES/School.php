@@ -233,6 +233,8 @@ class School
     }
   }
 
+
+
     //FUNCTION TO VIEW ALL TEACHERS
     public function viewAllTeachers()
     {
@@ -256,7 +258,30 @@ class School
       }
     }
 
-        //FUNCTION TO ADD A TEACHER
+
+
+      //FUNCTION TO VIEW SPECIFIC TEACHER DETAILS
+  public function viewTeacher($teacherid)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT teacherid, CONCAT(fname, ' ', lname) AS name, teacher.class, email, password from teacher WHERE uen = '$uen' AND teacherid = '$teacherid';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewTeacherSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
+    //FUNCTION TO ADD A TEACHER
         public function addTeacher($fname, $lname, $teacherid, $class, $email, $password)
         {
           $uen = $_SESSION['uen'];
@@ -272,5 +297,33 @@ class School
             return false;
           }
         }
+
+
+
+    //FUNCTION TO SEARCH A TEACHER
+      public function searchTeacher($searchQuery)
+      {
+        $uen = $_SESSION['uen'];
+
+        $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
+                FROM teacher
+                JOIN class on teacher.class = class.class
+                WHERE teacher.uen = '$uen' AND teacherid LIKE '%$searchQuery%' 
+                OR teacher.uen = '$uen' AND CONCAT(teacher.fname , ' ', teacher.lname) LIKE '%$searchQuery%'
+                OR teacher.uen = '$uen' AND fname LIKE '%$searchQuery%'
+                OR teacher.uen = '$uen' AND lname LIKE '%$searchQuery%';
+                  
+        ";
+
+        $result = $this->conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          //SAVE THE TABLE TO SESSION
+          $_SESSION['viewSearchTeacherSQLTable'] = $result;
+          return true;
+        } else {
+          return false;
+        }
+      }
 
 }

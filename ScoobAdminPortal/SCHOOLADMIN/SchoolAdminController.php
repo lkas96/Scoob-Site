@@ -89,4 +89,20 @@ class AddTeacher{
     }
 }
 
+class ViewTeacher{
+    public static function viewTeacher($teacherid){
+        $viewTeacher = new School();
+        $results = $viewTeacher->viewTeacher($teacherid);
+        return $results;
+    }
+}
+
+class SearchTeacher{
+    public static function searchTeacher($searchQuery){
+        $searchTeacher = new School();
+        $results = $searchTeacher->searchTeacher($searchQuery);
+        return $results;
+    }
+}
+
 ?>
