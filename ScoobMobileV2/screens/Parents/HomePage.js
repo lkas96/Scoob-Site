@@ -56,13 +56,6 @@ const HomePage = ({ navigation }) => {
 					// keyExtractor={(item) => item.id} //if you want to extract key value
 					data={childData}
 					renderItem={({ item }) => (
-						// <CustomButton
-						// 	text={`${item.fname} ${item.lname}`}
-						// 	type="SECONDARY"
-						// 	onPress={() =>
-						// 		navigation.navigate("ChildInfoStack", { childInfo: item })
-						// 	}
-						// />
 						<ListItem
 							bottomDivider
 							Component={TouchableHighlight}
@@ -81,9 +74,6 @@ const HomePage = ({ navigation }) => {
 								rounded
 								title={`${item.fname[0]}`}
 								containerStyle={{ backgroundColor: "grey" }}
-								// source={{
-								// 	uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
-								// }}
 							/>
 							<ListItem.Content>
 								<ListItem.Title>

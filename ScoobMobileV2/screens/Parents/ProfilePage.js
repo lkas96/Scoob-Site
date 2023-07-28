@@ -60,8 +60,7 @@ const ProfilePage = ({ route }) => {
 					</View>
 				)}
 				<Barcode
-					// value={profileData.parentid}
-					value={"S1234123A"}
+					value={profileData.parentid}
 					height={80}
 					background={COLORS.white}
 				/>

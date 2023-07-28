@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Alert,
 	FlatList,
@@ -14,15 +14,29 @@ import { COLORS } from "../../constants";
 
 import { HStack, Stack, VStack } from "react-native-flex-layout";
 
-import { Text } from "@react-native-material/core";
-import { Button } from "@rneui/themed";
+import { Text, useBoolean } from "@react-native-material/core";
+import { Button, Switch } from "@rneui/themed";
 
 const ChildInfoPage = ({ route, navigation }) => {
-	const { fname, lname, studentid, class: studentClass } = route.params;
+	const {
+		fname,
+		lname,
+		studentid,
+		class: studentClass,
+		pickupmode,
+	} = route.params;
 	const [subscriptionStatus, setSubscriptionStatus] = useState(
 		route.params.subscription
 	);
-
+	if (pickupmode === 1) {
+		bool = true;
+	} else {
+		bool = false;
+	}
+	const [arriving, setArriving] = useState();
+	const [pickUpMode, setPickUpMode] = useState(bool);
+	const [pickupStatus, setPickupStatus] = useState("");
+	const toggleSwitch = () => setPickUpMode((previousState) => !previousState);
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
@@ -30,16 +44,86 @@ const ChildInfoPage = ({ route, navigation }) => {
 		navigation.navigate("ThirdPartyQR", route.params);
 	};
 
-	const selfPickUpHandler = () => {
-		Alert.alert("Changed");
+	const selfPickUpStatus = () => {
+		// Disable the "Self" button to prevent multiple clicks while the request is being processed
+		// setPickupStatus("Yes");
+
+		// Make a PUT request to update the pickupstatus of the student to "Arriving"
+		axios
+			.put(`${lambdaEndpoint}/student/${studentid}/arriving`)
+			.then((response) => {
+				// Update the setPickupStatus and setArriving state after the successful request
+				setPickupStatus("Arriving");
+
+				// On the way to school
+				Alert.alert("Success", "Pickup status updated successfully!");
+			})
+			.catch((error) => {
+				console.error("Error updating pickup status:", error);
+				// Show an error message to the user
+				Alert.alert(
+					"Error",
+					"Failed to update pickup status. Please try again."
+				);
+			});
 	};
 
-	const pickUpHandler = () => {
-		Alert.alert("Picking up");
+	const selfPickUpHandler = () => {
+		axios
+			.put(`${lambdaEndpoint}/student/${studentid}/bus`)
+			.then((response) => {
+				// Update the subscription status in the state
+				setPickUpMode(false);
+				// Show a success message to the user
+				Alert.alert("Success", "Pick up mode updated to self!");
+			})
+			.catch((error) => {
+				console.error("Error updating pick up mode:", error);
+				// Show an error message to the user
+				Alert.alert(
+					"Error",
+					"Failed to update pick up mode. Please try again."
+				);
+			});
+	};
+
+	const busPickUpHandler = () => {
+		axios
+			.put(`${lambdaEndpoint}/student/${studentid}/self`)
+			.then((response) => {
+				// Update the subscription status in the state
+				setPickUpMode(true);
+				// Show a success message to the user
+				Alert.alert("Success", "Pick up mode updated to bus!");
+			})
+			.catch((error) => {
+				console.error("Error updating pick up mode:", error);
+				// Show an error message to the user
+				Alert.alert(
+					"Error",
+					"Failed to update pick up mode. Please try again."
+				);
+			});
 	};
 
 	const arrivedHandler = () => {
-		Alert.alert("Arrived");
+		axios
+			.put(`${lambdaEndpoint}/student/${studentid}/arrived`)
+			.then((response) => {
+				// Update the setPickupStatus and setArriving state after the successful request
+				setPickupStatus("Arrived");
+
+				// On the way to school
+				Alert.alert("Success", "Pickup status updated successfully!");
+			})
+			.catch((error) => {
+				console.error("Error updating pickup status:", error);
+				// Show an error message to the user
+				Alert.alert(
+					"Error",
+					"Failed to update pickup status. Please try again."
+				);
+			});
 	};
 
 	const space = "     ";
@@ -117,28 +201,44 @@ const ChildInfoPage = ({ route, navigation }) => {
 
 			<View style={styles.buttonStack}>
 				<VStack>
-					<Button
-						buttonStyle={{
-							width: "100%",
-							backgroundColor: COLORS.primary,
-							borderRadius: 8,
-							height: 50,
-						}}
-						containerStyle={{ margin: 5 }}
-						disabledStyle={{
-							borderWidth: 2,
-							borderColor: "#00F",
-						}}
-						disabledTitleStyle={{ color: "#00F" }}
-						linearGradientProps={null}
-						iconContainerStyle={{ background: "#000" }}
-						loadingProps={{ animating: true }}
-						loadingStyle={{}}
-						onPress={selfPickUpHandler}
-						title="Change to Self Pickup"
-						titleProps={{}}
-						titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
-					/>
+					<HStack>
+						<Text>Pickup Mode: </Text>
+						<Switch
+							color={COLORS.primary}
+							onValueChange={() =>
+								setPickUpMode((previousState) => !previousState)
+							}
+							value={pickUpMode}
+						/>
+					</HStack>
+					{subscriptionStatus === "Yes" ? (
+						<Button
+							buttonStyle={{
+								width: "100%",
+								backgroundColor: COLORS.primary,
+								borderRadius: 8,
+								height: 50,
+							}}
+							containerStyle={{ margin: 5 }}
+							disabledStyle={{
+								borderWidth: 2,
+								borderColor: "#00F",
+							}}
+							disabledTitleStyle={{ color: "#00F" }}
+							linearGradientProps={null}
+							iconContainerStyle={{ background: "#000" }}
+							loadingProps={{ animating: true }}
+							loadingStyle={{}}
+							onPress={selfPickUpHandler}
+							// onPress={busPickUpHandler}
+							title="Change to Self Pickup"
+							titleProps={{}}
+							titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
+						/>
+					) : (
+						<></>
+					)}
+
 					<HStack>
 						<Button
 							buttonStyle={{
@@ -157,8 +257,9 @@ const ChildInfoPage = ({ route, navigation }) => {
 							iconContainerStyle={{ background: "#000" }}
 							loadingProps={{ animating: true }}
 							loadingStyle={{}}
-							onPress={pickUpHandler}
-							title="Self"
+							//onPress={pickUpHandler}
+							onPress={selfPickUpStatus}
+							title="Arriving"
 							titleProps={{}}
 							titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
 						/>
