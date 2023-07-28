@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import {
+	Alert,
 	FlatList,
 	SafeAreaView,
 	ScrollView,
@@ -13,27 +14,35 @@ import UserContext from "../../context/UserContext";
 
 import { Text } from "@react-native-material/core";
 import { Avatar, ListItem } from "@rneui/base";
+import { Icon } from "react-native-elements";
 import COLORS from "../../constants/colors";
 
 const HomePage = ({ navigation }) => {
 	const { userDetails } = useContext(UserContext);
 	const [childData, setChildData] = useState("");
-
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
+	const fetchStudentData = async () => {
+		try {
+			const response = await axios.get(
+				`${lambdaEndpoint}/student/${userDetails.userId}`
+			);
+			const data = response.data;
+			setChildData(data);
+			console.log("Fetching...");
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
-		// Fetch data from the Lambda function when the component mounts
-		axios
-			.get(`${lambdaEndpoint}/student/${userDetails.userId}`)
-			.then((response) => {
-				// Handle the response and set the profile data in the state
-				setChildData(response.data);
-			})
-			.catch((error) => {
-				console.error("Error fetching profile data:", error);
-			});
-	}, [userDetails]);
+		const focusHandler = navigation.addListener("focus", () => {
+			fetchStudentData();
+			console.log("Refreshed!");
+		});
+		return focusHandler;
+	}, [navigation]);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -86,34 +95,28 @@ const HomePage = ({ navigation }) => {
 								<ListItem.Subtitle>
 									<Text>{`${item.studentid}, ${item.class}`}</Text>
 								</ListItem.Subtitle>
+								<ListItem.Subtitle>
+									{/* Display the subscription status indicator here */}
+									{item.subscription === "Yes" ? (
+										// You can use any icon or text component to show the subscription status
+										<Icon
+											name="check"
+											type="font-awesome" // Use the appropriate icon library/type
+											color="green"
+										/>
+									) : (
+										<Icon
+											name="times"
+											type="font-awesome" // Use the appropriate icon library/type
+											color="red"
+										/>
+									)}
+								</ListItem.Subtitle>
 							</ListItem.Content>
+							<ListItem.Chevron />
 						</ListItem>
 					)}
 				/>
-
-				{/* <ListItem
-					bottomDivider
-					Component={TouchableHighlight}
-					containerStyle={{}}
-					disabledStyle={{ opacity: 0.5 }}
-					onLongPress={() => console.log("onLongPress()")}
-					onPress={() => console.log("onPress()")}
-					pad={20}
-				>
-					<Avatar
-						source={{
-							uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
-						}}
-					/>
-					<ListItem.Content>
-						<ListItem.Title>
-							<Text>Pranshu Chittora</Text>
-						</ListItem.Title>
-						<ListItem.Subtitle>
-							<Text>React Native Elements</Text>
-						</ListItem.Subtitle>
-					</ListItem.Content>
-				</ListItem> */}
 			</View>
 		</SafeAreaView>
 	);

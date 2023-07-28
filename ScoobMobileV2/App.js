@@ -42,7 +42,7 @@ export default function App() {
 	// ---------------- Setting Global Styles ----------------
 	const customTextProps = {
 		style: {
-			fontFamily: "NunitoSans-Regular",
+			fontFamily: "DMSerifDisplay-Regular",
 			color: COLORS.text,
 		},
 	};

@@ -135,7 +135,7 @@ function LoginPage() {
 							leftIcon={<Icon name="person" size={20} />}
 							leftIconContainerStyle={{}}
 							rightIconContainerStyle={{}}
-							placeholder="Enter Username"
+							placeholder="Email"
 							onChangeText={(val) =>
 								setCredentials({ ...credentials, username: val })
 							}
@@ -152,7 +152,7 @@ function LoginPage() {
 							leftIcon={<Icon name="lock-closed" size={20} />}
 							leftIconContainerStyle={{}}
 							rightIconContainerStyle={{}}
-							placeholder="Enter Password"
+							placeholder="Password"
 							secureTextEntry={true}
 							onChangeText={(val) =>
 								setCredentials({ ...credentials, password: val })

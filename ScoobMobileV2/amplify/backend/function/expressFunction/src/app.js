@@ -109,27 +109,25 @@ app.get("/student/:parentid", (req, res) => {
 // GET CHILD USING STUDENTID
 app.get("/student/:studentid", (req, res) => {
 	const studentid = req.params.studentid;
-  
+
 	// SQL query to select all columns from the 'student' table where the studentid matches
 	const sql = "SELECT * FROM student WHERE studentid = ?";
-  
+
 	db.query(sql, [studentid], (err, results) => {
-	  if (err) {
-		console.error("Error executing query:", err);
-		return res.status(500).json({ error: "Failed to get student data" });
-	  }
-  
-	  if (results.length === 0) {
-		// No student data found for the given studentid
-		return res.status(404).json({ error: "Student data not found" });
-	  }
-  
-	  // Student data found, send the data as the response
-	  res.json(results[0]); // Assuming studentid is unique, so we get the first result
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get student data" });
+		}
+
+		if (results.length === 0) {
+			// No student data found for the given studentid
+			return res.status(404).json({ error: "Student data not found" });
+		}
+
+		// Student data found, send the data as the response
+		res.json(results[0]); // Assuming studentid is unique, so we get the first result
 	});
-  });
-
-
+});
 
 /****************************
  * Example post method *
@@ -165,7 +163,7 @@ app.post("/login", async (req, res) => {
 		console.log("idColumn:", idColumn);
 
 		// SQL query to fetch all user details from the specified table
-		const sql = `SELECT * FROM ${tableName} WHERE email = ? AND password = ?`;
+		const sql = `SELECT * FROM ${tableName} WHERE BINARY email = ? AND password = ?`;
 
 		db.query(sql, [email, password], (err, results) => {
 			if (err) {
@@ -218,26 +216,27 @@ app.put("/temp", function (req, res) {
 app.put("/student/:studentid", (req, res) => {
 	const studentid = req.params.studentid;
 	const { subscription } = req.body;
-  
+
 	// SQL query to update the subscription status in the 'student' table
 	const sql = "UPDATE student SET subscription = ? WHERE studentid = ?";
-  
+
 	db.query(sql, [subscription, studentid], (err, results) => {
-	  if (err) {
-		console.error("Error executing query:", err);
-		return res.status(500).json({ error: "Failed to update subscription status" });
-	  }
-  
-	  if (results.affectedRows === 0) {
-		// No student data found for the given studentid
-		return res.status(404).json({ error: "Student data not found" });
-	  }
-  
-	  // Subscription status updated successfully
-	  res.json({ message: "Subscription status updated successfully" });
+		if (err) {
+			console.error("Error executing query:", err);
+			return res
+				.status(500)
+				.json({ error: "Failed to update subscription status" });
+		}
+
+		if (results.affectedRows === 0) {
+			// No student data found for the given studentid
+			return res.status(404).json({ error: "Student data not found" });
+		}
+
+		// Subscription status updated successfully
+		res.json({ message: "Subscription status updated successfully" });
 	});
-  });
-  
+});
 
 // SUBSCRIBE
 app.put("/student/:studentid/notSubscribed", function (req, res) {

@@ -75,7 +75,7 @@ function ParentBottomTab() {
 					// headerStyle: { backgroundColor: COLORS.background },
 				}}
 			/>
-			<Tab.Screen
+			{/* <Tab.Screen
 				name="BusService"
 				component={ParentsBusServiceStack}
 				options={{
@@ -84,7 +84,7 @@ function ParentBottomTab() {
 					headerTitle: " ",
 					headerStyle: { backgroundColor: COLORS.background },
 				}}
-			/>
+			/> */}
 			<Tab.Screen
 				name="ParentsChat"
 				component={ParentsChatPage}
