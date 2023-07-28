@@ -15,6 +15,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>School Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,9 +36,11 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
-	</nav>
+  </nav>
 
   <!-- Main Container -->
   <div class="bodyContainer">
@@ -45,16 +48,16 @@ if (isset($_POST["logout"])) {
       <button class="customButton" type="button" onclick="window.location.href='school-manage-classes.php'"> <span>Manage Classes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-teachers.php'"> <span>Manage Teachers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-students.php'"> <span>Manage Students</span></button><br><br>
-      <button class="customButton" type="button" onclick="window.location.href='school-import.php'">          <span>Import Data</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
-	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
-	    </form>
+        <button class="logoutButton" tpe="button" name="logout">Logout</button>
+      </form>
     </div>
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing All Classes</h1>
-          <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center;">
           <a href="school-manage-classes-add.php" style="margin-right: 10px;"><button>Add Class</button></a>
           <form method="post" action="school-manage-classes-search.php">
             <input type="text" name="searchQuery" placeholder="Search Classes" style="margin-right: 5px;" required>
@@ -64,7 +67,7 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
-       <?php
+        <?php
         $aaa = viewAllClasses::viewAllClasses();
         $result = NULL; //PLACEHOLDER
 
@@ -85,7 +88,7 @@ if (isset($_POST["logout"])) {
           echo '<th scope="col">Action</th>';
           echo '</tr>';
           echo '</thead>';
-        
+
           $rowNumber = 1;
 
           while ($row = mysqli_fetch_assoc($result)) {
@@ -107,13 +110,12 @@ if (isset($_POST["logout"])) {
           }
           echo '</table>';
         }
-
-
-       ?>
+        ?>
       </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
   </div> <!-- End of Main Container -->
 </body>
+
 </html>
 
 <style>
