@@ -4,7 +4,7 @@ include '../LogoutController.php';
 session_start();
 
 //VERIFY IF SYSTEMADMIN SESSION TYPE
-if ($_SESSION['type'] != "School Admin") {
+if ($_SESSION['type'] != "Transport Admin") {
   header("Location: ../login.php");
 }
 
@@ -42,16 +42,23 @@ if (isset($_POST["logout"])) {
   <!-- Main Container -->
   <div class="bodyContainer">
     <div class="leftPanel">
-      <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
 	    </form>
     </div>
 
     <div class="rightPanel">
-    WELCOME TO TRANSPORT ADMIN HOME!
-    What would you like to do today?
+    WELCOME TO TRANSPORT ADMIN HOME! <br>
+    What would you like to do today? <br>
+    <br>
+    TODO:<br>
+    SHOW ALL UPCOMING TRIPS FOR THE DAY<br>
+    DRIVER/NUMBER OF PASSENGERS/LOCATION/WHICH BUS/ETC<br>
+    <br>
+    REVISE IMPORT, SCHOOLADMIN IMPORT GIVING ERRORS WHEN IMPORTING, UNABLE TO HANDLE DUPLICATE ENTRIES<br>
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->

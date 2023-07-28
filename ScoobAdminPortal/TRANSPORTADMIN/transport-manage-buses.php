@@ -4,7 +4,7 @@ include '../LogoutController.php';
 session_start();
 
 //VERIFY IF SYSTEMADMIN SESSION TYPE
-if ($_SESSION['type'] != "School Admin") {
+if ($_SESSION['type'] != "Transport Admin") {
   header("Location: ../login.php");
 }
 
@@ -42,15 +42,60 @@ if (isset($_POST["logout"])) {
   <!-- Main Container -->
   <div class="bodyContainer">
     <div class="leftPanel">
-      <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
 	    </form>
     </div>
 
     <div class="rightPanel">
-    MANAGING BUSES WIP
+    <?php
+        $aaa = viewAllBuses::viewAllBuses();
+        $result = NULL; //PLACEHOLDER
+
+        if (isset($_SESSION['viewAllBusesSQLTable'])) {
+          $result = $_SESSION['viewAllBusesSQLTable'];
+        }
+
+        if ($result == NULL) {
+          echo 'No buses found.';
+        } else {
+          //PRINT TABLE HEADERS
+          echo '<table class="table table-bordered table-sm" style="text-align: center">';
+          echo '<thead class="thead-dark">';
+          echo '<tr>';
+          echo '<th scope="col">S/N</th>';
+          echo '<th scope="col">Bus Reg. No</th>';
+          echo '<th scope="col">Assigned Driver</th>';
+          echo '<th scope="col">Action</th>';
+          echo '</tr>';
+          echo '</thead>';
+        
+          $rowNumber = 1;
+
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td>' . $rowNumber . "</td>";
+            echo '<td>' . $row['busid'] . "</td>";
+            echo '<td>' . $row['drivername'] . "</td>";
+
+            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+            echo '<td><form action="transport-manage-buses-view.php" method="post">';
+            echo '<input type="hidden" name="class" value="' . $row['busid'] . '">';
+            echo '<button class="view-button" type="submit">View</button>';
+            echo '</form></td>';
+            echo "</tr>";
+            echo '</tr>';
+            echo '</tbody>';
+            $rowNumber++;
+          }
+          echo '</table>';
+        }
+       ?>
+
     </div> <!-- End of RightPanel -->
     
   </div> <!-- End of Container -->
