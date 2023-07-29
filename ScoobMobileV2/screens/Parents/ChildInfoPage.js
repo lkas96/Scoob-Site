@@ -24,19 +24,15 @@ const ChildInfoPage = ({ route, navigation }) => {
 		studentid,
 		class: studentClass,
 		pickupmode,
+		pickupstatus,
 	} = route.params;
 	const [subscriptionStatus, setSubscriptionStatus] = useState(
 		route.params.subscription
 	);
-	if (pickupmode === 1) {
-		bool = true;
-	} else {
-		bool = false;
-	}
 	const [arriving, setArriving] = useState();
-	const [pickUpMode, setPickUpMode] = useState(bool);
-	const [pickupStatus, setPickupStatus] = useState("");
-	const toggleSwitch = () => setPickUpMode((previousState) => !previousState);
+	const [pickUpMode, setPickUpMode] = useState(pickupmode === 1 ? true : false);
+	const [pickupStatus, setPickupStatus] = useState(pickupstatus);
+
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
@@ -68,6 +64,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 			});
 	};
 
+	// Change Pickup mode to Self
 	const selfPickUpHandler = () => {
 		axios
 			.put(`${lambdaEndpoint}/student/${studentid}/bus`)
@@ -87,6 +84,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 			});
 	};
 
+	// Change Pickup mode to Bus
 	const busPickUpHandler = () => {
 		axios
 			.put(`${lambdaEndpoint}/student/${studentid}/self`)
@@ -125,8 +123,6 @@ const ChildInfoPage = ({ route, navigation }) => {
 				);
 			});
 	};
-
-	const space = "     ";
 
 	const handleSubscriptionToggle = () => {
 		// Show a confirmation prompt to the user
@@ -201,40 +197,40 @@ const ChildInfoPage = ({ route, navigation }) => {
 
 			<View style={styles.buttonStack}>
 				<VStack>
-					<HStack>
-						<Text>Pickup Mode: </Text>
-						<Switch
-							color={COLORS.primary}
-							onValueChange={() =>
-								setPickUpMode((previousState) => !previousState)
-							}
-							value={pickUpMode}
-						/>
-					</HStack>
 					{subscriptionStatus === "Yes" ? (
-						<Button
-							buttonStyle={{
-								width: "100%",
-								backgroundColor: COLORS.primary,
-								borderRadius: 8,
-								height: 50,
-							}}
-							containerStyle={{ margin: 5 }}
-							disabledStyle={{
-								borderWidth: 2,
-								borderColor: "#00F",
-							}}
-							disabledTitleStyle={{ color: "#00F" }}
-							linearGradientProps={null}
-							iconContainerStyle={{ background: "#000" }}
-							loadingProps={{ animating: true }}
-							loadingStyle={{}}
-							onPress={selfPickUpHandler}
-							// onPress={busPickUpHandler}
-							title="Change to Self Pickup"
-							titleProps={{}}
-							titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
-						/>
+						// <Button
+						// 	buttonStyle={{
+						// 		width: "100%",
+						// 		backgroundColor: COLORS.primary,
+						// 		borderRadius: 8,
+						// 		height: 50,
+						// 	}}
+						// 	containerStyle={{ margin: 5 }}
+						// 	disabledStyle={{
+						// 		borderWidth: 2,
+						// 		borderColor: "#00F",
+						// 	}}
+						// 	disabledTitleStyle={{ color: "#00F" }}
+						// 	linearGradientProps={null}
+						// 	iconContainerStyle={{ background: "#000" }}
+						// 	loadingProps={{ animating: true }}
+						// 	loadingStyle={{}}
+						// 	// onPress={selfPickUpHandler}
+						// 	onPress={busPickUpHandler}
+						// 	title="Change to Self Pickup"
+						// 	titleProps={{}}
+						// 	titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
+						// />
+						<HStack justify={"center"} align={"center"}>
+							<Text>{pickUpMode === true ? "Bus Pickup" : "Self Pickup"}</Text>
+							<Switch
+								color={COLORS.primary}
+								value={pickUpMode}
+								onValueChange={() =>
+									pickUpMode === true ? selfPickUpHandler() : busPickUpHandler()
+								}
+							/>
+						</HStack>
 					) : (
 						<></>
 					)}
@@ -257,7 +253,6 @@ const ChildInfoPage = ({ route, navigation }) => {
 							iconContainerStyle={{ background: "#000" }}
 							loadingProps={{ animating: true }}
 							loadingStyle={{}}
-							//onPress={pickUpHandler}
 							onPress={selfPickUpStatus}
 							title="Arriving"
 							titleProps={{}}
@@ -294,11 +289,9 @@ const ChildInfoPage = ({ route, navigation }) => {
 							height: 50,
 						}}
 						containerStyle={{ margin: 5 }}
-						disabledStyle={{
-							borderWidth: 2,
-							borderColor: "#00F",
-						}}
-						disabledTitleStyle={{ color: "#00F" }}
+						disabled={pickupStatus === "Arriving" ? false : true}
+						disabledStyle={{}}
+						disabledTitleStyle={{}}
 						linearGradientProps={null}
 						iconContainerStyle={{ background: "#000" }}
 						loadingProps={{ animating: true }}
