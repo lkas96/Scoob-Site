@@ -1,80 +1,3 @@
-// import React, { useState } from "react";
-// import { Alert, FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
-// import CustomButton from "../../components/CustomButton";
-
-// const HomePage = ({ navigation }) => {
-// 	const [child, setChild] = useState([
-// 		{ name: "John Alexis", id: "1", class: "1A", address: "Jurong" },
-// 		{ name: "Random Man", id: "2", class: "2A", address: "Pasir Ris" },
-// 		{ name: "Eternal Blue", id: "3", class: "3A", address: "tampines" },
-// 		{ name: "Long Gone Kid", id: "4", class: "4A", address: "Seng Kang" },
-// 		{ name: "Bareback Brother", id: "5", class: "5A", address: "Woodlands" },
-// 		{ name: "Toad Mushroom", id: "6", class: "6A", address: "Bishan" },
-// 		{ name: "Coder4Lyfe", id: "7", class: "2B", address: "Tiong Bahru" },
-// 		{ name: "Luigi Mario", id: "8", class: "4C", address: "Redhill" },
-// 		{ name: "Peach Bowser", id: "9", class: "1D", address: "Bukit Panjang" },
-// 		{ name: "Who Is This", id: "10", class: "6F", address: "Bukit Batok" },
-// 	]);
-
-// 	return (
-// 		<SafeAreaView style={styles.container}>
-// 			<Text style={styles.title}>Pick Up Zone</Text>
-// 			<SafeAreaView style={styles.scrollContainer}>
-// 				<FlatList
-// 					showsVerticalScrollIndicator={false}
-// 					contentContainerStyle={styles.scrollViewItem}
-// 					// keyExtractor={(item) => item.id} //if you want to extract key value
-// 					data={child}
-// 					renderItem={({ item }) => (
-// 						<CustomButton
-// 							text={`${item.name}`}
-// 							type="SECONDARY"
-// 							onPress={() =>
-// 								navigation.navigate("TeacherPickUpStack", { childInfo: item })
-// 							}
-// 						/>
-// 					)}
-// 				/>
-// 			</SafeAreaView>
-// 		</SafeAreaView>
-// 	);
-// };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 0.4,
-// 		paddingHorizontal: 10,
-// 	},
-// 	scrollContainer: {
-// 		paddingHorizontal: 15,
-// 		borderRadius: 8,
-// 		backgroundColor: "lightgray",
-// 		margin: 1,
-// 	},
-// 	item: {
-// 		marginTop: 24,
-// 		backgroundColor: "yellow",
-// 		fontSize: 24,
-// 	},
-// 	scrollViewItem: {
-// 		justifyContent: "center",
-// 		alignSelf: "stretch",
-// 	},
-// 	image: {
-// 		resizeMode: "contain",
-// 		height: 20,
-// 		width: 10,
-// 	},
-// 	title: {
-// 		fontWeight: "bold",
-// 		fontSize: 25,
-// 		paddingTop: 10,
-// 		paddingLeft: 10,
-// 	},
-// });
-
-// export default HomePage;
-
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -101,19 +24,38 @@ const HomePage = ({ navigation }) => {
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
 	// console.log(userDetails);
+	// Old does not include parent data
+	// const fetchStudentData = async () => {
+	// 	try {
+	// 		const response = await axios.get(
+	// 			`${lambdaEndpoint}/teacher/${userDetails.userClass}/pickupstatus/arrived`
+	// 		);
+	// 		const data = response.data;
+	// 		// console.log(data);
+	// 		setChildData(data);
+	// 		console.log("Fetching...");
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
+	// include 
 	const fetchStudentData = async () => {
 		try {
-			const response = await axios.get(
-				`${lambdaEndpoint}/teacher/${userDetails.userClass}/pickupstatus/arrived`
-			);
-			const data = response.data;
-			// console.log(data);
-			setChildData(data);
-			console.log("Fetching...");
+		  const response = await axios.get(
+			`${lambdaEndpoint}/teacher/${userDetails.userClass}/pickupstatus/arrived`
+		  );
+		  const data = response.data;
+		  setChildData(data);
+		  console.log("Fetching...");
 		} catch (error) {
-			console.error(error);
+		  console.error(error);
 		}
-	};
+	  };
+	  
+	  
+	
+	  
 
 	useEffect(() => {
 		const focusHandler = navigation.addListener("focus", () => {
@@ -135,6 +77,7 @@ const HomePage = ({ navigation }) => {
 					// keyExtractor={(item) => item.id} //if you want to extract key value
 					data={childData}
 					renderItem={({ item }) => (
+						
 						// <CustomButton
 						// 	text={`${item.fname} ${item.lname}`}
 						// 	type="SECONDARY"
@@ -151,9 +94,9 @@ const HomePage = ({ navigation }) => {
 							}}
 							disabledStyle={{ opacity: 0.5 }}
 							onLongPress={() => console.log("onLongPress()")}
-							// onPress={() =>
-							// 	navigation.navigate("ChildInfoStack", { childInfo: item })
-							// }
+							 onPress={() =>
+							 	navigation.navigate("TeacherPickUpStack", { childInfo: item })
+							 }
 							pad={20}
 						>
 							<Avatar
