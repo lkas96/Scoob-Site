@@ -356,6 +356,33 @@ app.put("/student/:studentid/arrived", (req, res) => {
 	});
 });
 
+
+// Change pickupstatus to "PickedUp" for a student
+app.put("/student/:studentid/pickedup", (req, res) => {
+	const studentid = req.params.studentid;
+
+	// SQL query to update the pickupstatus in the 'student' table
+	const sql = "UPDATE student SET pickupstatus = 'PickedUp' WHERE studentid = ?";
+
+	db.query(sql, [studentid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to update pickup status" });
+		}
+
+		if (results.affectedRows === 0) {
+			// No student data found for the given studentid
+			return res.status(404).json({ error: "Student data not found" });
+		}
+
+		// Pickup status updated successfully
+		res.json({ message: "Pickup status updated successfully" });
+	});
+});
+
+  
+  
+
 // Change pickupstatus to "Picked Up" for a student barcode
 app.put("/student/:studentid/pickedup", (req, res) => {
 	const studentId = req.params.studentid;

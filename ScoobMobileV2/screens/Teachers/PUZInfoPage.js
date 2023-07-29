@@ -72,7 +72,10 @@ const PUZInfoPage = ({ navigation, route }) => {
         <CustomButton
           text="Scan ID"
           type="QUARTERNARY"
-          onPress={() => navigation.navigate("ScanID")}
+          onPress={() => navigation.navigate("ScanID", {
+            parentid: route.params.parentid,
+          })
+        }
         />
       </View>
     </SafeAreaView>
