@@ -129,7 +129,7 @@ if (isset($_POST["logout"])) {
 
           if ($execute === true) {
             // Perform necessary actions after successful deletion
-            header("location: ../SCHOOLADMIN/school-manage-students.php");
+            echo "<script>alert('Successfully deleted student record.'); window.location='../SCHOOLADMIN/school-manage-students.php';</script>";
           } else {
             echo "<script>alert('Error Deleting Student Details.');</script>";
           }
