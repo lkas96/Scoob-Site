@@ -141,6 +141,9 @@ class School
     ";
     $result = $this->conn->query($sql);
 
+    //ADD OTHER QUERIES TO SET AFFECTED STUDENTS CLASSES TO NULL
+    //UPDATE THE TABLES ADD CASCADE ON DELETE/UPDATE THINGY
+
     if ($result === true) {
       return true;
     } else {

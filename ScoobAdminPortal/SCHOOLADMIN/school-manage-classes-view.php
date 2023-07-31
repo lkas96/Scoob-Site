@@ -57,6 +57,23 @@ if (isset($_POST["logout"])) {
     <div class="rightPanel">
       <h1>Viewing Class Details</h1>
       <div class="data">
+
+        <!-- FOR DELETING A CLASS -->
+        <?php
+        if (isset($_POST['deleteClass'])) {
+          $class = $_POST['class-del'];
+          $execute = DeleteClass::deleteClass($class);
+
+          if ($execute === true) {
+            // Perform necessary actions after successful deletion
+            echo "<script>alert('Successfully deleted class, please reassign students to a new class.'); window.location='../SCHOOLADMIN/school-manage-classes.php';</script>";
+          } else {
+            echo "<script>alert('Error Deleting Class.');</script>";
+          }
+        }
+        ?>
+
+
         <?php
         if (isset($_POST['class'])) {
           $class = $_POST['class'];
@@ -92,10 +109,10 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['teacher'] . "</td>";
             echo '<td>' . $row['number of students'] . "</td>";
 
-            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+            //BUTTON FORM DELETE CLASS
             echo '<td><form action="school-manage-classes-view.php" method="post">';
-            echo '<input type="hidden" name="class" value="' . $row['class'] . '">';
-            echo '<button class="view-button" type="submit">View</button>';
+            echo '<input type="hidden" name="class-del" value="' . $row['class'] . '">';
+            echo '<button class="delete-button" name="deleteClass" type="submit">Delete</button>';
             echo '</form></td>';
             echo "</tr>";
             echo '</tr>';
@@ -136,6 +153,8 @@ if (isset($_POST["logout"])) {
           }
         }
         ?>
+
+
 
       </div> <!-- End of Data -->
     </div> <!-- End of RightPanel -->
@@ -196,6 +215,19 @@ if (isset($_POST["logout"])) {
     cursor: pointer;
     margin-bottom: 0px;
     width: 100px;
+  }
+
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 0px;
   }
 
   .button-container {

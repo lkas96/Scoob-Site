@@ -33,13 +33,13 @@ class SearchClass{
     }
 }
 
-// class DeleteClass{
-//     public static function deleteClass($class){
-//         $deleteClass = new School();
-//         $results = $deleteClass->deleteClass($class);
-//         return $results;
-//     }
-// }
+class DeleteClass{
+    public static function deleteClass($class){
+        $deleteClass = new School();
+        $results = $deleteClass->deleteClass($class);
+        return $results;
+    }
+}
 
 class ViewAllStudents{
     public static function viewAllStudents(){
