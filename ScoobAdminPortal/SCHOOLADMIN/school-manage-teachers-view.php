@@ -68,7 +68,7 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
-      <?php
+        <?php
         if (isset($_POST['teacher'])) {
           $teacherid = $_POST['teacher'];
           $execute = ViewTeacher::viewTeacher($teacherid);
@@ -77,42 +77,60 @@ if (isset($_POST["logout"])) {
 
           if ($execute === true) {
             $result = $_SESSION['viewTeacherSQLTable'];
-          } else {
-            echo "<script>alert('Error Retrieving Teacher Details.');</script>";
-          }
-
-          //PRINT TABLE HEADERS
-          echo '<table class="table table-bordered table-sm" style="text-align: center">';
-          echo '<thead class="thead-dark">';
-          echo '<tr>';
-          echo '<th scope="col">Teacher ID</th>';
-          echo '<th scope="col">Teacher Name</th>';
-          echo '<th scope="col">Class</th>';
-          echo '<th scope="col">E-Mail</th>';
-          echo '<th scope="col">Password</th>';
-          echo '<th scope="col">Action</th>';
-          echo '</tr>';
-          echo '</thead>';
-
-          while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tbody>';
+            //PRINT TABLE HEADERS
+            echo '<table class="table table-bordered table-sm" style="text-align: center">';
+            echo '<thead class="thead-dark">';
             echo '<tr>';
-            echo '<td>' . $row['teacherid'] . "</td>";
-            echo '<td>' . $row['name'] . "</td>";
-            echo '<td>' . $row['class'] . "</td>";
-            echo '<td>' . $row['email'] . "</td>";
-            echo '<td>' . $row['password'] . "</td>";
-
-            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-            echo '<td><form action="school-manage-teachers-view.php" method="post">';
-            echo '<input type="hidden" name="teacherid" value="' . $row['teacherid'] . '">';
-            echo '<button class="view-button" type="submit">Edit</button>';
-            echo '</form></td>';
-            echo "</tr>";
+            echo '<th scope="col">Teacher ID</th>';
+            echo '<th scope="col">Teacher Name</th>';
+            echo '<th scope="col">Class</th>';
+            echo '<th scope="col">E-Mail</th>';
+            echo '<th scope="col">Password</th>';
+            echo '<th scope="col">Action</th>';
             echo '</tr>';
-            echo '</tbody>';
+            echo '</thead>';
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo '<tbody>';
+              echo '<tr>';
+              echo '<td>' . $row['teacherid'] . "</td>";
+              echo '<td>' . $row['name'] . "</td>";
+              echo '<td>' . $row['class'] . "</td>";
+              echo '<td>' . $row['email'] . "</td>";
+              echo '<td>' . $row['password'] . "</td>";
+
+              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              echo '<td><form action="school-manage-teachers-view.php" method="post">';
+              echo '<input type="hidden" name="teacherid" value="' . $row['teacherid'] . '">';
+              echo '<button class="edit-button" name="edit" type="submit">Edit</button>&nbsp';
+              echo '<button class="delete-button" name="deleteTeacher" type="submit">Delete</button>';
+              echo '</form></td>';
+              echo "</tr>";
+              echo '</tr>';
+              echo '</tbody>';
+            }
+            echo '</table>';
           }
-          echo '</table>';
+        } else {
+          echo "<script>alert('Error Retrieving Teacher Details.');</script>";
+        }
+
+
+        ?>
+
+
+        <!-- FOR DELETING A TEACHER -->
+        <?php
+        if (isset($_POST['deleteTeacher'])) {
+          $teacherid = $_POST['teacherid'];
+          $execute = DeleteTeacher::deleteTeacher($teacherid);
+
+          if ($execute === true) {
+            // Perform necessary actions after successful deletion
+            echo "<script>alert('Successfully deleted teacher record.'); window.location='../SCHOOLADMIN/school-manage-teachers.php';</script>";
+          } else {
+            echo "<script>alert('Error Deleting Teacher Details.');</script>";
+          }
         }
         ?>
       </div>
@@ -138,6 +156,32 @@ if (isset($_POST["logout"])) {
 
   .view-button {
     background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+
+  .edit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+
+  .delete-button {
+    background-color: #f44336;
     color: white;
     padding: 6px 10px;
     border: none;

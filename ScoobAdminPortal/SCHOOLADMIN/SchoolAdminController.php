@@ -118,4 +118,12 @@ class SearchTeacher{
     }
 }
 
+class DeleteTeacher{
+    public static function deleteTeacher($teacherid){
+        $deleteTeacher = new School();
+        $results = $deleteTeacher->deleteTeacher($teacherid);
+        return $results;
+    }
+}
+
 ?>

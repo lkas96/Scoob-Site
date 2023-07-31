@@ -341,4 +341,19 @@ class School
       return false;
     }
   }
+
+  //FUNCTION TO DELETE A TEACHER
+  public function deleteTeacher($teacherid)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "DELETE FROM teacher WHERE teacherid = '$teacherid' AND uen = '$uen'";
+    $result = $this->conn->query($sql);
+
+    if ($result === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
