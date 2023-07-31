@@ -58,11 +58,8 @@ if (isset($_POST["logout"])) {
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing All Students</h1>
-          <div style="display: flex; align-items: center;">
-          <a href="school-manage-students-add.php" style="margin-right: 10px;"><button>Add Student</button></a>
-
-        
-
+        <div style="display: flex; align-items: center;">
+          <a style="margin-right: 10px;"><button>Add Student</button></a>
           <form method="post" action="school-manage-students-search.php">
             <input type="text" name="searchQuery" placeholder="Search Student" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
@@ -70,57 +67,59 @@ if (isset($_POST["logout"])) {
         </div>
       </div>
 
-      <div class="data">         
+      <div class="data">
 
-                  
+
 
 
         <?php
-          $aaa = viewAllStudents::viewAllStudents();
-          $result = NULL; //PLACEHOLDER
-          
+        $aaa = viewAllStudents::viewAllStudents();
+        $result = NULL; //PLACEHOLDER
+
+        
+
+        if ($result === NULL) {
+          echo 'No Students found.';
+        } else {
+
           if (isset($_SESSION['viewAllStudentsSQLTable'])) {
             $result = $_SESSION['viewAllStudentsSQLTable'];
           }
-  
-          if ($result == NULL) {
-            echo 'No Students found.';
-          } else {
-            //PRINT TABLE HEADERS
-            echo '<table class="table table-bordered table-sm" style="text-align: center">';
-            echo '<thead class="thead-dark">';
+          //PRINT TABLE HEADERS
+          echo '<table class="table table-bordered table-sm" style="text-align: center">';
+          echo '<thead class="thead-dark">';
+          echo '<tr>';
+          echo '<th scope="col">S/N</th>';
+          echo '<th scope="col">Student ID</th>';
+          echo '<th scope="col">Student Name</th>';
+          echo '<th scope="col">Class</th>';
+          echo '<th scope="col">Action</th>';
+          echo '</tr>';
+          echo '</thead>';
+
+          $rowNumber = 1;
+
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tbody>';
             echo '<tr>';
-            echo '<th scope="col">S/N</th>';
-            echo '<th scope="col">Student ID</th>';
-            echo '<th scope="col">Student Name</th>';
-            echo '<th scope="col">Class</th>';
-            echo '<th scope="col">Action</th>';
+            echo '<td>' . $rowNumber . "</td>";
+            echo '<td>' . $row['studentid'] . "</td>";
+            echo '<td>' . $row['studentname'] . "</td>";
+            echo '<td>' . $row['class'] . "</td>";
+
+            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+
+            echo '<td><form action="school-manage-students-view.php" method="post">';
+            echo '<input type="hidden" name="student" value="' . $row['studentid'] . '">';
+            echo '<button class="view-button" type="submit">View</button>';
+            echo '</form></td>';
+            echo "</tr>";
             echo '</tr>';
-            echo '</thead>';
-          
-            $rowNumber = 1;
-  
-            while ($row = mysqli_fetch_assoc($result)) {
-              echo '<tbody>';
-              echo '<tr>';
-              echo '<td>'. $rowNumber . "</td>";
-              echo '<td>' . $row['studentid'] . "</td>";
-              echo '<td>' . $row['studentname'] . "</td>";
-              echo '<td>' . $row['class'] . "</td>";
-  
-              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-              
-              echo '<td><form action="school-manage-students-view.php" method="post">';
-              echo '<input type="hidden" name="student" value="' . $row['studentid'] . '">';
-              echo '<button class="view-button" type="submit">View</button>';
-              echo '</form></td>';
-              echo "</tr>";
-              echo '</tr>';
-              echo '</tbody>';
-              $rowNumber++;
-            }
-            echo '</table>';
+            echo '</tbody>';
+            $rowNumber++;
           }
+          echo '</table>';
+        }
 
         ?>
       </div>
