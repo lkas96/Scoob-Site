@@ -70,7 +70,11 @@ if (isset($_POST["logout"])) {
         </div>
       </div>
 
-      <div class="data">
+      <div class="data">         
+
+                  
+
+
         <?php
           $aaa = viewAllStudents::viewAllStudents();
           $result = NULL; //PLACEHOLDER
@@ -105,6 +109,7 @@ if (isset($_POST["logout"])) {
               echo '<td>' . $row['class'] . "</td>";
   
               //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              
               echo '<td><form action="school-manage-students-view.php" method="post">';
               echo '<input type="hidden" name="student" value="' . $row['studentid'] . '">';
               echo '<button class="view-button" type="submit">View</button>';

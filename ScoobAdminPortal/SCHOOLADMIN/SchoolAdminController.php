@@ -73,6 +73,19 @@ class SearchStudent{
     }
 }
 
+
+class DeleteStudent
+{
+    public static function deleteStudent($studentid)
+    {
+        $deleteStudent = new School();
+        $results = $deleteStudent->deleteStudent($studentid);
+        return $results;
+    }
+}
+
+
+
 class ViewAllTeachers{
     public static function viewAllTeachers(){
         $viewAllTeachers = new School();

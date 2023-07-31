@@ -68,6 +68,26 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
+
+
+
+
+      <?php
+  if (isset($_POST['deleteStudent'])) {
+    $studentid = $_POST['deleteStudent'];
+    $execute = DeleteStudent::deleteStudent($studentid);
+
+    if ($execute === true) {
+      // Perform necessary actions after successful deletion
+      header("location: ../SCHOOLADMIN/school-manage-students-view.php");
+    } else {
+      echo "<script>alert('Error Deleting Student Details.');</script>";
+    }
+  }
+?>
+
+
+
       <?php
         if (isset($_POST['student'])) {
           $studentid = $_POST['student'];
@@ -95,6 +115,7 @@ if (isset($_POST["logout"])) {
           echo '</tr>';
           echo '</thead>';
 
+
           while ($row = mysqli_fetch_assoc($result)) {
             echo '<tbody>';
             echo '<tr>';
@@ -105,18 +126,43 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['parentid'] . "</td>";
             echo '<td>' . $row['subscription'] . "</td>";
 
-            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+
+
             echo '<td><form action="school-manage-students-view.php" method="post">';
             echo '<input type="hidden" name="studentid" value="' . $row['studentid'] . '">';
-            echo '<button class="view-button" type="submit">Edit</button>';
-            echo '</form></td>';
-            echo "</tr>";
-            echo '</tr>';
+        
+            
+
+            echo '<button class="delete-button" name="deleteStudent" type="submit">Delete</button>&nbsp;&nbsp;';
+          
+            
+
+        }  echo '</tr>';
+           echo '</tr>';
             echo '</tbody>';
-          }
+          
           echo '</table>';
         }
-        ?>
+      
+        ?> 
+        
+     
+            </div>
+   
+        </div>
+        </div>
+        </div>
+        <br>
+
+                    
+			
+
+
+
+
+
+
+
       </div>
     </div> <!-- End of RightPanel -->
 

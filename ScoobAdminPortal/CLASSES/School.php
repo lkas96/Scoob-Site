@@ -234,6 +234,25 @@ class School
   }
 
 
+    //FUNCTION TO DELETE A STUDENT
+    public function deleteStudent($studentid)
+    {
+      $uen = $_SESSION['uen'];
+  
+      $sql = "DELETE FROM student WHERE studentid = '$studentid' AND uen = '$uen'";
+      $result = $this->conn->query($sql);
+  
+      if ($result) {
+        if ($this->conn->affected_rows > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+
 
     //FUNCTION TO VIEW ALL TEACHERS
     public function viewAllTeachers()
