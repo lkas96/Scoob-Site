@@ -55,7 +55,17 @@ if (isset($_POST["logout"])) {
     </div>
 
     <div class="rightPanel">
-      <h1>Viewing Class Details</h1>
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h1 style="margin: 0;">Viewing Class Details</h1>
+        <div style="display: flex; align-items: center;">
+          <a href="school-manage-classes-add.php" style="margin-right: 10px;"><button>Add Class</button></a>
+          <form method="post" action="school-manage-classes-search.php">
+            <input type="text" name="searchQuery" placeholder="Search Classes" style="margin-right: 5px;" required>
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+
       <div class="data">
 
         <!-- FOR DELETING A CLASS -->
@@ -232,5 +242,9 @@ if (isset($_POST["logout"])) {
 
   .button-container {
     display: inline-block;
+  }
+
+  form {
+    margin-bottom: 0;
   }
 </style>
