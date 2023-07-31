@@ -15,6 +15,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>School Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,9 +36,11 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
-	</nav>
+  </nav>
 
   <!-- Main Container -->
   <div class="bodyContainer">
@@ -45,10 +48,10 @@ if (isset($_POST["logout"])) {
       <button class="customButton" type="button" onclick="window.location.href='school-manage-classes.php'"> <span>Manage Classes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-teachers.php'"> <span>Manage Teachers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='school-manage-students.php'"> <span>Manage Students</span></button><br><br>
-      <button class="customButton" type="button" onclick="window.location.href='school-import.php'">          <span>Import Data</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='school-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
-	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
-	    </form>
+        <button class="logoutButton" tpe="button" name="logout">Logout</button>
+      </form>
     </div>
 
     <div class="rightPanel">
@@ -75,52 +78,57 @@ if (isset($_POST["logout"])) {
           <input type="submit" name="submit" value="Add Student">
         </form>
         <?php
-          if (isset($_POST["submit"]))
-          {      
-            $fname = $_POST["studentFirstName"];
-            $lname = $_POST["studentLastName"];       
-            $studentid = $_POST["studentID"];
-            $parentid = $_POST["parentID"];
-            $class = $_POST["class"];
-            $subscription = $_POST["subscription"];
-           
-            $addStudent = new AddStudent();
-            $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
+        if (isset($_POST["submit"])) {
+          $fname = $_POST["studentFirstName"];
+          $lname = $_POST["studentLastName"];
+          $studentid = $_POST["studentID"];
+          $parentid = $_POST["parentID"];
+          $class = $_POST["class"];
+          $subscription = $_POST["subscription"];
 
-            if ($addStudent == true) {
-              echo "<script>alert('Student successfully added'); window.location.href = 'school-manage-students.php';</script>";
-            } else {
-              echo "<script>alert('Student already exists'); window.location.href = 'school-manage-students-add.php';</script>";
-            }
+          $addStudent = new AddStudent();
+          $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
+
+          if ($addStudent == true) {
+            echo "<script>alert('Student successfully added'); window.location.href = 'school-manage-students.php';</script>";
+          } else {
+            echo "<script>alert('Student already exists'); window.location.href = 'school-manage-students-add.php';</script>";
           }
+        }
         ?>
       </div> <!-- End of add-class-form -->
     </div> <!-- End of RightPanel -->
   </div> <!-- End of Main Container -->
 </body>
+
 </html>
 
 <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        .view-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 6px 10px;
-            border: none;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .view-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  form {
+    margin-bottom: 0;
+  }
+</style>
