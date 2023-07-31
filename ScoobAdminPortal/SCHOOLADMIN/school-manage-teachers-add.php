@@ -123,4 +123,8 @@ if (isset($_POST["logout"])) {
             font-size: 12px;
             cursor: pointer;
         }
+
+        form {
+    margin-bottom: 0;
+  }
     </style>
