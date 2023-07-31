@@ -114,7 +114,7 @@ if (isset($_POST["logout"])) {
             echo '</tr>';
             echo '</tbody>';
           }
-          
+
           echo '</table>';
         }
 
