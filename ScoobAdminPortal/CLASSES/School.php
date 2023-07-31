@@ -148,22 +148,22 @@ class School
     }
   }
 
-    //FUNCTION TO ADD A STUDENT
-    public function addStudent($fname, $lname, $studentid, $parentid, $class, $subscription)
-    {
-      $uen = $_SESSION['uen'];
-  
-      $sql = "INSERT INTO student (fname, lname, studentid, parentid, class, subscription, uen) VALUES ('$fname', '$lname', '$studentid', '$parentid', '$class', '$subscription', '$uen');
+  //FUNCTION TO ADD A STUDENT
+  public function addStudent($fname, $lname, $studentid, $parentid, $class, $subscription)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "INSERT INTO student (fname, lname, studentid, parentid, class, subscription, uen) VALUES ('$fname', '$lname', '$studentid', '$parentid', '$class', '$subscription', '$uen');
       ";
-  
-      $result = $this->conn->query($sql);
-  
-      if ($result === true) {
-        return true;
-      } else {
-        return false;
-      }
+
+    $result = $this->conn->query($sql);
+
+    if ($result === true) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
   //FUNCTION TO VIEW ALL STUDENTS
   public function viewAllStudents()
@@ -233,53 +233,47 @@ class School
     }
   }
 
+  //FUNCTION TO DELETE A STUDENT
+  public function deleteStudent($studentid)
+  {
+    $uen = $_SESSION['uen'];
 
-    //FUNCTION TO DELETE A STUDENT
-    public function deleteStudent($studentid)
-    {
-      $uen = $_SESSION['uen'];
-  
-      $sql = "DELETE FROM student WHERE studentid = '$studentid' AND uen = '$uen'";
-      $result = $this->conn->query($sql);
-  
-      if ($result) {
-        if ($this->conn->affected_rows > 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
+    $sql = "DELETE FROM student WHERE studentid = '$studentid' AND uen = '$uen'";
+    $result = $this->conn->query($sql);
+
+    if ($result === true) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
+  //FUNCTION TO VIEW ALL TEACHERS
+  public function viewAllTeachers()
+  {
+    $uen = $_SESSION['uen'];
 
-    //FUNCTION TO VIEW ALL TEACHERS
-    public function viewAllTeachers()
-    {
-      $uen = $_SESSION['uen'];
-  
-      $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
+    $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
               FROM teacher
               JOIN class on teacher.class = class.class
               WHERE class.uen = '$uen'
               ORDER BY teacher.class;
       ";
-  
-      $result = $this->conn->query($sql);
-  
-      if ($result->num_rows > 0) {
-        //SAVE THE TABLE TO SESSION
-        $_SESSION['viewAllTeachersSQLTable'] = $result;
-        return true;
-      } else {
-        return false;
-      }
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewAllTeachersSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
     }
+  }
 
 
 
-      //FUNCTION TO VIEW SPECIFIC TEACHER DETAILS
+  //FUNCTION TO VIEW SPECIFIC TEACHER DETAILS
   public function viewTeacher($teacherid)
   {
     $uen = $_SESSION['uen'];
@@ -300,31 +294,31 @@ class School
 
 
 
-    //FUNCTION TO ADD A TEACHER
-        public function addTeacher($fname, $lname, $teacherid, $class, $email, $password)
-        {
-          $uen = $_SESSION['uen'];
-      
-          $sql = "INSERT INTO teacher (fname, lname, teacherid, class, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$class', '$email', '$password', '$uen');
+  //FUNCTION TO ADD A TEACHER
+  public function addTeacher($fname, $lname, $teacherid, $class, $email, $password)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "INSERT INTO teacher (fname, lname, teacherid, class, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$class', '$email', '$password', '$uen');
           ";
-      
-          $result = $this->conn->query($sql);
-      
-          if ($result === true) {
-            return true;
-          } else {
-            return false;
-          }
-        }
+
+    $result = $this->conn->query($sql);
+
+    if ($result === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
 
-    //FUNCTION TO SEARCH A TEACHER
-      public function searchTeacher($searchQuery)
-      {
-        $uen = $_SESSION['uen'];
+  //FUNCTION TO SEARCH A TEACHER
+  public function searchTeacher($searchQuery)
+  {
+    $uen = $_SESSION['uen'];
 
-        $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
+    $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
                 FROM teacher
                 JOIN class on teacher.class = class.class
                 WHERE teacher.uen = '$uen' AND teacherid LIKE '%$searchQuery%' 
@@ -334,15 +328,14 @@ class School
                   
         ";
 
-        $result = $this->conn->query($sql);
+    $result = $this->conn->query($sql);
 
-        if ($result->num_rows > 0) {
-          //SAVE THE TABLE TO SESSION
-          $_SESSION['viewSearchTeacherSQLTable'] = $result;
-          return true;
-        } else {
-          return false;
-        }
-      }
-
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewSearchTeacherSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

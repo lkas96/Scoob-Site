@@ -68,27 +68,7 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
-
-
-
-
-      <?php
-  if (isset($_POST['deleteStudent'])) {
-    $studentid = $_POST['deleteStudent'];
-    $execute = DeleteStudent::deleteStudent($studentid);
-
-    if ($execute === true) {
-      // Perform necessary actions after successful deletion
-      header("location: ../SCHOOLADMIN/school-manage-students-view.php");
-    } else {
-      echo "<script>alert('Error Deleting Student Details.');</script>";
-    }
-  }
-?>
-
-
-
-      <?php
+        <?php
         if (isset($_POST['student'])) {
           $studentid = $_POST['student'];
           $execute = ViewStudent::viewStudent($studentid);
@@ -126,45 +106,55 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['parentid'] . "</td>";
             echo '<td>' . $row['subscription'] . "</td>";
 
-
-
+            //ACTION BUTTON DELETE STUDENT
             echo '<td><form action="school-manage-students-view.php" method="post">';
             echo '<input type="hidden" name="studentid" value="' . $row['studentid'] . '">';
-        
-            
-
             echo '<button class="delete-button" name="deleteStudent" type="submit">Delete</button>&nbsp;&nbsp;';
-          
-            
-
-        }  echo '</tr>';
-           echo '</tr>';
+            echo '</td>';
+            echo '</tr>';
             echo '</tbody>';
+          }
           
           echo '</table>';
         }
-      
-        ?> 
-        
-     
-            </div>
-   
-        </div>
-        </div>
-        </div>
-        <br>
 
-                    
-			
+        ?>
 
 
+        <!-- FOR DELETING A STUDENT -->
+        <?php
+        if (isset($_POST['deleteStudent'])) {
+          $studentid = $_POST['studentid'];
+          $execute = DeleteStudent::deleteStudent($studentid);
 
-
-
+          if ($execute === true) {
+            // Perform necessary actions after successful deletion
+            header("location: ../SCHOOLADMIN/school-manage-students.php");
+          } else {
+            echo "<script>alert('Error Deleting Student Details.');</script>";
+          }
+        }
+        ?>
 
 
       </div>
-    </div> <!-- End of RightPanel -->
+
+    </div>
+  </div>
+  </div>
+  <br>
+
+
+
+
+
+
+
+
+
+
+  </div>
+  </div> <!-- End of RightPanel -->
 
   </div> <!-- End of Container -->
 </body>
@@ -186,6 +176,19 @@ if (isset($_POST["logout"])) {
 
   .view-button {
     background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+
+  .delete-button {
+    background-color: #f44336;
     color: white;
     padding: 6px 10px;
     border: none;
