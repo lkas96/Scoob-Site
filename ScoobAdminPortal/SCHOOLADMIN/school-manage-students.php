@@ -76,15 +76,15 @@ if (isset($_POST["logout"])) {
         $aaa = viewAllStudents::viewAllStudents();
         $result = NULL; //PLACEHOLDER
 
-        
+        if (isset($_SESSION['viewAllStudentsSQLTable'])) {
+          $result = $_SESSION['viewAllStudentsSQLTable'];
+        }
 
         if ($result === NULL) {
           echo 'No Students found.';
         } else {
 
-          if (isset($_SESSION['viewAllStudentsSQLTable'])) {
-            $result = $_SESSION['viewAllStudentsSQLTable'];
-          }
+          
           //PRINT TABLE HEADERS
           echo '<table class="table table-bordered table-sm" style="text-align: center">';
           echo '<thead class="thead-dark">';
