@@ -28,7 +28,7 @@ const ChatPage = () => {
 		<SafeAreaView style={[styles.container]}>
 			<ScrollView style={{ flex: 1, width: "100%" }}>
 				<View style={{ marginBottom: tabBarHeight }}>
-					{/* <Text style={styles.text}>
+					<Text style={styles.text}>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 						ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -36,13 +36,13 @@ const ChatPage = () => {
 						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
 						pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 						culpa qui officia deserunt mollit anim id est laborum.
-					</Text> */}
+					</Text>
 					{/* <Image
 					style={{ resizeMode: "contain" }}
 					source={require("../../assets/images/ScooB.png")}
 				/>
 					{/* <TestAnimation /> */}
-					<TestButton style={styles.button} />
+					{/* <TestButton style={styles.button} />
 					<HStack m={4} spacing={6} justify="center">
 						<Button title="Contained" />
 						<Button variant="outlined" title="Outlined" />
@@ -78,7 +78,7 @@ const ChatPage = () => {
 							rightIconContainerStyle={{}}
 							placeholder="Enter Password"
 						/>
-					</VStack>
+					</VStack> */}
 				</View>
 			</ScrollView>
 		</SafeAreaView>

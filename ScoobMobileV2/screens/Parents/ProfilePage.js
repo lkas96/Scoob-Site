@@ -1,14 +1,8 @@
 import Barcode from "@kichiyaki/react-native-barcode-generator";
+import { ActivityIndicator } from "@react-native-material/core";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import {
-	ActivityIndicator,
-	Alert,
-	Image,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { COLORS } from "../../constants";
 import UserContext from "../../context/UserContext";
@@ -20,9 +14,9 @@ const ProfilePage = ({ route }) => {
 
 	const { userEmail } = useContext(UserContext);
 	const [profileData, setProfileData] = useState("");
-
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/";
+
 	useEffect(() => {
 		// Fetch data from the Lambda function when the component mounts
 		axios
@@ -30,6 +24,7 @@ const ProfilePage = ({ route }) => {
 			.then((response) => {
 				// Handle the response and set the profile data in the state
 				setProfileData(response.data);
+				// console.log(profileData.parentid);
 			})
 			.catch((error) => {
 				console.error("Error fetching profile data:", error);
@@ -52,6 +47,11 @@ const ProfilePage = ({ route }) => {
 						<Text style={styles.text}>Email: {profileData.email}</Text>
 						<Text style={styles.text}>Phone Number: {profileData.phone}</Text>
 						{/* Add more profile details as needed */}
+						<Barcode
+							value={profileData.parentid}
+							height={80}
+							background={COLORS.white}
+						/>
 					</>
 				) : (
 					<View style={styles.loading}>
@@ -59,11 +59,6 @@ const ProfilePage = ({ route }) => {
 						<Text>Loading...</Text>
 					</View>
 				)}
-				<Barcode
-					value={profileData.parentid}
-					height={80}
-					background={COLORS.white}
-				/>
 			</View>
 			<CustomButton
 				text="Edit Profile"

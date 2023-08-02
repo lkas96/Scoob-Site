@@ -8,17 +8,8 @@ import { Button } from "@rneui/themed";
 import { HStack, Stack, VStack } from "react-native-flex-layout";
 
 function Settings({ navigation }) {
-	const [parent, setParent] = useState([
-		{
-			name: "John Alexis",
-			id: "S9876543A",
-			email: "john@gg.com",
-			phoneNo: "91234567",
-		},
-	]);
-
 	const viewProfileHandler = () => {
-		navigation.navigate("ParentsProfile", { parentInfo: parent });
+		navigation.navigate("ParentsProfile");
 	};
 
 	const logOutHandler = async (data) => {

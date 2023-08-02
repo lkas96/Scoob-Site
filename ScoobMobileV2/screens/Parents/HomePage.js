@@ -102,6 +102,16 @@ const HomePage = ({ navigation }) => {
 										/>
 									)}
 								</ListItem.Subtitle>
+								<ListItem.Subtitle>
+									{/* // ! To change the naming */}
+									{item.pickupstatus === "Picked Up" ? (
+										<Text>Status: Picked Up</Text>
+									) : item.pickupstatus === "Arriving" ? (
+										<Text>Status: On the way</Text>
+									) : (
+										<Text>Status: Came</Text>
+									)}
+								</ListItem.Subtitle>
 							</ListItem.Content>
 							<ListItem.Chevron />
 						</ListItem>
@@ -123,6 +133,8 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		backgroundColor: "lightgray",
 		margin: 10,
+		minHeight: 150,
+		maxHeight: 350,
 	},
 	scrollViewItem: {
 		justifyContent: "center",

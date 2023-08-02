@@ -198,29 +198,6 @@ const ChildInfoPage = ({ route, navigation }) => {
 			<View style={styles.buttonStack}>
 				<VStack>
 					{subscriptionStatus === "Yes" ? (
-						// <Button
-						// 	buttonStyle={{
-						// 		width: "100%",
-						// 		backgroundColor: COLORS.primary,
-						// 		borderRadius: 8,
-						// 		height: 50,
-						// 	}}
-						// 	containerStyle={{ margin: 5 }}
-						// 	disabledStyle={{
-						// 		borderWidth: 2,
-						// 		borderColor: "#00F",
-						// 	}}
-						// 	disabledTitleStyle={{ color: "#00F" }}
-						// 	linearGradientProps={null}
-						// 	iconContainerStyle={{ background: "#000" }}
-						// 	loadingProps={{ animating: true }}
-						// 	loadingStyle={{}}
-						// 	// onPress={selfPickUpHandler}
-						// 	onPress={busPickUpHandler}
-						// 	title="Change to Self Pickup"
-						// 	titleProps={{}}
-						// 	titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
-						// />
 						<HStack justify={"center"} align={"center"}>
 							<Text>{pickUpMode === true ? "Bus Pickup" : "Self Pickup"}</Text>
 							<Switch
@@ -244,11 +221,9 @@ const ChildInfoPage = ({ route, navigation }) => {
 								height: 50,
 							}}
 							containerStyle={{ margin: 5 }}
-							disabledStyle={{
-								borderWidth: 2,
-								borderColor: "#00F",
-							}}
-							disabledTitleStyle={{ color: "#00F" }}
+							disabled={pickUpMode === true ? true : false}
+							disabledStyle={{}}
+							disabledTitleStyle={{}}
 							linearGradientProps={null}
 							iconContainerStyle={{ background: "#000" }}
 							loadingProps={{ animating: true }}
@@ -266,11 +241,9 @@ const ChildInfoPage = ({ route, navigation }) => {
 								height: 50,
 							}}
 							containerStyle={{ margin: 5 }}
-							disabledStyle={{
-								borderWidth: 2,
-								borderColor: "#00F",
-							}}
-							disabledTitleStyle={{ color: "#00F" }}
+							disabled={pickUpMode === true ? true : false}
+							disabledStyle={{}}
+							disabledTitleStyle={{}}
 							linearGradientProps={null}
 							iconContainerStyle={{ background: "#000" }}
 							loadingProps={{ animating: true }}

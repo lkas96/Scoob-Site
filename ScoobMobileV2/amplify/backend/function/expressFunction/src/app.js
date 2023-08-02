@@ -160,34 +160,56 @@ app.get("/student/:studentid", (req, res) => {
 // Your existing route to get student data with 'Arrived' pickup status
 app.get("/teacher/:class/pickupstatus/arrived", (req, res) => {
 	const teacherClass = req.params.class;
-  
+
 	// SQL query to select students with parent's first name and last name
 	const sql = `
 	  SELECT s.*, p.fname AS parentFname, p.lname AS parentLname
 	  FROM student AS s
 	  INNER JOIN parentguardians AS p ON s.parentid = p.parentid
 	  WHERE s.pickupstatus = 'Arrived' AND s.class = ?`;
-  
-	db.query(sql, [teacherClass], (err, results) => {
-	  if (err) {
-		console.error("Error executing query:", err);
-		return res.status(500).json({ error: "Failed to get student data" });
-	  }
-  
-	  if (results.length === 0) {
-		// No student data found with 'Arrived' pickupstatus for the given class
-		return res
-		  .status(404)
-		  .json({ error: "No students with 'Arrived' pickupstatus found" });
-	  }
-  
-	  // Student data found, send the data as the response
-	  res.json(results);
-	});
-  });
-  
 
-  
+	db.query(sql, [teacherClass], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get student data" });
+		}
+
+		if (results.length === 0) {
+			// No student data found with 'Arrived' pickupstatus for the given class
+			return res
+				.status(404)
+				.json({ error: "No students with 'Arrived' pickupstatus found" });
+		}
+
+		// Student data found, send the data as the response
+		res.json(results);
+	});
+});
+
+// Student data for the teacher's class
+app.get("/teacher/:class", (req, res) => {
+	const teacherClass = req.params.class;
+
+	// SQL query to select students with parent's first name and last name
+	const sql = `SELECT * FROM student WHERE class = ?`;
+
+	db.query(sql, [teacherClass], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get student data" });
+		}
+
+		if (results.length === 0) {
+			// No student data found with 'Arrived' pickupstatus for the given class
+			return res
+				.status(404)
+				.json({ error: `No students in class ${teacherClass}` });
+		}
+
+		// Student data found, send the data as the response
+		res.json(results);
+	});
+});
 
 /****************************
  * Example post method *
@@ -355,33 +377,6 @@ app.put("/student/:studentid/arrived", (req, res) => {
 		res.json({ message: "Pickup status updated successfully" });
 	});
 });
-
-
-// Change pickupstatus to "PickedUp" for a student
-app.put("/student/:studentid/pickedup", (req, res) => {
-	const studentid = req.params.studentid;
-
-	// SQL query to update the pickupstatus in the 'student' table
-	const sql = "UPDATE student SET pickupstatus = 'PickedUp' WHERE studentid = ?";
-
-	db.query(sql, [studentid], (err, results) => {
-		if (err) {
-			console.error("Error executing query:", err);
-			return res.status(500).json({ error: "Failed to update pickup status" });
-		}
-
-		if (results.affectedRows === 0) {
-			// No student data found for the given studentid
-			return res.status(404).json({ error: "Student data not found" });
-		}
-
-		// Pickup status updated successfully
-		res.json({ message: "Pickup status updated successfully" });
-	});
-});
-
-  
-  
 
 // Change pickupstatus to "Picked Up" for a student barcode
 app.put("/student/:studentid/pickedup", (req, res) => {
