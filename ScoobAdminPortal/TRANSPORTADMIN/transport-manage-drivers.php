@@ -15,6 +15,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>Transport Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,26 +36,71 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
-	</nav>
+  </nav>
 
   <!-- Main Container -->
   <div class="bodyContainer">
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
-<button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
-	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
-	    </form>
+        <button class="logoutButton" tpe="button" name="logout">Logout</button>
+      </form>
     </div>
 
     <div class="rightPanel">
-    MANAGING DRIVERS WIP
+      <?php
+      $aaa = viewAllDrivers::viewAllDrivers();
+      $result = NULL; //PLACEHOLDER
+
+      if (isset($_SESSION['viewAllDriversSQLTable'])) {
+        $result = $_SESSION['viewAllDriversSQLTable'];
+      }
+
+      if ($result == NULL) {
+        echo 'No drivers found.';
+      } else {
+        //PRINT TABLE HEADERS
+        echo '<table class="table table-bordered table-sm" style="text-align: center">';
+        echo '<thead class="thead-dark">';
+        echo '<tr>';
+        echo '<th scope="col">S/N</th>';
+        echo '<th scope="col">Driver Name</th>';
+        echo '<th scope="col">Assigned Bus</th>';
+        echo '<th scope="col">Action</th>';
+        echo '</tr>';
+        echo '</thead>';
+
+        $rowNumber = 1;
+
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo '<tbody>';
+          echo '<tr>';
+          echo '<td>' . $rowNumber . "</td>";
+          echo '<td>' . $row['drivername'] . "</td>";
+          echo '<td>' . $row['busid'] . "</td>";
+
+          //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+          echo '<td><form action="transport-manage-drivers-view.php" method="post">';
+          echo '<input type="hidden" name="class" value="' . $row['driverid'] . '">';
+          echo '<button class="view-button" type="submit">View</button>';
+          echo '</form></td>';
+          echo "</tr>";
+          echo '</tr>';
+          echo '</tbody>';
+          $rowNumber++;
+        }
+        echo '</table>';
+      }
+      ?>
     </div> <!-- End of RightPanel -->
-    
+
   </div> <!-- End of Container -->
 </body>
-</html>
 
+</html>

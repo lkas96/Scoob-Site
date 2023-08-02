@@ -9,4 +9,12 @@ class ViewAllBuses{
     }
 }
 
+class ViewAllDrivers{
+    public static function viewAllDrivers(){
+        $viewAllDrivers = new Transport();
+        $results = $viewAllDrivers->viewAllDrivers();
+        return $results;
+    }
+}
+
 ?>
