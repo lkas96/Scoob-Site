@@ -55,7 +55,7 @@ if (isset($_POST["logout"])) {
 
     <div class="rightPanel">
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing All Drivers</h1>
+        <h1 style="margin: 0;">Viewing Driver Details</h1>
         <div style="display: flex; align-items: center;">
           <a style="margin-right: 10px;"><button>Add Driver</button></a>
           <form method="post" action="transport-manage-drivers-search.php">
@@ -67,49 +67,76 @@ if (isset($_POST["logout"])) {
 
       <div class="data">
         <?php
-        $aaa = viewAllDrivers::viewAllDrivers();
-        $result = NULL; //PLACEHOLDER
+        if (isset($_POST['driverid'])) {
+          $driverid = $_POST['driverid'];
 
-        if (isset($_SESSION['viewAllDriversSQLTable'])) {
-          $result = $_SESSION['viewAllDriversSQLTable'];
-        }
+          $aaa = ViewDriver::viewDriver($driverid);
+          $result = NULL; //PLACEHOLDER
 
-        if ($result == NULL) {
-          echo 'No drivers found.';
-        } else {
-          //PRINT TABLE HEADERS
-          echo '<table class="table table-bordered table-sm" style="text-align: center">';
-          echo '<thead class="thead-dark">';
-          echo '<tr>';
-          echo '<th scope="col">S/N</th>';
-          echo '<th scope="col">Driver Name</th>';
-          echo '<th scope="col">Assigned Bus</th>';
-          echo '<th scope="col">Action</th>';
-          echo '</tr>';
-          echo '</thead>';
-
-          $rowNumber = 1;
-
-          while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tbody>';
-            echo '<tr>';
-            echo '<td>' . $rowNumber . "</td>";
-            echo '<td>' . $row['drivername'] . "</td>";
-            echo '<td>' . $row['busid'] . "</td>";
-
-            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-            echo '<td><form action="transport-manage-drivers-view.php" method="post">';
-            echo '<input type="hidden" name="driverid" value="' . $row['driverid'] . '">';
-            echo '<button class="view-button" type="submit">View</button>';
-            echo '</form></td>';
-            echo "</tr>";
-            echo '</tr>';
-            echo '</tbody>';
-            $rowNumber++;
+          if (isset($_SESSION['viewDriverSQLTable'])) {
+            $result = $_SESSION['viewDriverSQLTable'];
           }
-          echo '</table>';
+
+          if ($result == NULL) {
+            echo 'No drivers found.';
+          } else {
+            //PRINT TABLE HEADERS
+            echo '<table class="table table-bordered table-sm" style="text-align: center">';
+            echo '<thead class="thead-dark">';
+            echo '<tr>';
+            echo '<th scope="col">S/N</th>';
+            echo '<th scope="col">Driver ID</th>';
+            echo '<th scope="col">Driver Name</th>';
+            echo '<th scope="col">Assigned Bus</th>';
+            echo '<th scope="col">Email</th>';
+            echo '<th scope="col">Phone Number</th>';
+            echo '<th scope="col">Action</th>';
+            echo '</tr>';
+            echo '</thead>';
+
+            $rowNumber = 1;
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo '<tbody>';
+              echo '<tr>';
+              echo '<td>' . $rowNumber . "</td>";
+              echo '<td>' . $row['driverid'] . "</td>";
+              echo '<td>' . $row['drivername'] . "</td>";
+              echo '<td>' . $row['busid'] . "</td>";
+              echo '<td>' . $row['email'] . "</td>";
+              echo '<td>' . $row['phone'] . "</td>";
+
+              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              echo '<td><form action="transport-manage-drivers-view.php" method="post">';
+              echo '<input type="hidden" name="driverid" value="' . $row['driverid'] . '">';
+              echo '<button class="delete-button" name="deleteDriver" type="submit">Delete Driver</button>';
+              echo '</form></td>';
+              echo "</tr>";
+              echo '</tr>';
+              echo '</tbody>';
+              $rowNumber++;
+            }
+            echo '</table>';
+          }
         }
         ?>
+
+        <!-- FUNCTION FOR DELETING DRIVER -->
+        <?php
+        if (isset($_POST['deleteDriver'])){
+          $driverid = $_POST['driverid'];
+          $execute = DeleteDriver::deleteDriver($driverid);
+
+          if ($execute) {
+            echo '<script>alert("Driver deleted successfully.");</script>';
+            echo '<script>window.location.href="transport-manage-drivers.php";</script>';
+          } else {
+            echo '<script>alert("Error deleting driver.");</script>';
+            echo '<script>window.location.href="transport-manage-drivers.php";</script>';
+          }
+        }
+        ?>
+
       </div>
     </div>
   </div>

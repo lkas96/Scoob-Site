@@ -208,15 +208,17 @@ class Transport
   {
     $uen = $_SESSION['uen'];
 
+    $sql2 = "DELETE FROM bus_driver WHERE driverid = '$driverID' AND uen = '$uen';
+    ";
+
+    $result2 = $this->conn->query($sql2);
+
     $sql1 = "DELETE FROM driver WHERE driverid = '$driverID' AND uen = '$uen';
     ";
 
     $result1 = $this->conn->query($sql1);
 
-    $sql2 = "DELETE FROM bus_driver WHERE driverid = '$driverID' AND uen = '$uen';
-    ";
-
-    $result2 = $this->conn->query($sql2);
+    
 
     if ($result1 && $result2) {
       return true;
