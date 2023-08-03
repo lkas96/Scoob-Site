@@ -114,8 +114,6 @@ if (isset($_POST["logout"])) {
         } else {
           echo "<script>alert('Error Retrieving Teacher Details.');</script>";
         }
-
-
         ?>
 
 

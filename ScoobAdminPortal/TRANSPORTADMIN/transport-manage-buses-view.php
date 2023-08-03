@@ -66,49 +66,86 @@ if (isset($_POST["logout"])) {
       </div>
 
       <?php
-      $aaa = viewAllBuses::viewAllBuses();
-      $result = NULL; //PLACEHOLDER
 
-      if (isset($_SESSION['viewAllBusesSQLTable'])) {
-        $result = $_SESSION['viewAllBusesSQLTable'];
-      }
+      if (isset($_POST['bus'])) {
+        $busid = $_POST['bus'];
+        $aaa = viewBus::viewBus($busid);
+        $result = NULL; //PLACEHOLDER
 
-      if ($result == NULL) {
-        echo 'No buses found.';
-      } else {
-        //PRINT TABLE HEADERS
-        echo '<table class="table table-bordered table-sm" style="text-align: center">';
-        echo '<thead class="thead-dark">';
-        echo '<tr>';
-        echo '<th scope="col">S/N</th>';
-        echo '<th scope="col">Bus Reg. No</th>';
-        echo '<th scope="col">Assigned Driver</th>';
-        echo '<th scope="col">Action</th>';
-        echo '</tr>';
-        echo '</thead>';
-
-        $rowNumber = 1;
-
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo '<tbody>';
-          echo '<tr>';
-          echo '<td>' . $rowNumber . "</td>";
-          echo '<td>' . $row['busid'] . "</td>";
-          echo '<td>' . $row['drivername'] . "</td>";
-
-          //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-          echo '<td><form action="transport-manage-buses-view.php" method="post">';
-          echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
-          echo '<button class="view-button" type="submit">View</button>';
-          echo '</form></td>';
-          echo "</tr>";
-          echo '</tr>';
-          echo '</tbody>';
-          $rowNumber++;
+        if (isset($_SESSION['viewBusSQLTable'])) {
+          $result = $_SESSION['viewBusSQLTable'];
         }
-        echo '</table>';
+
+        if ($result == NULL) {
+          echo 'No buses found.';
+        } else {
+          //PRINT TABLE HEADERS
+          echo '<table class="table table-bordered table-sm" style="text-align: center">';
+          echo '<thead class="thead-dark">';
+          echo '<tr>';
+          echo '<th scope="col">S/N</th>';
+          echo '<th scope="col">Bus Reg. No</th>';
+          echo '<th scope="col">Assigned Driver</th>';
+          echo '<th scope="col">Action</th>';
+          echo '</tr>';
+          echo '</thead>';
+
+          $rowNumber = 1;
+
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td>' . $rowNumber . "</td>";
+            echo '<td>' . $row['busid'] . "</td>";
+            echo '<td>' . $row['drivername'] . "</td>";
+
+            //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+            echo '<td><form action="transport-manage-buses-view.php" method="post">';
+            echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
+            echo '<input type="hidden" name="driver" value="' . $row['driverid'] . '">';
+            echo '<button class="delete-button" name="unassignDriver" type="submit">Unassign Driver</button>&nbsp';
+            echo '<button class="delete-button" name="deleteBus" type="submit">Delete Bus</button>';
+            echo '</form></td>';
+            echo "</tr>";
+            echo '</tr>';
+            echo '</tbody>';
+            $rowNumber++;
+          }
+          echo '</table>';
+        }
       }
       ?>
+
+      <!-- FOR UNASSIGNING BUS DRIVER -->
+      <?php
+        if (isset($_POST['unassignDriver'])) {
+          $busid = $_POST['bus'];
+          $driverid = $_POST['driver'];
+          $execute = UnassignDriver::unassignDriver($driverid, $busid);
+
+          if ($execute === true) {
+            // Perform necessary actions after successful deletion
+            echo "<script>alert('Successfully unassigned driver.'); window.location='../TRANSPORTADMIN/transport-manage-buses.php';</script>";
+          } else {
+            echo "<script>alert('Error unassigning driver.');</script>";
+          }
+        }
+        ?>
+      
+      <!-- FOR DELETING A BUS -->
+      <?php
+        if (isset($_POST['deleteBus'])) {
+          $busid = $_POST['bus'];
+          $execute = DeleteBus::deleteBus($busid);
+
+          if ($execute === true) {
+            // Perform necessary actions after successful deletion
+            echo "<script>alert('Successfully deleted bus.'); window.location='../TRANSPORTADMIN/transport-manage-buses.php';</script>";
+          } else {
+            echo "<script>alert('Error Deleting Bus.');</script>";
+          }
+        }
+        ?>
 
     </div> <!-- End of RightPanel -->
 
