@@ -218,8 +218,6 @@ class Transport
 
     $result1 = $this->conn->query($sql1);
 
-    
-
     if ($result1 && $result2) {
       return true;
     } else {
