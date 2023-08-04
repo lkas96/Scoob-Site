@@ -33,6 +33,14 @@ class DeleteBus{
     }
 }
 
+class SearchBus{
+    public static function searchBus($searchQuery){
+        $searchBus = new Transport();
+        $results = $searchBus->searchBus($searchQuery);
+        return $results;
+    }
+}
+
 class ViewAllDrivers{
     public static function viewAllDrivers(){
         $viewAllDrivers = new Transport();
@@ -81,6 +89,12 @@ class DeleteDriver{
     }
 }
 
+class SearchDriver{
+    public static function searchDriver($searchQuery){
+        $searchDriver = new Transport();
+        $results = $searchDriver->searchDriver($searchQuery);
+    }
+}
 class ImportTransport{
     public static function importTransport($csv_file_1, $csv_file_2, $csv_file_3){
         $importTransport = new Transport();
@@ -88,5 +102,6 @@ class ImportTransport{
         return $results;
     }
 }
+
 
 ?>
