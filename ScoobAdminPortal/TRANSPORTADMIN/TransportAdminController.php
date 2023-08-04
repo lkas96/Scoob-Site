@@ -93,6 +93,12 @@ class SearchDriver{
     public static function searchDriver($searchQuery){
         $searchDriver = new Transport();
         $results = $searchDriver->searchDriver($searchQuery);
+    }
+}
+class ImportTransport{
+    public static function importTransport($csv_file_1, $csv_file_2, $csv_file_3){
+        $importTransport = new Transport();
+        $results = $importTransport->importTransport($csv_file_1, $csv_file_2, $csv_file_3);
         return $results;
     }
 }

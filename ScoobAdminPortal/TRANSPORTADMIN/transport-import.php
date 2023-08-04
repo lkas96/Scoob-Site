@@ -15,6 +15,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>Transport Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,9 +36,11 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
-	</nav>
+  </nav>
 
   <!-- Main Container -->
   <div class="bodyContainer">
@@ -46,13 +49,13 @@ if (isset($_POST["logout"])) {
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
-	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
-	    </form>
+        <button class="logoutButton" tpe="button" name="logout">Logout</button>
+      </form>
     </div>
 
     <div class="rightPanel">
       <div class="data">
-        <form action="process-datafiles.php" method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
           <h1>Bulk Import Data Files</h1>
           <br>
           <b>Buses Data File</b><br>
@@ -69,43 +72,31 @@ if (isset($_POST["logout"])) {
           <br><br><br>
           <input type="submit" value="Upload Data Files" name="submit">
         </form>
+
+        <!-- ON FORM SUBMIT, PROCESSES THE FILES, PASS TO CONTROLLER -->
+        <?php
+        // Check if the form has been submitted
+        if (isset($_POST['submit'])) {
+          // Get the uploaded files
+          $csv_file_1 = $_FILES['csv_file_1']['tmp_name'];
+          $csv_file_2 = $_FILES['csv_file_2']['tmp_name'];
+          $csv_file_3 = $_FILES['csv_file_3']['tmp_name'];
+
+          // Call the importSchool function with the uploaded files
+          $execute = ImportTransport::importTransport($csv_file_1, $csv_file_2, $csv_file_3);
+
+          if ($execute == true) {
+            echo '<script>alert("Data files successfully uploaded!");</script>';
+          } else {
+            echo '<script>alert("Error uploading data files!");</script>';
+          }
+        }
+        ?>
       </div>
     </div> <!-- End of RightPanel -->
-    
+
   </div> <!-- End of Container -->
 </body>
+
 </html>
 
-
-<script>
-  // Handle form submission with AJAX
-  $('form').submit(function(event) {
-    event.preventDefault();
-    $.ajax({
-      type: 'POST',
-      url: 'process-datafiles.php',
-      data: new FormData(this),
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function(response) {
-        // Parse JSON response
-        console.log(response); // Add this line to inspect the response
-        var data = JSON.parse(response);
-        
-        // Show the success message as a script popup (JavaScript alert)
-        if (data.success) {
-          alert(data.message);
-          window.location.href = 'transport-home.php';
-        } else {
-          alert('Error inserting data.');
-          window.location.href = 'transport-import.php';
-        }
-      },
-      error: function() {
-        alert('An error occurred.');
-        window.location.href = 'transport-import.php';
-      }
-    });
-  });
-</script>
