@@ -33,6 +33,14 @@ class DeleteBus{
     }
 }
 
+class SearchBus{
+    public static function searchBus($searchQuery){
+        $searchBus = new Transport();
+        $results = $searchBus->searchBus($searchQuery);
+        return $results;
+    }
+}
+
 class ViewAllDrivers{
     public static function viewAllDrivers(){
         $viewAllDrivers = new Transport();
@@ -80,5 +88,14 @@ class DeleteDriver{
         return $results;
     }
 }
+
+class SearchDriver{
+    public static function searchDriver($searchQuery){
+        $searchDriver = new Transport();
+        $results = $searchDriver->searchDriver($searchQuery);
+        return $results;
+    }
+}
+
 
 ?>
