@@ -95,9 +95,9 @@ class ViewAllTeachers{
 }
 
 class AddTeacher{
-    public static function addTeacher($fname, $lname, $teacherid, $class, $email, $password){
+    public static function addTeacher($fname, $lname, $teacherid, $email, $password){
         $addTeacher = new School();
-        $results = $addTeacher->addTeacher($fname, $lname, $teacherid, $class, $email, $password);
+        $results = $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password);
         return $results;
     }
 }

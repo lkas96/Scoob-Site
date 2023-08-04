@@ -258,8 +258,8 @@ class School
 
     $sql = "SELECT teacher.class, CONCAT(teacher.fname, ' ', teacher.lname) AS teachername, teacher.teacherid
               FROM teacher
-              JOIN class on teacher.class = class.class
-              WHERE class.uen = '$uen'
+              LEFT JOIN class on teacher.class = class.class
+              WHERE teacher.uen = '$uen'
               ORDER BY teacher.class;
       ";
 
@@ -298,11 +298,11 @@ class School
 
 
   //FUNCTION TO ADD A TEACHER
-  public function addTeacher($fname, $lname, $teacherid, $class, $email, $password)
+  public function addTeacher($fname, $lname, $teacherid, $email, $password)
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "INSERT INTO teacher (fname, lname, teacherid, class, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$class', '$email', '$password', '$uen');
+    $sql = "INSERT INTO teacher (fname, lname, teacherid, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$email', '$password', '$uen');
           ";
 
     $result = $this->conn->query($sql);

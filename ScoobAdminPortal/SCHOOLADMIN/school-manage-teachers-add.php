@@ -58,17 +58,15 @@ if (isset($_POST["logout"])) {
 
       <div class="add-teacher-form">
         <form method="post">
-          <label>Teacher's First Name: </label>
+          <label>Teacher's First Name: </label><br>
           <input type="text" name="teacherFirstName" placeholder="Enter new First Name" required><br><br>
-          <label>Teacher's Last Name: </label>
+          <label>Teacher's Last Name: </label><br>
           <input type="text" name="teacherLastName" placeholder="Enter new Last Name" required><br><br>
-          <label>Teacher ID: </label>
+          <label>Teacher ID: </label><br>
           <input type="text" name="teacherID" placeholder="Enter new Teacher's ID" required><br><br>
-          <label>Class: </label>
-          <input type="text" name="class" placeholder="Enter Class" required><br><br>
-          <label>E-Mail: </label>
+          <label>E-Mail: </label><br>
           <input type="text" name="email" placeholder="Enter New E-Mail" required><br><br>
-          <label>Password: </label>
+          <label>Password: </label><br>
           <input type="text" name="password" placeholder="Enter New Password" required><br><br>
 
 
@@ -80,12 +78,11 @@ if (isset($_POST["logout"])) {
             $fname = $_POST["teacherFirstName"];
             $lname = $_POST["teacherLastName"];       
             $teacherid = $_POST["teacherID"];
-            $class = $_POST["class"];
             $email = $_POST["email"];
             $password = $_POST["password"];
 
             $addTeacher = new AddTeacher();
-            $addTeacher->addTeacher($fname, $lname, $teacherid, $class, $email, $password);
+            $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password);
 
             if ($addTeacher == true) {
               echo "<script>alert('Teacher successfully added'); window.location.href = 'school-manage-teachers.php';</script>";
