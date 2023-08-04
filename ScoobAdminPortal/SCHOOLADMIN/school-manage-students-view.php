@@ -90,6 +90,7 @@ if (isset($_POST["logout"])) {
           echo '<th scope="col">Class</th>';
           //echo '<th scope="col">Teacher</th>';
           echo '<th scope="col">Parent ID</th>';
+          echo '<th scope="col">Postal Code</th>';
           echo '<th scope="col">Bus Service</th>';
           echo '<th scope="col">Action</th>';
           echo '</tr>';
@@ -102,7 +103,7 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['studentid'] . "</td>";
             echo '<td>' . $row['name'] . "</td>";
             echo '<td>' . $row['class'] . "</td>";
-            //echo '<td>' . $row['teacher'] . "</td>";
+            echo '<td>' . $row['pcode'] . "</td>";
             echo '<td>' . $row['parentid'] . "</td>";
             echo '<td>' . $row['subscription'] . "</td>";
 
