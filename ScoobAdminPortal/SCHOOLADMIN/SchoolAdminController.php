@@ -126,4 +126,12 @@ class DeleteTeacher{
     }
 }
 
+class ImportSchool{
+    public static function importSchool($csv_file_1, $csv_file_2, $csv_file_3){
+        $importSchool = new School();
+        $results = $importSchool->importSchool($csv_file_1, $csv_file_2, $csv_file_3);
+        return $results;
+    }
+}
+
 ?>
