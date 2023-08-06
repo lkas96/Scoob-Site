@@ -55,7 +55,7 @@ if (isset($_POST["logout"])) {
     </div>
 
     <div class="rightPanel">
-    <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing Class Details</h1>
         <div style="display: flex; align-items: center;">
           <a href="school-manage-classes-add.php" style="margin-right: 10px;"><button>Add Class</button></a>
@@ -144,6 +144,7 @@ if (isset($_POST["logout"])) {
             echo '<th scope="col">S/N</th>';
             echo '<th scope="col">Student ID</th>';
             echo '<th scope="col">Name</th>';
+            echo '<th scope="col">Action</th>';
             echo '</tr>';
             echo '</thead>';
 
@@ -155,6 +156,11 @@ if (isset($_POST["logout"])) {
               echo '<td>' . $rowNumber . "</td>";
               echo '<td>' . $row['studentid'] . "</td>";
               echo '<td>' . $row['name'] . "</td>";
+              //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
+              echo '<td><form action="school-manage-students-view.php" method="post">';
+              echo '<input type="hidden" name="student" value="' . $row['studentid'] . '">';
+              echo '<button class="view-button" type="submit">View</button>';
+              echo '</form></td>';
               echo "</tr>";
               echo '</tbody>';
               $rowNumber++;

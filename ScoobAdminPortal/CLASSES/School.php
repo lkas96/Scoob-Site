@@ -137,14 +137,21 @@ class School
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "DELETE FROM class WHERE class = '$class' AND uen = '$uen';
+    //DELETE CLASS FROM TEACHER RECORD
+    $sql1 = "UPDATE teacher SET class = NULL WHERE class = '$class' AND uen = '$uen';";
+
+    //DELETE CLASS FROM STUDENT RECORD
+    $sql2 = "UPDATE student SET class = NULL WHERE class = '$class' AND uen = '$uen';";
+
+    //DELETE ACTUAL CLASS
+    $sql3 = "DELETE FROM class WHERE class = '$class' AND uen = '$uen';
     ";
-    $result = $this->conn->query($sql);
 
-    //ADD OTHER QUERIES TO SET AFFECTED STUDENTS CLASSES TO NULL
-    //UPDATE THE TABLES ADD CASCADE ON DELETE/UPDATE THINGY
+    $result1 = $this->conn->query($sql1);
+    $result2 = $this->conn->query($sql2);
+    $result3 = $this->conn->query($sql3);
 
-    if ($result === true) {
+    if ($result1 === true && $result2 === true && $result3 === true) {
       return true;
     } else {
       return false;
@@ -152,7 +159,7 @@ class School
   }
 
   //FUNCTION TO ADD A STUDENT
-  public function addStudent($fname, $lname, $studentid, $parentid, $class, $pcode)
+  public function addStudent($studentid, $fname, $lname, $class, $pcode, $parentid)
   {
     $uen = $_SESSION['uen'];
 
@@ -175,8 +182,8 @@ class School
 
     $sql = "SELECT student.class, CONCAT(student.fname, ' ', student.lname) AS studentname, student.studentid
             FROM student
-            JOIN class on student.class = class.class
-            WHERE class.uen = '$uen'
+            LEFT JOIN class on student.class = class.class
+            WHERE student.uen = '$uen'
             ORDER BY student.class;
     ";
 
@@ -196,7 +203,7 @@ class School
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "SELECT studentid, parentid, CONCAT(fname, ' ', lname) AS name, student.class, subscription from student WHERE uen = '$uen' AND studentid = '$studentid';
+    $sql = "SELECT studentid, parentid, CONCAT(fname, ' ', lname) AS name, student.class, pcode, subscription from student WHERE uen = '$uen' AND studentid = '$studentid';
     ";
 
     $result = $this->conn->query($sql);
@@ -298,19 +305,38 @@ class School
 
 
   //FUNCTION TO ADD A TEACHER
-  public function addTeacher($fname, $lname, $teacherid, $email, $password)
+  public function addTeacher($fname, $lname, $teacherid, $email, $password, $class)
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "INSERT INTO teacher (fname, lname, teacherid, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$email', '$password', '$uen');
-          ";
+    if ($class === 'NO') {
+      //INSERT NEW RECORD WITHOUT CLASS
+      $sql1 = "INSERT INTO teacher (fname, lname, teacherid, email, password, uen) VALUES ('$fname', '$lname', '$teacherid', '$email', '$password', '$uen');
+    ";
+      $result1 = $this->conn->query($sql1);
 
-    $result = $this->conn->query($sql);
-
-    if ($result === true) {
-      return true;
+      if ($result1 === true) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      //EXISTING TEACHER UNSET CLASS FIRST
+      $sql2 = "UPDATE teacher SET class = NULL WHERE class='$class' AND uen = '$uen';
+    ";
+
+      //INSERT NEW RECORD AND NEW CLASS
+      $sql1 = "INSERT INTO teacher (fname, lname, teacherid, email, password, class, uen) VALUES ('$fname', '$lname', '$teacherid', '$email', '$password', '$class', '$uen');
+    ";
+
+      $result2 = $this->conn->query($sql2);
+      $result1 = $this->conn->query($sql1);
+
+      if ($result1 === true && $result2 === true) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -413,6 +439,24 @@ class School
     $conn->close();
 
     if ($query1_success == true && $query2_success == true && $query3_success == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO PULL LIST OF CLASSES FOR DROPDOWN SELECT
+  public function getActiveClass()
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT class FROM class WHERE uen = '$uen';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      $_SESSION['viewActiveClassSQLTable'] = $result;
       return true;
     } else {
       return false;
