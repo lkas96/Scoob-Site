@@ -151,3 +151,11 @@ class AssignBus{
         return $results;
     }
 }
+
+class ViewAllRoutes{
+    public static function viewAllRoutes(){
+        $viewAllRoutes = new Transport();
+        $results = $viewAllRoutes->viewAllRoutes();
+        return $results;
+    }
+}

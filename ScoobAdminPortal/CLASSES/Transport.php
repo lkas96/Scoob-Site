@@ -524,11 +524,26 @@ public function assignBus($busid, $driverid)
     return false;
   }
   }
+}
 
-  
+//FUNCTION TO VIEW ALL ROUTES
+public function viewAllRoutes(){
+  $uen = $_SESSION['uen'];
 
-  
+  $sql = "SELECT bus.busid, CONCAT(driver.fname, ' ', driver.lname) AS drivername, bus_driver.area
+          from bus left join bus_driver on bus.busid = bus_driver.busid left join driver on bus_driver.driverid = driver.driverid
+          WHERE bus_driver.uen = '$uen';
+  ";
 
+  $result = $this->conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    //SAVE THE TABLE TO SESSION
+    $_SESSION['viewAllRoutesSQLTable'] = $result;
+    return true;
+  } else {
+    return false;
+  }
 }
 
 
