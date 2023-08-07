@@ -61,33 +61,46 @@ if (isset($_POST["logout"])) {
 
       <div class="add-student-form">
         <form method="post">
-          <label>Student's First Name: </label>
-          <input type="text" name="studentFirstName" placeholder="Enter new First Name" required><br><br>
-          <label>Student's Last Name: </label>
-          <input type="text" name="studentLastName" placeholder="Enter new Last Name" required><br><br>
-          <label>Student ID: </label>
-          <input type="text" name="studentID" placeholder="Enter new Student's ID" required><br><br>
-          <label>Parent ID: </label>
-          <input type="text" name="parentID" placeholder="Enter Parent ID" required><br><br>
-          <label>Class: </label>
-          <input type="text" name="class" placeholder="Enter Class" required><br><br>
-          <label>Subscription to Bus: </label>
-          <input type="text" name="subscription" placeholder="Enter Yes/No" required><br><br>
+          <label>Student ID: </label><br>
+          <input type="text" name="studentid" placeholder="44332211" required><br><br>
+          <label>Student's First Name: </label><br>
+          <input type="text" name="fname" placeholder="Enter First Name" required><br><br>
+          <label>Student's Last Name: </label><br>
+          <input type="text" name="lname" placeholder="Enter Last Name" required><br><br>
+          <label>Postal Code: </label><br>
+          <input type="text" name="pcode" placeholder="123456" required><br><br>
+          <label>Parent ID: </label><br>
+          <input type="text" name="parentid" placeholder="S12345678A" required><br><br>
+          <label>Class: </label><br>
+          <?php
+          $acc = GetActiveClass::getActiveClass();
+          $result = $_SESSION['viewActiveClassSQLTable'];
 
-
+          if ($result === NULL) {
+            echo "No classes available, create a new class first.";
+          } else {
+            echo "<select name='class' required>";
+            echo "<option disabled hidden selected>Select Class</option>";
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<option value='" . $row['class'] . "'>" . $row['class'] . "</option>";
+            }
+            echo "</select><br><br><br>";
+          }
+          ?>
           <input type="submit" name="submit" value="Add Student">
         </form>
+
         <?php
         if (isset($_POST["submit"])) {
-          $fname = $_POST["studentFirstName"];
-          $lname = $_POST["studentLastName"];
-          $studentid = $_POST["studentID"];
-          $parentid = $_POST["parentID"];
+          $studentid = $_POST["studentid"];
+          $fname = $_POST["fname"];
+          $lname = $_POST["lname"];
           $class = $_POST["class"];
-          $subscription = $_POST["subscription"];
+          $pcode = $_POST["pcode"];
+          $parentid = $_POST["parentid"];
 
           $addStudent = new AddStudent();
-          $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
+          $addStudent->addStudent($studentid, $fname, $lname, $class, $pcode, $parentid);
 
           if ($addStudent == true) {
             echo "<script>alert('Student successfully added'); window.location.href = 'school-manage-students.php';</script>";

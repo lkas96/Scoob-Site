@@ -50,9 +50,9 @@ class ViewAllStudents{
 }
 
 class AddStudent{
-    public static function addStudent($fname, $lname, $studentid, $parentid, $class, $subscription){
+    public static function addStudent($studentid, $fname, $lname, $class, $pcode, $parentid){
         $addStudent = new School();
-        $results = $addStudent->addStudent($fname, $lname, $studentid, $parentid, $class, $subscription);
+        $results = $addStudent->addStudent($studentid, $fname, $lname, $class, $pcode, $parentid);
         return $results;
     }
 }
@@ -95,9 +95,9 @@ class ViewAllTeachers{
 }
 
 class AddTeacher{
-    public static function addTeacher($fname, $lname, $teacherid, $email, $password){
+    public static function addTeacher($fname, $lname, $teacherid, $email, $password, $class){
         $addTeacher = new School();
-        $results = $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password);
+        $results = $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password, $class);
         return $results;
     }
 }
@@ -130,6 +130,14 @@ class ImportSchool{
     public static function importSchool($csv_file_1, $csv_file_2, $csv_file_3){
         $importSchool = new School();
         $results = $importSchool->importSchool($csv_file_1, $csv_file_2, $csv_file_3);
+        return $results;
+    }
+}
+
+class GetActiveClass{
+    public static function getActiveClass(){
+        $getActiveClass = new School();
+        $results = $getActiveClass->getActiveClass();
         return $results;
     }
 }

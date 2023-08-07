@@ -59,17 +59,32 @@ if (isset($_POST["logout"])) {
       <div class="add-teacher-form">
         <form method="post">
           <label>Teacher's First Name: </label><br>
-          <input type="text" name="teacherFirstName" placeholder="Enter new First Name" required><br><br>
+          <input type="text" name="teacherFirstName" placeholder="Enter First Name" required><br><br>
           <label>Teacher's Last Name: </label><br>
-          <input type="text" name="teacherLastName" placeholder="Enter new Last Name" required><br><br>
+          <input type="text" name="teacherLastName" placeholder="Enter Last Name" required><br><br>
           <label>Teacher ID: </label><br>
-          <input type="text" name="teacherID" placeholder="Enter new Teacher's ID" required><br><br>
+          <input type="text" name="teacherID" placeholder="Enter Teacher's ID" required><br><br>
           <label>E-Mail: </label><br>
-          <input type="text" name="email" placeholder="Enter New E-Mail" required><br><br>
+          <input type="text" name="email" placeholder="Enter E-Mail" required><br><br>
           <label>Password: </label><br>
-          <input type="text" name="password" placeholder="Enter New Password" required><br><br>
+          <input type="text" name="password" placeholder="Enter Password" required><br><br>
+          <label>Class: </label><br>
+          <?php
+          $acc = GetActiveClass::getActiveClass();
+          $result = $_SESSION['viewActiveClassSQLTable'];
 
-
+          if ($result === NULL) {
+            echo "No classes available, create a new class first.";
+          } else {
+            echo "<select name='class' required>";
+            echo "<option disabled hidden selected>Assign Class</option>";
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<option value='" . $row['class'] . "'>" . $row['class'] . "</option>";
+            }
+            echo "<option value='NO'>No Class</option>";
+            echo "</select><br><br>";
+          }
+          ?>
           <input type="submit" name="submit" value="Add Teacher">
         </form>
         <?php
@@ -80,9 +95,10 @@ if (isset($_POST["logout"])) {
             $teacherid = $_POST["teacherID"];
             $email = $_POST["email"];
             $password = $_POST["password"];
+            $class = $_POST["class"];
 
             $addTeacher = new AddTeacher();
-            $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password);
+            $addTeacher->addTeacher($fname, $lname, $teacherid, $email, $password, $class);
 
             if ($addTeacher == true) {
               echo "<script>alert('Teacher successfully added'); window.location.href = 'school-manage-teachers.php';</script>";

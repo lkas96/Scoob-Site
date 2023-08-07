@@ -60,7 +60,6 @@ if (isset($_POST["logout"])) {
         <h1 style="margin: 0;">Viewing All Teachers</h1>
         <div style="display: flex; align-items: center;">
           <a href="school-manage-teachers-add.php" style="margin-right: 10px;"><button>Add Teacher</button></a>
-
           <form method="post" action="school-manage-teachers-search.php">
             <input type="text" name="searchQuery" placeholder="Search Teacher" style="margin-right: 5px;">
             <input type="submit" value="Search">
