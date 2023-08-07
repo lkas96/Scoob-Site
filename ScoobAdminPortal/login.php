@@ -60,15 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <h3>SCOOB ADMIN PORTAL</h3><br>
       <form method="post">
         <select id="type" name="type" required>
-          <option disabled hidden selected value="Login Type">Admin Type</option>
+          <option disabled hidden selected>Select Admin Type</option>
           <option value="System Admin">System Admin</option>
           <option value="School Admin">School Admin</option>
           <option value="Transport Admin">Transport Admin</option>
         </select>
         <br>
-        <input id="email" name="email" type="text" maxlength="30" placeholder="Email / Username">
+        <input id="email" name="email" type="text" maxlength="30" placeholder="Email / Username" required>
         <br>
-        <input id="password" name="password" type="password" placeholder="Password">
+        <input id="password" name="password" type="password" placeholder="Password" required>
         <br>
         <input type="submit" id="submit" name="Login" value="Login">
       </form>
