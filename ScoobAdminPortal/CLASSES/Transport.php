@@ -496,8 +496,23 @@ public function getNoAssignBus()
 public function assignBus($busid, $driverid)
 {
   $uen = $_SESSION['uen'];
+  
+  $check = "SELECT busid FROM bus_driver WHERE uen = '$uen' AND driverid = '$driverid'; ";
 
-  $sql = "INSERT INTO bus_driver (uen, driverid, busid)
+  $check2 = $this->conn->query($check);
+
+  if ($check2->num_rows > 0) {
+    $sql = "UPDATE bus_driver SET busid = '$busid' WHERE uen = '$uen' AND driverid = '$driverid'; ";
+    $result = $this->conn->query($sql);
+
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
+
+  } else {
+    $sql = "INSERT INTO bus_driver (uen, driverid, busid)
           VALUES ('$uen' ,'$driverid', '$busid');
   ";
 
@@ -508,6 +523,11 @@ public function assignBus($busid, $driverid)
   } else {
     return false;
   }
+  }
+
+  
+
+  
 
 }
 
