@@ -18,6 +18,20 @@ if ($pair === false) {
   header("Location: first-time-pairing.php");
 }
 
+if (isset($_POST["assign"]))
+{      
+  $pcode = $_POST['pcode'];
+
+  $addRoute = new AddRoute();
+  $addRoute->addRoute($pcode, $_SESSION['busid']);
+
+  if ($addRoute == true) {
+    echo "<script>alert('Route successfully added'); window.location.href = 'transport-manage-routes.php';</script>";
+  } else {
+    echo "<script>alert('Route error'); window.location.href = 'transport-manage-routes-assign.php';</script>";
+  }
+}
+
 if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
@@ -65,54 +79,34 @@ if (isset($_POST["logout"])) {
     </div>
 
     <div class="rightPanel">
-      <?php
-      $aaa = viewAllRoutes::viewAllRoutes();
-      $result = NULL; //PLACEHOLDER
+    <?php
+    if (isset($_POST['bus'])) {
+      $_SESSION['busid'] = $_POST['bus'];
+      $busid = $_POST['bus'];
+      $driver = $_POST['name'];
+      echo '<h1>Assigning Route</h1><br>';
+      echo '<b>Selected Bus & Driver</b><br>';
+      echo $busid .'<br>';
+      echo $driver.'<br><br>';
 
-      if (isset($_SESSION['viewAllRoutesSQLTable'])) {
-        $result = $_SESSION['viewAllRoutesSQLTable'];
-      }
+      $acc = GetPostalGroup::getPostalGroup();
+      $result = $_SESSION['viewPostalGroupSQLTable'];
 
-      if ($result == NULL) {
-        echo 'No routes found.';
+      if ($result === NULL) {
+        echo "No data from school side.";
       } else {
-        //PRINT TABLE HEADERS
-        echo '<h1>Viewing All Routes</h1>';
-        echo '<table class="table table-bordered table-sm" style="text-align: center">';
-        echo '<thead class="thead-dark">';
-        echo '<tr>';
-        echo '<th scope="col">S/N</th>';
-        echo '<th scope="col">Bus Reg. No</th>';
-        echo '<th scope="col">Assigned Driver</th>';
-        echo '<th scope="col">Assigned Service Area</th>';
-        echo '<th scope="col">Action</th>';
-        echo '</tr>';
-        echo '</thead>';
-
-        $rowNumber = 1;
-
+        echo "<form method='post'>";
+        echo "<select name='pcode' required>";
+        echo "<option disabled hidden selected>Assign Postal Area</option>";
         while ($row = mysqli_fetch_assoc($result)) {
-          echo '<tbody>';
-          echo '<tr>';
-          echo '<td>' . $rowNumber . "</td>";
-          echo '<td>' . $row['busid'] . "</td>";
-          echo '<td>' . $row['drivername'] . "</td>";
-          echo '<td>' . $row['area'] . "</td>";
-
-          //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-          echo '<td><form action="transport-manage-routes-assign.php" method="post">';
-          echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
-          echo '<input type="hidden" name="name" value="' . $row['drivername'] . '">';
-          echo '<button class="view-button" type="submit">Assign Area</button>';
-          echo '</form></td>';
-          echo "</tr>";
-          echo '</tr>';
-          echo '</tbody>';
-          $rowNumber++;
+          echo "<option value='" . $row['pcode'] . "'>" . $row['pcode'] . "XXX</option>";
         }
-        echo '</table>';
+        echo "</select><br><br>";
+        echo "<input type='submit' name='assign' value='Assign Route'>";
+        echo "</form>";
       }
-      ?>
+    }
+    ?>
     </div> <!-- End of RightPanel -->
 
   </div> <!-- End of Container -->

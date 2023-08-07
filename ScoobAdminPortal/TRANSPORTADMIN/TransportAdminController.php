@@ -159,3 +159,19 @@ class ViewAllRoutes{
         return $results;
     }
 }
+
+class GetPostalGroup{
+    public static function getPostalGroup(){
+        $getPostalGroup = new Transport();
+        $results = $getPostalGroup->getPostalGroup();
+        return $results;
+    }
+}
+
+class AddRoute{
+    public static function addRoute($pcode, $busid){
+        $addRoute = new Transport();
+        $results = $addRoute->addRoute($pcode, $busid);
+        return $results;
+    }
+}

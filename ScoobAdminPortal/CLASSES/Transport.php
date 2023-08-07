@@ -455,7 +455,7 @@ class Transport
   public function getTransportDetails()
   {
     $uen = $_SESSION['uen'];
-    
+
     $sql = "SELECT * FROM transports WHERE uen = '$uen';
     ";
 
@@ -470,39 +470,124 @@ class Transport
     }
   }
 
-//FUNCTION TO GET LIST OF BUSES WITH NO ASSIGNED DRIVERS
-public function getNoAssignBus()
-{
-  $uen = $_SESSION['uen'];
+  //FUNCTION TO GET LIST OF BUSES WITH NO ASSIGNED DRIVERS
+  public function getNoAssignBus()
+  {
+    $uen = $_SESSION['uen'];
 
-  $sql = "SELECT bus.busid
+    $sql = "SELECT bus.busid
           from bus left join bus_driver on bus.busid = bus_driver.busid left join driver on bus_driver.driverid = driver.driverid
           WHERE bus.uen = '$uen' AND driver.driverid IS NULL;
   ";
 
-  $result = $this->conn->query($sql);
+    $result = $this->conn->query($sql);
 
-  if ($result->num_rows > 0) {
-    //SAVE THE TABLE TO SESSION
-    $_SESSION['viewNoAssignBusSQLTable'] = $result;
-    return true;
-  } else {
-    return false;
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewNoAssignBusSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
   }
 
-}
+  //FUNCTION TO ASSIGN DRIVER TO BUS
+  public function assignBus($busid, $driverid)
+  {
+    $uen = $_SESSION['uen'];
 
-//FUNCTION TO ASSIGN DRIVER TO BUS
-public function assignBus($busid, $driverid)
-{
-  $uen = $_SESSION['uen'];
-  
-  $check = "SELECT busid FROM bus_driver WHERE uen = '$uen' AND driverid = '$driverid'; ";
+    $check = "SELECT busid FROM bus_driver WHERE uen = '$uen' AND driverid = '$driverid'; ";
 
-  $check2 = $this->conn->query($check);
+    $check2 = $this->conn->query($check);
 
-  if ($check2->num_rows > 0) {
-    $sql = "UPDATE bus_driver SET busid = '$busid' WHERE uen = '$uen' AND driverid = '$driverid'; ";
+    if ($check2->num_rows > 0) {
+      $sql = "UPDATE bus_driver SET busid = '$busid' WHERE uen = '$uen' AND driverid = '$driverid'; ";
+      $result = $this->conn->query($sql);
+
+      if ($result) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      $sql = "INSERT INTO bus_driver (uen, driverid, busid)
+          VALUES ('$uen' ,'$driverid', '$busid');
+  ";
+
+      $result = $this->conn->query($sql);
+
+      if ($result) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  //FUNCTION TO VIEW ALL ROUTES
+  public function viewAllRoutes()
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT bus.busid, CONCAT(driver.fname, ' ', driver.lname) AS drivername, bus_driver.area
+          from bus left join bus_driver on bus.busid = bus_driver.busid left join driver on bus_driver.driverid = driver.driverid
+          WHERE bus_driver.uen = '$uen';
+  ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewAllRoutesSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCITON TO GET POSTAL GROUP SCHOOLS
+  public function getPostalGroup()
+  {
+    $uen = $_SESSION['uen'];
+
+    // $sql = "SELECT LEFT(s.pcode, 3), bd.area
+    // FROM student s
+    // LEFT JOIN school_transport st ON s.uen = st.schooluen
+    // LEFT JOIN bus_driver bd ON bd.uen = st.transportuen
+    // WHERE st.transportuen = '$uen'
+    // GROUP BY LEFT (pcode, 3);
+    // ";
+
+    $sql = "with schoolquery as (
+      select left(pcode, 3) as pcode from school_transport st left join student s on st.schooluen = s.uen where st.transportuen = '99999999' group by left (pcode, 3)
+      ), 
+      busquery as (
+      select area from bus_driver where uen = '99999999')
+      
+      SELECT * from schoolquery sq left join busquery bq on sq.pcode = bq.area
+      where bq.area IS NULL
+      ;
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewPostalGroupSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO ADD ROUTE TO BUS
+  public function addRoute($pcode, $busid)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "UPDATE bus_driver SET area = '$pcode' WHERE uen = '$uen' AND busid = '$busid';
+  ";
+
     $result = $this->conn->query($sql);
 
     if ($result) {
@@ -510,41 +595,5 @@ public function assignBus($busid, $driverid)
     } else {
       return false;
     }
-
-  } else {
-    $sql = "INSERT INTO bus_driver (uen, driverid, busid)
-          VALUES ('$uen' ,'$driverid', '$busid');
-  ";
-
-  $result = $this->conn->query($sql);
-
-  if ($result) {
-    return true;
-  } else {
-    return false;
   }
-  }
-}
-
-//FUNCTION TO VIEW ALL ROUTES
-public function viewAllRoutes(){
-  $uen = $_SESSION['uen'];
-
-  $sql = "SELECT bus.busid, CONCAT(driver.fname, ' ', driver.lname) AS drivername, bus_driver.area
-          from bus left join bus_driver on bus.busid = bus_driver.busid left join driver on bus_driver.driverid = driver.driverid
-          WHERE bus_driver.uen = '$uen';
-  ";
-
-  $result = $this->conn->query($sql);
-
-  if ($result->num_rows > 0) {
-    //SAVE THE TABLE TO SESSION
-    $_SESSION['viewAllRoutesSQLTable'] = $result;
-    return true;
-  } else {
-    return false;
-  }
-}
-
-
 }
