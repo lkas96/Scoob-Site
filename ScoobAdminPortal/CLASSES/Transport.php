@@ -107,7 +107,7 @@ class Transport
     }
   }
 
-  
+
   //FUNCTION TO SEARCH A BUS
   public function searchBus($searchQuery)
   {
@@ -249,7 +249,7 @@ class Transport
   }
 
   //FUNCTION TO SEARCH A DRIVER
-  
+
   public function searchDriver($searchQuery)
   {
     $uen = $_SESSION['uen'];
@@ -272,65 +272,204 @@ class Transport
       return false;
     }
   }
-    //FUNCTION TO IMPORT THE 3 DATA FILES
-    public function importTransport($csv_file_1, $csv_file_2, $csv_file_3)
+
+  //FUNCTION TO IMPORT THE 3 DATA FILES
+  public function importTransport($csv_file_1, $csv_file_2, $csv_file_3)
+  {
+    ob_start();
+
+    //SETTING TO ENSURE NO MEMORY LIMITS AND EXECUTION TIME LIMITS
+    ini_set('memory_limit', '-1');
+    ini_set('max_execution_time', 0);
+
+    //DATABASE CONNECTION SETTINGS
+    $servername = "scoob-database.c8k5fhmymkis.ap-southeast-1.rds.amazonaws.com";
+    $username = "admin";
+    $password = "admin123";
+    $dbname = "scoob";
+
+    //INITIALISE DATABASE CONNECTION
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    //FUNCTION TO INSERT CSV DATA EACH LINE INTO THE DATABASE
+    function insertCSVData($conn, $table, $columns, $data)
     {
-      ob_start();
-  
-      //SETTING TO ENSURE NO MEMORY LIMITS AND EXECUTION TIME LIMITS
-      ini_set('memory_limit', '-1');
-      ini_set('max_execution_time', 0);
-  
-      //DATABASE CONNECTION SETTINGS
-      $servername = "scoob-database.c8k5fhmymkis.ap-southeast-1.rds.amazonaws.com";
-      $username = "admin";
-      $password = "admin123";
-      $dbname = "scoob";
-  
-      //INITIALISE DATABASE CONNECTION
-      $conn = new mysqli($servername, $username, $password, $dbname);
-  
-      //FUNCTION TO INSERT CSV DATA EACH LINE INTO THE DATABASE
-      function insertCSVData($conn, $table, $columns, $data)
-      {
-        $values = array();
-        foreach ($data as $row) {
-          $values[] = "('" . implode("','", $row) . "')";
-        }
-  
-        //ROW TO STRING CONVERSION
-        $values_str = implode(",", $values);
-  
-        //INSERT INTO DATABASE AND SKIP DUPLICATES
-        $query = "INSERT IGNORE INTO $table ($columns) VALUES $values_str";
-        return $conn->query($query);
+      $values = array();
+      foreach ($data as $row) {
+        $values[] = "('" . implode("','", $row) . "')";
       }
-  
-      // Process and insert CSV file 1 (CLASSES)
-      $csv_file_1 = $_FILES['csv_file_1']['tmp_name'];
-      $data_1 = array_map('str_getcsv', file($csv_file_1));
-      $header_1 = array_shift($data_1);
-      $query1_success = insertCSVData($conn, 'bus', implode(', ', $header_1), $data_1);
-  
-      // Process and insert CSV file 2 (TEACHERS)
-      $csv_file_2 = $_FILES['csv_file_2']['tmp_name'];
-      $data_2 = array_map('str_getcsv', file($csv_file_2));
-      $header_2 = array_shift($data_2);
-      $query2_success = insertCSVData($conn, 'driver', implode(', ', $header_2), $data_2);
-  
-      // Process and insert CSV file 3 (STUDENTS)
-      $csv_file_3 = $_FILES['csv_file_3']['tmp_name'];
-      $data_3 = array_map('str_getcsv', file($csv_file_3));
-      $header_3 = array_shift($data_3);
-      $query3_success = insertCSVData($conn, 'bus_driver', implode(', ', $header_3), $data_3);
-  
-      // Close the database connection
-      $conn->close();
-  
-      if ($query1_success == true && $query2_success == true && $query3_success == true) {
+
+      //ROW TO STRING CONVERSION
+      $values_str = implode(",", $values);
+
+      //INSERT INTO DATABASE AND SKIP DUPLICATES
+      $query = "INSERT IGNORE INTO $table ($columns) VALUES $values_str";
+      return $conn->query($query);
+    }
+
+    // Process and insert CSV file 1 (BUSES)
+    $csv_file_1 = $_FILES['csv_file_1']['tmp_name'];
+    $data_1 = array_map('str_getcsv', file($csv_file_1));
+    $header_1 = array_shift($data_1);
+    $query1_success = insertCSVData($conn, 'bus', implode(', ', $header_1), $data_1);
+
+    // Process and insert CSV file 2 (DRIVERS)
+    $csv_file_2 = $_FILES['csv_file_2']['tmp_name'];
+    $data_2 = array_map('str_getcsv', file($csv_file_2));
+    $header_2 = array_shift($data_2);
+    $query2_success = insertCSVData($conn, 'driver', implode(', ', $header_2), $data_2);
+
+    // Process and insert CSV file 3 (ASSIGNMENTS)
+    $csv_file_3 = $_FILES['csv_file_3']['tmp_name'];
+    $data_3 = array_map('str_getcsv', file($csv_file_3));
+    $header_3 = array_shift($data_3);
+    $query3_success = insertCSVData($conn, 'bus_driver', implode(', ', $header_3), $data_3);
+
+    // Close the database connection
+    $conn->close();
+
+    if ($query1_success == true && $query2_success == true && $query3_success == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO CHECK IF SCHOOL_TRANSPORT PAIR AVAILABLE
+  public function checkPair($uen)
+  {
+    $sql = "SELECT * FROM school_transport WHERE transportuen = '$uen';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO CHECK SCHOOL PAIR TO LET TRANSPORT ADMIN PICK
+  //MATCH BASED ON SIZE S, M, L AND REGION
+  public function availablePair($uen)
+  {
+    //RETRIEVE TRANSPORT COMPANY DETAILS BASED ON UEN
+    $sql1 = "SELECT * FROM transports WHERE uen = '$uen';
+    ";
+
+    $result1 = $this->conn->query($sql1);
+
+    $row = mysqli_fetch_assoc($result1);
+
+    $region = $row['region'];
+    $size = $row['size'];
+
+    //ASSESS SIZE AND SET RULES
+    //IF SIZE L, CAN CHOOSE L OR M OR S
+    if ($size == "L") {
+      //SHOW MATCHING REGION AND SIZE FIRST, THEN SHOW MATCHING REGION AND SIZE M, THEN SHOW MATCHING REGION AND SIZE S
+      //IF NO MATCHING REGION AND SIZE, SHOW MATCHING SIZE L, M AND S
+      $sql = "SELECT * FROM schools WHERE region = '$region' AND size = 'L' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE region = '$region' AND size = 'M' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE region = '$region' AND size = 'S' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'L' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'M' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'S' AND status ='Approved';
+      ";
+
+      $result = $this->conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewSchoolPairSQLTable'] = $result;
         return true;
       } else {
         return false;
       }
     }
+
+    //IF SIZE M, CAN CHOOSE M OR S
+    else if ($size == "M") {
+      $sql = "SELECT * FROM schools WHERE region = '$region' AND size = 'M' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE region = '$region' AND size = 'S' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'M' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'S' AND status ='Approved';
+      ";
+
+      $result = $this->conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewSchoolPairSQLTable'] = $result;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    //IF SIZE S, CAN CHOOSE S
+    else if ($size == "S") {
+      $sql = "SELECT * FROM schools WHERE region = '$region' AND size = 'S' AND status ='Approved'
+      UNION
+      SELECT * FROM schools WHERE size = 'S' AND status ='Approved';
+      ";
+
+      $result = $this->conn->query($sql);
+
+      if ($result->num_rows > 0) {
+        //SAVE THE TABLE TO SESSION
+        $_SESSION['viewSchoolPairSQLTable'] = $result;
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  //FUNCTION TO ADD SCHOOL/TRANSPORT PAIR
+  public function setPair($uen, $busuen)
+  {
+    $sql = "INSERT INTO school_transport (schooluen, transportuen)
+            VALUES ('$uen', '$busuen');
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO GET CURRENT TRANSPORT DETAILS
+  public function getTransportDetails()
+  {
+    $uen = $_SESSION['uen'];
+    
+    $sql = "SELECT * FROM transports WHERE uen = '$uen';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewTransportDetailsSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
 }

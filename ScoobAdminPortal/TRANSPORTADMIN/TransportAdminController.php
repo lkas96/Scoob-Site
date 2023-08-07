@@ -95,6 +95,7 @@ class SearchDriver{
         $results = $searchDriver->searchDriver($searchQuery);
     }
 }
+
 class ImportTransport{
     public static function importTransport($csv_file_1, $csv_file_2, $csv_file_3){
         $importTransport = new Transport();
@@ -103,5 +104,34 @@ class ImportTransport{
     }
 }
 
+class CheckPair{
+    public static function checkPair($uen){
+        $checkPair = new Transport();
+        $results = $checkPair->checkPair($uen);
+        return $results;
+    }
+}
 
-?>
+class AvailablePair{
+    public static function availablePair($uen){
+        $availablePair = new Transport();
+        $results = $availablePair->availablePair($uen);
+        return $results;
+    }
+}
+
+class SetPair{
+    public static function setPair($uen, $busuen){
+        $setPair = new Transport();
+        $results = $setPair->setPair($uen, $busuen);
+        return $results;
+    }
+}
+
+class GetTransportDetails{
+    public static function getTransportDetails(){
+        $getTransportDetails = new Transport();
+        $results = $getTransportDetails->getTransportDetails();
+        return $results;
+    }
+}

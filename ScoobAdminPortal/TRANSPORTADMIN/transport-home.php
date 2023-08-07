@@ -8,6 +8,16 @@ if ($_SESSION['type'] != "Transport Admin") {
   header("Location: ../login.php");
 }
 
+//CHECK FOR SCHOOL PAIR
+//IF PAIR EXISTS, REDIRECT TO TRANSPORT HOME 
+//IF PAIR DO NOT EXISTS, REDIRECT TO FIRST TIME PAIRING
+$transport = new CheckPair();
+$pair = $transport->checkPair($_SESSION['uen']);
+
+if ($pair === false) {
+  header("Location: first-time-pairing.php");
+}
+
 if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
