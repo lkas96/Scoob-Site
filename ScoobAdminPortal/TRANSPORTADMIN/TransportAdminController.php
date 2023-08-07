@@ -135,3 +135,19 @@ class GetTransportDetails{
         return $results;
     }
 }
+
+class GetNoAssignBus{
+    public static function getNoAssignBus(){
+        $getNoAssignBus = new Transport();
+        $results = $getNoAssignBus->getNoAssignBus();
+        return $results;
+    }
+}
+
+class AssignBus{
+    public static function assignBus($busid, $driverid){
+        $assignBus = new Transport();
+        $results = $assignBus->assignBus($busid, $driverid);
+        return $results;
+    }
+}

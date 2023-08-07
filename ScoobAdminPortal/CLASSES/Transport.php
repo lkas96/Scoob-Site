@@ -137,7 +137,7 @@ class Transport
 
     $sql = "SELECT driver.driverid, CONCAT(driver.fname, ' ', driver.lname) AS drivername, bus.busid
             from driver left join bus_driver on driver.driverid = bus_driver.driverid left join bus on bus_driver.busid = bus.busid
-            WHERE bus.uen = '$uen';
+            WHERE driver.uen = '$uen';
     ";
 
     $result = $this->conn->query($sql);
@@ -158,7 +158,7 @@ class Transport
 
     $sql = "SELECT driver.driverid, CONCAT(driver.fname, ' ', driver.lname) AS drivername, driver.phone, driver.email, bus.busid
             from driver left join bus_driver on driver.driverid = bus_driver.driverid left join bus on bus_driver.busid = bus.busid
-            WHERE driver.driverid = '$driverID' AND bus.uen = '$uen';
+            WHERE driver.driverid = '$driverID' AND driver.uen = '$uen';
     ";
 
     $result = $this->conn->query($sql);
@@ -470,6 +470,46 @@ class Transport
     }
   }
 
+//FUNCTION TO GET LIST OF BUSES WITH NO ASSIGNED DRIVERS
+public function getNoAssignBus()
+{
+  $uen = $_SESSION['uen'];
+
+  $sql = "SELECT bus.busid
+          from bus left join bus_driver on bus.busid = bus_driver.busid left join driver on bus_driver.driverid = driver.driverid
+          WHERE bus.uen = '$uen' AND driver.driverid IS NULL;
+  ";
+
+  $result = $this->conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    //SAVE THE TABLE TO SESSION
+    $_SESSION['viewNoAssignBusSQLTable'] = $result;
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+//FUNCTION TO ASSIGN DRIVER TO BUS
+public function assignBus($busid, $driverid)
+{
+  $uen = $_SESSION['uen'];
+
+  $sql = "INSERT INTO bus_driver (uen, driverid, busid)
+          VALUES ('$uen' ,'$driverid', '$busid');
+  ";
+
+  $result = $this->conn->query($sql);
+
+  if ($result) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
 
 
 }
