@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="school">School Organisation</option>
           <option value="transport">Transport Company</option>
         </select>
-        <br>
         <input type="submit" id="submit" name="Next" value="Next">
       </form>
     </div>
