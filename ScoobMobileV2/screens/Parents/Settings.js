@@ -24,12 +24,6 @@ function Settings({ navigation }) {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* <CustomButton
-				onPress={viewProfileHandler}
-				text="View Profile"
-				type="TERTIARY"
-			/> */}
-			{/* <CustomButton onPress={logOutHandler} text="Logout" type="TERTIARY" /> */}
 			<VStack m={4} spacing={6}>
 				<Button
 					buttonStyle={{

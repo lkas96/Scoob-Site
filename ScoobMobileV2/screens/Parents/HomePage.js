@@ -112,6 +112,13 @@ const HomePage = ({ navigation }) => {
 										<Text>Status: Came</Text>
 									)}
 								</ListItem.Subtitle>
+								<ListItem.Subtitle>
+									{item.busid != null ? (
+										<Text>Bus: {item.busid}</Text>
+									) : (
+										<Text></Text>
+									)}
+								</ListItem.Subtitle>
 							</ListItem.Content>
 							<ListItem.Chevron />
 						</ListItem>

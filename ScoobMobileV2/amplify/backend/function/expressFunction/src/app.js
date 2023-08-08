@@ -129,6 +129,29 @@ app.get("/student/:studentid", (req, res) => {
 	});
 });
 
+// GET ALL CHILDREN TAKING BUS
+app.get("/student/:busid/takingbus", (req, res) => {
+	const busid = req.params.busid;
+
+	// SQL query to select all columns from the 'parent' table where the email matches
+	const sql = "SELECT * FROM student where busid = ?";
+
+	db.query(sql, [busid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get parent data" });
+		}
+
+		if (results.length === 0) {
+			// No parent data found for the given email
+			return res.status(404).json({ error: "Parent data not found" });
+		}
+
+		// Parent data found, send the data as the response
+		res.json(results);
+	});
+});
+
 // Get students with pickupstatus 'Arrived' for a specific class BACKUP
 // app.get("/teacher/:class/pickupstatus/arrived", (req, res) => {
 // 	const teacherClass = req.params.class;
@@ -331,6 +354,32 @@ app.put("/student/:studentid", (req, res) => {
 	});
 });
 
+// UPDATE BUS ID FOR A STUDENT
+app.put("/student/:studentid/updatebus", (req, res) => {
+	const studentid = req.params.studentid;
+	const { busid } = req.body;
+
+	// SQL query to update the subscription status in the 'student' table
+	const sql = "UPDATE student SET busid = ? WHERE studentid = ?";
+
+	db.query(sql, [busid, studentid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res
+				.status(500)
+				.json({ error: "Failed to update bus id" });
+		}
+
+		if (results.affectedRows === 0) {
+			// No student data found for the given studentid
+			return res.status(404).json({ error: "Student data not found" });
+		}
+
+		// Subscription status updated successfully
+		res.json({ message: "Bus ID updated successfully" });
+	});
+});
+
 // Change pickupstatus to "Arriving" for a student
 app.put("/student/:studentid/arriving", (req, res) => {
 	const studentId = req.params.studentid;
@@ -489,6 +538,54 @@ app.put("/student/:studentid/self", function (req, res) {
 	}
 });
 
+// Change tripstatus to Started
+app.put("/bus_driver/:driverid/start", (req, res) => {
+	const driverid = req.params.driverid;
+
+	// SQL query to update the tripstatus in the 'bus_driver' table
+	const sql =
+		"UPDATE bus_driver SET tripstatus = 'Started' WHERE driverid = ?";
+
+	db.query(sql, [driverid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to update trip status" });
+		}
+
+		if (results.affectedRows === 0) {
+			// No driver data found for the given driverid
+			return res.status(404).json({ error: "Driver data not found" });
+		}
+
+		// Pickup status updated successfully
+		res.json({ message: "Trip status updated successfully" });
+	});
+});
+
+// Change tripstatus to Ended
+app.put("/bus_driver/:driverid/end", (req, res) => {
+	const driverid = req.params.driverid;
+
+	// SQL query to update the tripstatus in the 'bus_driver' table
+	const sql =
+		"UPDATE bus_driver SET tripstatus = 'Ended' WHERE driverid = ?";
+
+	db.query(sql, [driverid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to update trip status" });
+		}
+
+		if (results.affectedRows === 0) {
+			// No driver data found for the given driverid
+			return res.status(404).json({ error: "Driver data not found" });
+		}
+
+		// Pickup status updated successfully
+		res.json({ message: "Trip status updated successfully" });
+	});
+});
+
 // // Change pickup mode
 // app.put("/student/:studentid/pickupmode", function (req, res) {
 // 	// Add your code here
@@ -547,6 +644,58 @@ app.put("/student/:studentid/bus", function (req, res) {
 		res.status(500).json({ error: "Failed to update data" });
 	}
 });
+
+
+/****************************
+ * BUS DRIVER STUFF FROM SUBSCRIBE*
+ ****************************/
+// Fetch the school's transport company based on student's postal code
+app.get("/schooltransport/:pcode", (req, res) => {
+	const studentPCode = req.params.pcode;
+  
+	// Implement your SQL query to fetch the school's transport company based on pcode
+	const sql = "SELECT transportuen FROM school_transport WHERE schooluen = ?";
+  
+	db.query(sql, [studentPCode], (err, results) => {
+	  if (err) {
+		console.error("Error executing query:", err);
+		return res.status(500).json({ error: "Failed to fetch school's transport company" });
+	  }
+  
+	  if (results.length === 0) {
+		// No matching transport company found
+		return res.status(404).json({ error: "School's transport company not found" });
+	  }
+  
+	  // Send the transport company data
+	  res.json(results[0]);
+	});
+  });
+  
+  // Fetch bus drivers based on coverage area
+  app.get("/busdriver/:area", (req, res) => {
+	const coverageArea = req.params.area;
+  
+	// Implement your SQL query to fetch bus drivers based on coverage area
+	const sql = "SELECT * FROM bus_driver WHERE area = ?";
+  
+	db.query(sql, [coverageArea], (err, results) => {
+	  if (err) {
+		console.error("Error executing query:", err);
+		return res.status(500).json({ error: "Failed to fetch bus drivers" });
+	  }
+  
+	  // Send the list of matching bus drivers
+	  res.json(results);
+	});
+  });
+  
+
+
+
+
+
+
 
 /****************************
  * Example delete method *

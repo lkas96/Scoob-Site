@@ -7,6 +7,9 @@ import CustomButton from "../../components/CustomButton";
 import { COLORS } from "../../constants";
 import UserContext from "../../context/UserContext";
 
+import { Button } from "@rneui/themed";
+import { HStack, Stack, VStack } from "react-native-flex-layout";
+
 const ProfilePage = ({ route }) => {
 	const editProfileHandler = () => {
 		Alert.alert("Edit profile");
@@ -60,11 +63,32 @@ const ProfilePage = ({ route }) => {
 					</View>
 				)}
 			</View>
-			<CustomButton
-				text="Edit Profile"
-				type="QUARTERNARY"
-				onPress={editProfileHandler}
-			/>
+			<Button
+					buttonStyle={{
+						width: "100%",
+						backgroundColor: COLORS.primary,
+						borderRadius: 8,
+						height: 50,
+					}}
+					containerStyle={{ margin: 5 }}
+					disabledStyle={{
+						borderWidth: 2,
+						borderColor: "#00F",
+					}}
+					disabledTitleStyle={{ color: "#00F" }}
+					linearGradientProps={null}
+					iconContainerStyle={{ background: "#000" }}
+					loadingProps={{ animating: true }}
+					loadingStyle={{}}
+					onPress={editProfileHandler}
+					title="Edit Profile"
+					uppercase={true}
+					titleProps={{}}
+					titleStyle={{
+						marginHorizontal: 5,
+						color: COLORS.black,
+					}}
+				/>
 		</View>
 	);
 };

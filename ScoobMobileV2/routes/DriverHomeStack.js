@@ -12,7 +12,7 @@ const DriverHomeStack = () => {
 	return (
 		<Stack.Navigator
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 				headerTitle: " ",
 				headerStyle: {
 					backgroundColor: COLORS.background,
@@ -32,7 +32,6 @@ const DriverHomeStack = () => {
 				component={DriversTripsPage}
 				options={{
 					headerShown: true,
-					headerTitle: "Trip",
 				}}
 			/>
 		</Stack.Navigator>
