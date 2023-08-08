@@ -18,6 +18,19 @@ if ($pair === false) {
   header("Location: first-time-pairing.php");
 }
 
+if (isset($_POST['unassign'])) {
+  $busid = $_POST['bus'];
+  $name = $_POST['name'];
+  $aaa = unassignArea::unassignArea($busid, $name);
+  if ($aaa == true) {
+    echo '<script>alert("Area Unassigned Successfully")</script>';
+    echo '<script>window.location.href="transport-manage-routes.php"</script>';
+  } else {
+    echo '<script>alert("Area Unassigned Unsuccessfully")</script>';
+    echo '<script>window.location.href="transport-manage-routes.php"</script>';
+  }
+}
+
 if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
@@ -100,18 +113,26 @@ if (isset($_POST["logout"])) {
           echo '<td>' . $row['area'] . "</td>";
 
           //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-          echo '<td><form action="transport-manage-routes-assign.php" method="post">';
+          echo '<td>';
+          echo '<form action="transport-manage-routes-assign.php" method="post" style="display: inline-block;">';
           echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
           echo '<input type="hidden" name="name" value="' . $row['drivername'] . '">';
           echo '<button class="view-button" type="submit">Assign Area</button>';
-          echo '</form></td>';
-          echo "</tr>";
+          echo '</form>&nbsp';
+          echo '<form method="post" style="display: inline-block;">';
+          echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
+          echo '<input type="hidden" name="name" value="' . $row['drivername'] . '">';
+          echo '<button class="delete-button" name="unassign" type="submit">Unassign Area</button>';
+          echo '</form>';
+          echo '</td>';
           echo '</tr>';
           echo '</tbody>';
           $rowNumber++;
         }
         echo '</table>';
       }
+
+      
       ?>
     </div> <!-- End of RightPanel -->
 

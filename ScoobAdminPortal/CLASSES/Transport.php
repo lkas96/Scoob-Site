@@ -550,19 +550,11 @@ class Transport
   {
     $uen = $_SESSION['uen'];
 
-    // $sql = "SELECT LEFT(s.pcode, 3), bd.area
-    // FROM student s
-    // LEFT JOIN school_transport st ON s.uen = st.schooluen
-    // LEFT JOIN bus_driver bd ON bd.uen = st.transportuen
-    // WHERE st.transportuen = '$uen'
-    // GROUP BY LEFT (pcode, 3);
-    // ";
-
     $sql = "with schoolquery as (
-      select left(pcode, 3) as pcode from school_transport st left join student s on st.schooluen = s.uen where st.transportuen = '99999999' group by left (pcode, 3)
+      select left(pcode, 3) as pcode from school_transport st left join student s on st.schooluen = s.uen where st.transportuen = '$uen' group by left (pcode, 3)
       ), 
       busquery as (
-      select area from bus_driver where uen = '99999999')
+      select area from bus_driver where uen = '$uen')
       
       SELECT * from schoolquery sq left join busquery bq on sq.pcode = bq.area
       where bq.area IS NULL
@@ -586,6 +578,23 @@ class Transport
     $uen = $_SESSION['uen'];
 
     $sql = "UPDATE bus_driver SET area = '$pcode' WHERE uen = '$uen' AND busid = '$busid';
+  ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO UNASSIGN ROUTE FROM BUS
+  public function unassignArea($busid, $name)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "UPDATE bus_driver SET area = NULL WHERE uen = '$uen' AND busid = '$busid';
   ";
 
     $result = $this->conn->query($sql);
