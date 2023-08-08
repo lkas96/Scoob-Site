@@ -1,14 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Alert, FlatList, SafeAreaView, StyleSheet, TouchableHighlight, View } from "react-native";
-import CustomButton from "../../components/CustomButton";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import {
+	Alert,
+	FlatList,
+	SafeAreaView,
+	StyleSheet,
+	TouchableHighlight,
+	View,
+} from "react-native";
+import CustomButton from "../../components/CustomButton";
 import UserContext from "../../context/UserContext";
 
 import { HStack, Text } from "@react-native-material/core";
 import { Avatar, ListItem } from "@rneui/base";
-import { Icon } from "react-native-elements";
+import { Button, Icon } from "@rneui/themed";
 import COLORS from "../../constants/colors";
-import { Button} from "@rneui/themed";
 
 const HomePage = ({ navigation }) => {
 	const { userDetails } = useContext(UserContext);
@@ -17,7 +23,7 @@ const HomePage = ({ navigation }) => {
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
-		/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		do dynamic busid*/
@@ -43,7 +49,7 @@ const HomePage = ({ navigation }) => {
 	}, [navigation]);
 
 	const startHandler = () => {
-		console.log(userDetails.userId)
+		console.log(userDetails.userId);
 		axios
 			.put(`${lambdaEndpoint}/bus_driver/${userDetails.userId}/start`)
 			.then((response) => {
@@ -53,10 +59,7 @@ const HomePage = ({ navigation }) => {
 			.catch((error) => {
 				console.error("Error updating trip status:", error);
 				// Show an error message to the user
-				Alert.alert(
-					"Error",
-					"Failed to update trip status. Please try again."
-				);
+				Alert.alert("Error", "Failed to update trip status. Please try again.");
 			});
 	};
 
@@ -77,15 +80,25 @@ const HomePage = ({ navigation }) => {
 			});
 	};
 
+	const scannerHandler = () => {
+		navigation.navigate("DriversScannerPage");
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
-			<HStack>
-				<Text variant="h4" style={styles.title}>Trip</Text>
+			<HStack justify={"space-between"} align={"center"} m={10}>
+				<Text variant="h4" style={styles.title}>
+					Trip
+				</Text>
 				<Icon
-        name='barcode-scan'
-        type='MaterialCommunityIcons'
-				onPress={""}
-      />
+					raised
+					name="barcode-scan"
+					type="material-community"
+					color={COLORS.secondary}
+					// ! To change onPress to navigate to scanner
+					// onPress={() => console.log("onPress()")}
+					onPress={scannerHandler}
+				/>
 			</HStack>
 			<View style={styles.scrollContainer}>
 				<FlatList

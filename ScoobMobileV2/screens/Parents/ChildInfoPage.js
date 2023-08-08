@@ -156,22 +156,22 @@ const ChildInfoPage = ({ route, navigation }) => {
 	};
 
 	const matchedBus = (busID) => {
-			// Update the student's 'busid' with the matching bus driver's 'busid'
-			axios
-				.put(`${lambdaEndpoint}/student/${studentid}/updatebus`, {
-					busid: busID,
-				})
-				.then((response) => {
+		// Update the student's 'busid' with the matching bus driver's 'busid'
+		axios
+			.put(`${lambdaEndpoint}/student/${studentid}/updatebus`, {
+				busid: busID,
+			})
+			.then((response) => {
 				Alert.alert("Success", "Bus ID updated successfully!");
-				})
-				.catch((error) => {
+			})
+			.catch((error) => {
 				console.error("Error updating student's busid:", error);
 				Alert.alert(
 					"Error",
 					"Failed to update student's busid. Please try again."
 				);
-				});
-		 }
+			});
+	};
 	// working
 	const updateSubscriptionStatus = async () => {
 		const newSubscriptionStatus = subscriptionStatus === "Yes" ? "No" : "Yes";
@@ -184,36 +184,49 @@ const ChildInfoPage = ({ route, navigation }) => {
 			.then((response) => {
 				// Update the subscription status in the state
 				setSubscriptionStatus(newSubscriptionStatus);
-				if(newSubscriptionStatus === "Yes") {
-				axios
+				if (newSubscriptionStatus === "Yes") {
+					axios
 						.get(`${lambdaEndpoint}/schooltransport/${route.params.uen}`)
 						.then((response2) => {
-						//   setTransportCompany(response2.data.transportuen);
+							//   setTransportCompany(response2.data.transportuen);
 							transportCompany = response2.data.transportuen;
-						}).catch((error) => {
+						})
+						.catch((error) => {
 							console.error("Error fetching transport uen:", error);
 							Alert.alert(
-							  "Error",
-							  "Failed to fetch transport uen. Please try again."
+								"Error",
+								"Failed to fetch transport uen. Please try again."
 							);
-						  });
-						  console.log("substring: ",(route.params.pcode.toString()).substring(0,3))
+						});
+					console.log(
+						"substring: ",
+						route.params.pcode.toString().substring(0, 3)
+					);
 					axios
-						.get(`${lambdaEndpoint}/busdriver/${(route.params.pcode.toString()).substring(0,3)}`)
+						.get(
+							`${lambdaEndpoint}/busdriver/${route.params.pcode
+								.toString()
+								.substring(0, 3)}`
+						)
 						.then((response3) => {
-							const matchingBusDriver = response3.data
-							console.log("transportCompany: ",transportCompany)
-							console.log("matchingBusDriver: ",matchingBusDriver)
-							{matchingBusDriver.map((matched) => (
-								matched.uen === transportCompany ? matchedBus(matched.busid) : console.log("no")
-							  ))}
-						}).catch((error) => {
-								console.error("Error fetching bus driver:", error);
-								Alert.alert(
-								  "Error",
-								  "Failed to fetch bus driver. Please try again."
+							const matchingBusDriver = response3.data;
+							console.log("transportCompany: ", transportCompany);
+							console.log("matchingBusDriver: ", matchingBusDriver);
+							{
+								matchingBusDriver.map((matched) =>
+									matched.uen === transportCompany
+										? matchedBus(matched.busid)
+										: console.log("no")
 								);
-							  });
+							}
+						})
+						.catch((error) => {
+							console.error("Error fetching bus driver:", error);
+							Alert.alert(
+								"Error",
+								"Failed to fetch bus driver. Please try again."
+							);
+						});
 				}
 			})
 			.catch((error) => {

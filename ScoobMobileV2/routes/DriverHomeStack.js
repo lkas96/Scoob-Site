@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
 import DriversHomePage from "../screens/Drivers/HomePage";
-import DriversTripsPage from "../screens/Drivers/TripsPage";
+import DriversScannerPage from "../screens/Drivers/ScannerPage";
 
 import COLORS from "../constants/colors";
 
@@ -28,8 +28,8 @@ const DriverHomeStack = () => {
 				}}
 			/>
 			<Stack.Screen
-				name="DriversTripsPage"
-				component={DriversTripsPage}
+				name="DriversScannerPage"
+				component={DriversScannerPage}
 				options={{
 					headerShown: true,
 				}}
