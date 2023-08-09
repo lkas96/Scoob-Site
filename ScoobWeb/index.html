@@ -39,18 +39,26 @@
       <li class="nav-item" >
 				<a class="nav-link" href="contact.html">Contact Us</a>
 			</li>
+      <li class="nav-item" >
+				<a class="nav-link" href="/Scoob-Site/ScoobAdminPortal/onboarding/onboard-home.php">Signup</a>
+			</li>
+      <li class="nav-item" >
+				<a class="nav-link" href="/Scoob-Site/ScoobAdminPortal/login.php">Login</a>
+			</li>
 
 			</ul>
+    
 		</div>
 	</nav>
 
   <!--Main Body-->
-  <div>
-    <br><br><br><br><br>
-    <img src="img/Scoob Logo.svg" alt="Scoob Systems Logo" width="500" height="200" class="center">
+  <div class="logo">
+    <br><br><br>
+    <img src="img/scoobcirclesquare.png" alt="Scoob Systems Logo" class="center" style="width: 15%; height: auto;">
     <br>
-    <p>Your new favorite bus service coming soon</p>
+    <!--<p>Coming Soon</p>-->
     <p id="demo"></p>
+
 
     <script>
     // Set the date we're counting down to
@@ -72,8 +80,8 @@
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         
       // Output the result in an element with id="demo"
-      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+      //document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+      //+ minutes + "m " + seconds + "s ";
         
       // If the count down is over, write some text 
       if (distance < 0) {
@@ -81,14 +89,42 @@
         document.getElementById("demo").innerHTML = "EXPIRED";
       }
     }, 1000);
-    </script>
+
+  
+  
+    </script>  
   </div>
+
+
+<!--Body Main Info-->
+<div class="maininfo">
+  <br><br><br>
+ 
+  <h1>The Trusted School Dismissal Platform</h1>
+  <br><br><br>
+  <p style="max-width: 500px; height: auto; font-size: 25px;">Enhance your daily and emergency operations by utilizing a user-friendly platform designed to streamline your pickup management process, ensuring efficient planning and organization for the entire duration of the school day.</p>
+  <br><br><br>
+  <img src="img/dismiss.jpg" alt="home-teachers-students" style="width: 30%; height: auto;">
+  <br><br><br>
+  <br><br><br>
+  <br><br><br>
+</div>
 
 </body>
 </html>
 
 
-<style>
+<style>  
+  
+  .maininfo {
+    display: flex; 
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+
+
   p {
     text-align: center;
     font-size: 30px;
@@ -101,9 +137,14 @@
     margin-right: auto;
     width: 50%;
   }
-  
+
+  .logo {
+    background: #F07c34;
+    height: 550px;
+  }
+
   body {
-    background: orange;
+    background: #093d65;
   }
   
   .content {
@@ -112,4 +153,6 @@
     background: white;
     padding: 10px;
   }
+
+
 </style>
