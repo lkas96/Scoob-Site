@@ -16,10 +16,13 @@ import { Avatar, ListItem } from "@rneui/base";
 import { Button, Icon } from "@rneui/themed";
 import COLORS from "../../constants/colors";
 
-const HomePage = ({ navigation }) => {
+const HomePage = ({ route, navigation }) => {
 	const { userDetails } = useContext(UserContext);
+	const [tripData, setTripData] = useState("");
 	const [childData, setChildData] = useState("");
-	const [trip, setTrip] = useState(false);
+	const [trip, setTrip] = useState();
+	var ts = " ";
+	var did = " ";
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
@@ -27,6 +30,27 @@ const HomePage = ({ navigation }) => {
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		do dynamic busid*/
+
+	const fetchTripData = async () => {
+		try {
+			const response = await axios.get(
+				`${lambdaEndpoint}/bus_driver/${userDetails.userId}`
+			);
+			const data = response.data;
+			setTripData(data);
+			ts = data[0].tripstatus;
+			did = data[0].driverid;
+			setTrip(ts === "Started" ? true : false);
+
+			console.log("In fetchTripData()");
+			// ! To explain again
+			// console.log(ts, did);
+			// console.log("trip: ", trip);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const fetchStudentData = async () => {
 		try {
 			const response = await axios.get(
@@ -34,7 +58,10 @@ const HomePage = ({ navigation }) => {
 			);
 			const data = response.data;
 			setChildData(data);
-			console.log("Fetching...");
+			console.log("In fetchStudentData()");
+			// ! To explain again
+			// console.log("childData: ", childData);
+			// console.log("driverData: ", userDetails);
 		} catch (error) {
 			console.error(error);
 		}
@@ -42,6 +69,7 @@ const HomePage = ({ navigation }) => {
 
 	useEffect(() => {
 		const focusHandler = navigation.addListener("focus", () => {
+			fetchTripData();
 			fetchStudentData();
 			console.log("Refreshed!");
 		});
@@ -53,7 +81,8 @@ const HomePage = ({ navigation }) => {
 		axios
 			.put(`${lambdaEndpoint}/bus_driver/${userDetails.userId}/start`)
 			.then((response) => {
-				// On the way to school
+				setTrip(true);
+				console.log(trip);
 				Alert.alert("Success", "Trip has started!");
 			})
 			.catch((error) => {
@@ -67,7 +96,8 @@ const HomePage = ({ navigation }) => {
 		axios
 			.put(`${lambdaEndpoint}/bus_driver/${userDetails.userId}/end`)
 			.then((response) => {
-				// On the way to school
+				setTrip(false);
+				console.log(trip);
 				Alert.alert("Success", "Trip has ended!");
 			})
 			.catch((error) => {
@@ -81,7 +111,7 @@ const HomePage = ({ navigation }) => {
 	};
 
 	const scannerHandler = () => {
-		navigation.navigate("DriversScannerPage");
+		navigation.navigate("DriversScannerPage", { tripData });
 	};
 
 	return (
@@ -115,10 +145,10 @@ const HomePage = ({ navigation }) => {
 								height: 150,
 							}}
 							disabledStyle={{ opacity: 0.5 }}
-							onLongPress={() => console.log("onLongPress()")}
-							onPress={() =>
-								navigation.navigate("DriversTripsPage", { childInfo: item })
-							}
+							// onLongPress={() => console.log("onLongPress()")}
+							// onPress={() =>
+							// 	navigation.navigate("DriversTripsPage", { childInfo: item })
+							// }
 							pad={20}
 						>
 							<Avatar
@@ -140,7 +170,7 @@ const HomePage = ({ navigation }) => {
 									<Text>S'{`${item.pcode}`}</Text>
 								</ListItem.Subtitle>
 							</ListItem.Content>
-							<ListItem.Chevron />
+							{/* <ListItem.Chevron /> */}
 						</ListItem>
 					)}
 				/>
@@ -155,7 +185,7 @@ const HomePage = ({ navigation }) => {
 							height: 50,
 						}}
 						containerStyle={{ margin: 5 }}
-						// disabled={pickUpMode === true ? true : false}
+						disabled={trip === true ? true : false}
 						disabledStyle={{}}
 						disabledTitleStyle={{}}
 						linearGradientProps={null}
@@ -175,7 +205,7 @@ const HomePage = ({ navigation }) => {
 							height: 50,
 						}}
 						containerStyle={{ margin: 5 }}
-						// disabled={pickUpMode === true ? true : false}
+						disabled={trip === false ? true : false}
 						disabledStyle={{}}
 						disabledTitleStyle={{}}
 						linearGradientProps={null}

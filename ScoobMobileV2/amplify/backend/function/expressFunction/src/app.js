@@ -234,6 +234,28 @@ app.get("/teacher/:class", (req, res) => {
 	});
 });
 
+app.get("/bus_driver/:driverid", (req, res) => {
+	const driverid = req.params.driverid;
+
+	// SQL query to update the tripstatus in the 'bus_driver' table
+	const sql = "SELECT * FROM bus_driver WHERE driverid = ?";
+
+	db.query(sql, [driverid], (err, results) => {
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to get trip data" });
+		}
+
+		if (results.length === 0) {
+			// No driver data found for the given driverid
+			return res.status(404).json({ error: "Trip data not found" });
+		}
+
+		// Pickup status updated successfully
+		res.json(results);
+	});
+});
+
 /****************************
  * Example post method *
  ****************************/
@@ -365,9 +387,7 @@ app.put("/student/:studentid/updatebus", (req, res) => {
 	db.query(sql, [busid, studentid], (err, results) => {
 		if (err) {
 			console.error("Error executing query:", err);
-			return res
-				.status(500)
-				.json({ error: "Failed to update bus id" });
+			return res.status(500).json({ error: "Failed to update bus id" });
 		}
 
 		if (results.affectedRows === 0) {
@@ -543,8 +563,7 @@ app.put("/bus_driver/:driverid/start", (req, res) => {
 	const driverid = req.params.driverid;
 
 	// SQL query to update the tripstatus in the 'bus_driver' table
-	const sql =
-		"UPDATE bus_driver SET tripstatus = 'Started' WHERE driverid = ?";
+	const sql = "UPDATE bus_driver SET tripstatus = 'Started' WHERE driverid = ?";
 
 	db.query(sql, [driverid], (err, results) => {
 		if (err) {
@@ -567,8 +586,7 @@ app.put("/bus_driver/:driverid/end", (req, res) => {
 	const driverid = req.params.driverid;
 
 	// SQL query to update the tripstatus in the 'bus_driver' table
-	const sql =
-		"UPDATE bus_driver SET tripstatus = 'Ended' WHERE driverid = ?";
+	const sql = "UPDATE bus_driver SET tripstatus = 'Ended' WHERE driverid = ?";
 
 	db.query(sql, [driverid], (err, results) => {
 		if (err) {
@@ -645,57 +663,53 @@ app.put("/student/:studentid/bus", function (req, res) {
 	}
 });
 
-
 /****************************
  * BUS DRIVER STUFF FROM SUBSCRIBE*
  ****************************/
 // Fetch the school's transport company based on student's postal code
 app.get("/schooltransport/:pcode", (req, res) => {
 	const studentPCode = req.params.pcode;
-  
+
 	// Implement your SQL query to fetch the school's transport company based on pcode
 	const sql = "SELECT transportuen FROM school_transport WHERE schooluen = ?";
-  
+
 	db.query(sql, [studentPCode], (err, results) => {
-	  if (err) {
-		console.error("Error executing query:", err);
-		return res.status(500).json({ error: "Failed to fetch school's transport company" });
-	  }
-  
-	  if (results.length === 0) {
-		// No matching transport company found
-		return res.status(404).json({ error: "School's transport company not found" });
-	  }
-  
-	  // Send the transport company data
-	  res.json(results[0]);
+		if (err) {
+			console.error("Error executing query:", err);
+			return res
+				.status(500)
+				.json({ error: "Failed to fetch school's transport company" });
+		}
+
+		if (results.length === 0) {
+			// No matching transport company found
+			return res
+				.status(404)
+				.json({ error: "School's transport company not found" });
+		}
+
+		// Send the transport company data
+		res.json(results[0]);
 	});
-  });
-  
-  // Fetch bus drivers based on coverage area
-  app.get("/busdriver/:area", (req, res) => {
+});
+
+// Fetch bus drivers based on coverage area
+app.get("/busdriver/:area", (req, res) => {
 	const coverageArea = req.params.area;
-  
+
 	// Implement your SQL query to fetch bus drivers based on coverage area
 	const sql = "SELECT * FROM bus_driver WHERE area = ?";
-  
+
 	db.query(sql, [coverageArea], (err, results) => {
-	  if (err) {
-		console.error("Error executing query:", err);
-		return res.status(500).json({ error: "Failed to fetch bus drivers" });
-	  }
-  
-	  // Send the list of matching bus drivers
-	  res.json(results);
+		if (err) {
+			console.error("Error executing query:", err);
+			return res.status(500).json({ error: "Failed to fetch bus drivers" });
+		}
+
+		// Send the list of matching bus drivers
+		res.json(results);
 	});
-  });
-  
-
-
-
-
-
-
+});
 
 /****************************
  * Example delete method *

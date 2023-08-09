@@ -3,7 +3,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-const ScannerPage = ({ navigation }) => {
+const ScannerPage = ({ route }) => {
+	console.log(route.params);
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
 	const lambdaEndpoint =
@@ -35,7 +36,7 @@ const ScannerPage = ({ navigation }) => {
 		// 	// Parent's barcode does not match the student's parentid
 		// 	showPrompt("Incorrect Parent");
 		// }
-		console.log();
+		// console.log();
 	};
 	const showPrompt = (message) => {
 		// Implement your prompt display logic here (e.g., using Alert)

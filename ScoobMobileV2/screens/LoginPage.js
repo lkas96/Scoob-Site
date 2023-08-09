@@ -105,23 +105,6 @@ function LoginPage() {
 						source={require("../assets/images/ScooB.png")}
 					/>
 					<View style={styles.interactive}>
-						{/* <TextInput
-							style={styles.input}
-							placeholder="Username"
-							onChangeText={(val) =>
-								setCredentials({ ...credentials, username: val })
-							}
-						/>
-
-						<TextInput
-							style={styles.input}
-							placeholder="Password"
-							onChangeText={(val) =>
-								setCredentials({ ...credentials, password: val })
-							}
-							secureTextEntry={true}
-						/> */}
-						{/* <VStack m={4} spacing={6} justify="center"> */}
 						<Input
 							containerStyle={{ width: "90%" }}
 							disabledInputStyle={{ background: "#ddd" }}
@@ -195,11 +178,6 @@ function LoginPage() {
 						/>
 
 						<View style={styles.buttonContainer}>
-							{/* <CustomButton
-								text="Login"
-								data={credentials}
-								onPress={onLoginPressed}
-							/> */}
 							<Button
 								buttonStyle={{
 									width: "100%",
@@ -208,11 +186,6 @@ function LoginPage() {
 									height: 50,
 								}}
 								containerStyle={{ margin: 5 }}
-								disabledStyle={{
-									borderWidth: 2,
-									borderColor: "#00F",
-								}}
-								disabledTitleStyle={{ color: "#00F" }}
 								linearGradientProps={null}
 								iconContainerStyle={{ background: "#000" }}
 								loadingProps={{ animating: true }}
