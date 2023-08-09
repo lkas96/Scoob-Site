@@ -12,6 +12,29 @@ if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
 }
+
+if (isset($_POST['assignBus'])) {
+
+  //SAVE DRIVERID TO SESSION
+  $_SESSION['assigndriver'] = $_POST['driverid'];
+  $_SESSION['assignname'] = $_POST['drivername'];
+
+  //REDIRECT TO ASSIGN BUS PAGE
+  echo '<script>window.location.href="transport-manage-drivers-assign.php";</script>';
+}
+
+if (isset($_POST['deleteDriver'])) {
+  $driverid = $_POST['driverid'];
+  $execute = DeleteDriver::deleteDriver($driverid);
+
+  if ($execute) {
+    echo '<script>alert("Driver deleted successfully.");</script>';
+    echo '<script>window.location.href="transport-manage-drivers.php";</script>';
+  } else {
+    echo '<script>alert("Error deleting driver.");</script>';
+    echo '<script>window.location.href="transport-manage-drivers.php";</script>';
+  }
+}
 ?>
 
 <html>
@@ -47,6 +70,7 @@ if (isset($_POST["logout"])) {
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-routes.php'"> <span>Manage Routes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
         <button class="logoutButton" tpe="button" name="logout">Logout</button>
@@ -57,7 +81,7 @@ if (isset($_POST["logout"])) {
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing Driver Details</h1>
         <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Driver</button></a>
+          <a href="transport-manage-drivers-add.php" style="margin-right: 10px;"><button>Add Driver</button></a>
           <form method="post" action="transport-manage-drivers-search.php">
             <input type="text" name="searchQuery" placeholder="Search Driver" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
@@ -107,8 +131,10 @@ if (isset($_POST["logout"])) {
               echo '<td>' . $row['phone'] . "</td>";
 
               //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-              echo '<td><form action="transport-manage-drivers-view.php" method="post">';
+              echo '<td><form method="post">';
               echo '<input type="hidden" name="driverid" value="' . $row['driverid'] . '">';
+              echo '<input type="hidden" name="drivername" value="' . $row['drivername'] . '">';
+              echo '<button class="view-button" name="assignBus" type="submit">Assign Bus</button>&nbsp';
               echo '<button class="delete-button" name="deleteDriver" type="submit">Delete Driver</button>';
               echo '</form></td>';
               echo "</tr>";
@@ -117,22 +143,6 @@ if (isset($_POST["logout"])) {
               $rowNumber++;
             }
             echo '</table>';
-          }
-        }
-        ?>
-
-        <!-- FUNCTION FOR DELETING DRIVER -->
-        <?php
-        if (isset($_POST['deleteDriver'])){
-          $driverid = $_POST['driverid'];
-          $execute = DeleteDriver::deleteDriver($driverid);
-
-          if ($execute) {
-            echo '<script>alert("Driver deleted successfully.");</script>';
-            echo '<script>window.location.href="transport-manage-drivers.php";</script>';
-          } else {
-            echo '<script>alert("Error deleting driver.");</script>';
-            echo '<script>window.location.href="transport-manage-drivers.php";</script>';
           }
         }
         ?>

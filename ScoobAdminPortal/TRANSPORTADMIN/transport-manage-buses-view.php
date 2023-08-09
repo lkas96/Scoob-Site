@@ -118,22 +118,23 @@ if (isset($_POST["logout"])) {
 
       <!-- FOR UNASSIGNING BUS DRIVER -->
       <?php
-        if (isset($_POST['unassignDriver'])) {
-          $busid = $_POST['bus'];
-          $driverid = $_POST['driver'];
-          $execute = UnassignDriver::unassignDriver($driverid, $busid);
+      if (isset($_POST['unassignDriver'])) {
+        $busid = $_POST['bus'];
+        $driverid = $_POST['driver'];
+        $execute = UnassignDriver::unassignDriver($driverid, $busid);
 
-          if ($execute === true) {
-            // Perform necessary actions after successful deletion
-            echo "<script>alert('Successfully unassigned driver.'); window.location='../TRANSPORTADMIN/transport-manage-buses.php';</script>";
-          } else {
-            echo "<script>alert('Error unassigning driver.');</script>";
-          }
+        if ($execute === true) {
+          // Perform necessary actions after successful deletion
+          echo "<script>alert('Successfully unassigned driver.'); window.location='../TRANSPORTADMIN/transport-manage-buses.php';</script>";
+        } else {
+          echo "<script>alert('Error unassigning driver.');</script>";
         }
-        ?>
-      
+      }
+      ?>
+
       <!-- FOR DELETING A BUS -->
       <?php
+      try {
         if (isset($_POST['deleteBus'])) {
           $busid = $_POST['bus'];
           $execute = DeleteBus::deleteBus($busid);
@@ -145,7 +146,11 @@ if (isset($_POST["logout"])) {
             echo "<script>alert('Error Deleting Bus.');</script>";
           }
         }
-        ?>
+      } catch (mysqli_sql_exception $e) {
+        echo "<script>alert('Error Deleting Bus, unassign the driver first.');</script>";
+      }
+
+      ?>
 
     </div> <!-- End of RightPanel -->
 

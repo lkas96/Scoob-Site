@@ -55,59 +55,66 @@ if (isset($_POST["logout"])) {
     </div>
 
     <div class="rightPanel">
-      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing Bus Details</h1>
-        <div style="display: flex; align-items: center;">
-          <a href="transport-manage-buses-add.php" style="margin-right: 10px;"><button>Add Bus</button></a>
-          <form method="post" action="transport-manage-buses-search.php">
-            <input type="text" name="searchQuery" placeholder="Search Bus" style="margin-right: 5px;" required>
-            <input type="submit" value="Search">
-          </form>
-        </div>
+      <div class="header">
+        <h1 style="display: inline;">Assign Driver to Bus</h1> <br><br>
       </div>
 
-      <?php
-      $aaa = viewAllBuses::viewAllBuses();
-      $result = NULL; //PLACEHOLDER
+      <form method="post">
+        <b>Selected Driver Name & ID:</b><br>
+        <?php echo $_SESSION['assignname'] . ' / ' . $_SESSION['assigndriver'] ?><br><br>
+        <?php
+        $aaa = GetNoAssignBus::getNoAssignBus();
+        $result = $_SESSION['viewNoAssignBusSQLTable'];
 
-      if (isset($_SESSION['viewAllBusesSQLTable'])) {
-        $result = $_SESSION['viewAllBusesSQLTable'];
-      }
-
-      if ($result == NULL) {
-        echo 'No buses found.';
-      } else {
-        //PRINT TABLE HEADERS
-        echo '<table class="table table-bordered table-sm" style="text-align: center">';
-        echo '<thead class="thead-dark">';
-        echo '<tr>';
-        echo '<th scope="col">S/N</th>';
-        echo '<th scope="col">Bus Reg. No</th>';
-        echo '<th scope="col">Assigned Driver</th>';
-        echo '<th scope="col">Action</th>';
-        echo '</tr>';
-        echo '</thead>';
-
-        $rowNumber = 1;
-
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo '<tbody>';
-          echo '<tr>';
-          echo '<td>' . $rowNumber . "</td>";
-          echo '<td>' . $row['busid'] . "</td>";
-          echo '<td>' . $row['drivername'] . "</td>";
-
-          //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-          echo '<td><form action="transport-manage-buses-view.php" method="post">';
-          echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
-          echo '<button class="view-button" type="submit">View</button>';
-          echo '</form></td>';
-          echo "</tr>";
-          echo '</tr>';
-          echo '</tbody>';
-          $rowNumber++;
+        if ($result == NULL) {
+          echo "<b>No buses available to assign.</b>";
+        } else {
+          echo "<b>Available Buses:</b><br>";
+          echo "<select name='busid'>";
+          while ($row = mysqli_fetch_array($result)) {
+            echo "<option value='" . $row['busid'] . "'>" . $row['busid'] . "</option>";
+          }
+          echo "</select><br><br><br>";
         }
-        echo '</table>';
+        ?>
+        <input type="submit" name="submit" value="Assign Bus">
+
+        <?php
+        if (isset($_POST["submit"])) {
+          $busid = $_POST["busid"];
+          $driverid = $_SESSION['assigndriver'];
+
+          $assignBus = new AssignBus();
+          $assignBus->assignBus($busid, $driverid);
+
+          if ($assignBus == true) {
+            echo "<script>alert('Bus successfully assigned'); window.location.href = 'transport-manage-drivers.php';</script>";
+          } else {
+            echo "<script>alert('Bus already assigned'); window.location.href = 'transport-manage-drivers-assign.php';</script>";
+          }
+        }
+        ?>
+
+      </form>
+
+      <?php
+      if (isset($_POST["submit"])) {
+
+        $driverid = $_POST["driverid"];
+        $fname = $_POST["fname"];
+        $lname = $_POST["lname"];
+        $phone = $_POST["phone"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        $addDriver = new AddDriver();
+        $addDriver->addDriver($driverid, $fname, $lname, $phone, $email, $password);
+
+        if ($addDriver == true) {
+          echo "<script>alert('Driver successfully added'); window.location.href = 'transport-manage-buses.php';</script>";
+        } else {
+          echo "<script>alert('Driver already exists'); window.location.href = 'transport-manage-buses-add.php';</script>";
+        }
       }
       ?>
 

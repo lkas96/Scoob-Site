@@ -59,7 +59,7 @@ if (isset($_POST["logout"])) {
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing Teacher Details</h1>
         <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Teacher</button></a>
+          <a href="school-manage-teachers-add.php" style="margin-right: 10px;"><button>Add Teacher</button></a>
           <form method="post" action="school-manage-teachers-search.php">
             <input type="text" name="searchQuery" placeholder="Search Teacher" style="margin-right: 5px;" required>
             <input type="submit" value="Search">

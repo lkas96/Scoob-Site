@@ -55,59 +55,44 @@ if (isset($_POST["logout"])) {
     </div>
 
     <div class="rightPanel">
-      <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h1 style="margin: 0;">Viewing Bus Details</h1>
-        <div style="display: flex; align-items: center;">
-          <a href="transport-manage-buses-add.php" style="margin-right: 10px;"><button>Add Bus</button></a>
-          <form method="post" action="transport-manage-buses-search.php">
-            <input type="text" name="searchQuery" placeholder="Search Bus" style="margin-right: 5px;" required>
-            <input type="submit" value="Search">
-          </form>
-        </div>
+      <div class="header">
+        <h1 style="display: inline;">Add A Driver</h1> <br><br>
       </div>
 
+      <form method="post">
+        <label>Driver ID: </label><br>
+        <input type="text" name="driverid" placeholder="Driver ID" required><br><br>
+        <label>Driver First Name: </label><br>
+        <input type="text" name="fname" placeholder="First Name" required><br><br>
+        <label>Driver Last Name: </label><br>
+        <input type="text" name="lname" placeholder="Last Name" required><br><br>
+        <label>Driver Phone: </label><br>
+        <input type="text" name="phone" placeholder="Phone" required><br><br>
+        <label>Driver Email: </label><br>
+        <input type="text" name="email" placeholder="Email" required><br><br>
+        <label>Driver Account Password: </label><br>
+        <input type="text" name="password" placeholder="Password" required><br><br>
+        <input type="submit" name="submit" value="Add Driver">
+      </form>
+
       <?php
-      $aaa = viewAllBuses::viewAllBuses();
-      $result = NULL; //PLACEHOLDER
+      if (isset($_POST["submit"])) {
 
-      if (isset($_SESSION['viewAllBusesSQLTable'])) {
-        $result = $_SESSION['viewAllBusesSQLTable'];
-      }
+        $driverid = $_POST["driverid"];
+        $fname = $_POST["fname"];
+        $lname = $_POST["lname"];
+        $phone = $_POST["phone"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
-      if ($result == NULL) {
-        echo 'No buses found.';
-      } else {
-        //PRINT TABLE HEADERS
-        echo '<table class="table table-bordered table-sm" style="text-align: center">';
-        echo '<thead class="thead-dark">';
-        echo '<tr>';
-        echo '<th scope="col">S/N</th>';
-        echo '<th scope="col">Bus Reg. No</th>';
-        echo '<th scope="col">Assigned Driver</th>';
-        echo '<th scope="col">Action</th>';
-        echo '</tr>';
-        echo '</thead>';
+        $addDriver = new AddDriver();
+        $addDriver->addDriver($driverid, $fname, $lname, $phone, $email, $password);
 
-        $rowNumber = 1;
-
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo '<tbody>';
-          echo '<tr>';
-          echo '<td>' . $rowNumber . "</td>";
-          echo '<td>' . $row['busid'] . "</td>";
-          echo '<td>' . $row['drivername'] . "</td>";
-
-          //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
-          echo '<td><form action="transport-manage-buses-view.php" method="post">';
-          echo '<input type="hidden" name="bus" value="' . $row['busid'] . '">';
-          echo '<button class="view-button" type="submit">View</button>';
-          echo '</form></td>';
-          echo "</tr>";
-          echo '</tr>';
-          echo '</tbody>';
-          $rowNumber++;
+        if ($addDriver == true) {
+          echo "<script>alert('Driver successfully added'); window.location.href = 'transport-manage-buses.php';</script>";
+        } else {
+          echo "<script>alert('Driver already exists'); window.location.href = 'transport-manage-buses-add.php';</script>";
         }
-        echo '</table>';
       }
       ?>
 

@@ -8,6 +8,16 @@ if ($_SESSION['type'] != "Transport Admin") {
   header("Location: ../login.php");
 }
 
+//CHECK FOR SCHOOL PAIR
+//IF PAIR EXISTS, REDIRECT TO TRANSPORT HOME 
+//IF PAIR DO NOT EXISTS, REDIRECT TO FIRST TIME PAIRING
+$transport = new CheckPair();
+$pair = $transport->checkPair($_SESSION['uen']);
+
+if ($pair === false) {
+  header("Location: first-time-pairing.php");
+}
+
 if (isset($_POST["logout"])) {
   $logout = new LogoutController();
   $logout->logout();
@@ -44,6 +54,7 @@ if (isset($_POST["logout"])) {
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-routes.php'"> <span>Manage Routes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
 	      <button class="logoutButton" tpe="button" name="logout">Logout</button>

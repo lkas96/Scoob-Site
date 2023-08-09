@@ -47,6 +47,7 @@ if (isset($_POST["logout"])) {
     <div class="leftPanel">
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-manage-routes.php'"> <span>Manage Routes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
         <button class="logoutButton" tpe="button" name="logout">Logout</button>
@@ -57,7 +58,7 @@ if (isset($_POST["logout"])) {
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing All Drivers</h1>
         <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Driver</button></a>
+          <a href="transport-manage-drivers-add.php" style="margin-right: 10px;"><button>Add Driver</button></a>
           <form method="post" action="transport-manage-drivers-search.php">
             <input type="text" name="searchQuery" placeholder="Search Driver" style="margin-right: 5px;" required>
             <input type="submit" value="Search">

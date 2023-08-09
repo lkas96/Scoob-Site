@@ -95,6 +95,7 @@ class SearchDriver{
         $results = $searchDriver->searchDriver($searchQuery);
     }
 }
+
 class ImportTransport{
     public static function importTransport($csv_file_1, $csv_file_2, $csv_file_3){
         $importTransport = new Transport();
@@ -103,5 +104,82 @@ class ImportTransport{
     }
 }
 
+class CheckPair{
+    public static function checkPair($uen){
+        $checkPair = new Transport();
+        $results = $checkPair->checkPair($uen);
+        return $results;
+    }
+}
 
-?>
+class AvailablePair{
+    public static function availablePair($uen){
+        $availablePair = new Transport();
+        $results = $availablePair->availablePair($uen);
+        return $results;
+    }
+}
+
+class SetPair{
+    public static function setPair($uen, $busuen){
+        $setPair = new Transport();
+        $results = $setPair->setPair($uen, $busuen);
+        return $results;
+    }
+}
+
+class GetTransportDetails{
+    public static function getTransportDetails(){
+        $getTransportDetails = new Transport();
+        $results = $getTransportDetails->getTransportDetails();
+        return $results;
+    }
+}
+
+class GetNoAssignBus{
+    public static function getNoAssignBus(){
+        $getNoAssignBus = new Transport();
+        $results = $getNoAssignBus->getNoAssignBus();
+        return $results;
+    }
+}
+
+class AssignBus{
+    public static function assignBus($busid, $driverid){
+        $assignBus = new Transport();
+        $results = $assignBus->assignBus($busid, $driverid);
+        return $results;
+    }
+}
+
+class ViewAllRoutes{
+    public static function viewAllRoutes(){
+        $viewAllRoutes = new Transport();
+        $results = $viewAllRoutes->viewAllRoutes();
+        return $results;
+    }
+}
+
+class GetPostalGroup{
+    public static function getPostalGroup(){
+        $getPostalGroup = new Transport();
+        $results = $getPostalGroup->getPostalGroup();
+        return $results;
+    }
+}
+
+class AddRoute{
+    public static function addRoute($pcode, $busid){
+        $addRoute = new Transport();
+        $results = $addRoute->addRoute($pcode, $busid);
+        return $results;
+    }
+}
+
+class UnassignArea{
+    public static function unassignArea($pcode, $busid){
+        $unassignArea = new Transport();
+        $results = $unassignArea->unassignArea($pcode, $busid);
+        return $results;
+    }
+}

@@ -59,7 +59,7 @@ if (isset($_POST["logout"])) {
       <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h1 style="margin: 0;">Viewing Student Details</h1>
         <div style="display: flex; align-items: center;">
-          <a style="margin-right: 10px;"><button>Add Student</button></a>
+          <a href="school-manage-students-add.php" style="margin-right: 10px;"><button>Add Student</button></a>
           <form method="post" action="school-manage-students-search.php">
             <input type="text" name="searchQuery" placeholder="Search Student" style="margin-right: 5px;" required>
             <input type="submit" value="Search">
@@ -106,7 +106,7 @@ if (isset($_POST["logout"])) {
             echo '<td>' . $row['pcode'] . "</td>";
             echo '<td>' . $row['parentid'] . "</td>";
             echo '<td>' . $row['subscription'] . "</td>";
-
+            
             //ACTION BUTTON DELETE STUDENT
             echo '<td><form action="school-manage-students-view.php" method="post">';
             echo '<input type="hidden" name="studentid" value="' . $row['studentid'] . '">';
@@ -141,20 +141,6 @@ if (isset($_POST["logout"])) {
       </div>
 
     </div>
-  </div>
-  </div>
-  <br>
-
-
-
-
-
-
-
-
-
-
-  </div>
   </div> <!-- End of RightPanel -->
 
   </div> <!-- End of Container -->
