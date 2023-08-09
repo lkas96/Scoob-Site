@@ -183,3 +183,27 @@ class UnassignArea{
         return $results;
     }
 }
+
+class GetTrips{
+    public static function getTrips(){
+        $getTrips = new Transport();
+        $results = $getTrips->getTrips();
+        return $results;
+    }
+}
+
+class GetStudents{
+    public static function getStudents($busid){
+        $getStudents = new Transport();
+        $results = $getStudents->getStudents($busid);
+        return $results;
+    }
+}
+
+class GetCompanyData{
+    public static function getCompanyData(){
+        $getCompanyData = new Transport();
+        $results = $getCompanyData->getCompanyData();
+        return $results;
+    }
+}
