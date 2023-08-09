@@ -5,24 +5,31 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   //CHECK IF LOGIN BUTTON IS CLICKED
   if (isset($_POST['Login'])) {
-    $type = $_POST['type'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    $userlogin = new Login();
-    $success = $userlogin->login($type, $email, $password);
+    if (isset($_POST['type'])) {
 
-    if ($type === "System Admin" && $success === true) {
-      echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'systemadmin/manage-applications-home.php';</script>";
-      exit();
-    } else if ($type === "School Admin" && $success === true) {
-      echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'schooladmin/school-home.php';</script>";
-      exit();
-    } else if ($type === "Transport Admin" && $success === true) {
-      echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'transportadmin/transport-home.php';</script>";
-      exit();
+      $type = $_POST['type'];
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+
+      $userlogin = new Login();
+      $success = $userlogin->login($type, $email, $password);
+
+      if ($type === "System Admin" && $success === true) {
+        echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'systemadmin/manage-applications-home.php';</script>";
+        exit();
+      } else if ($type === "School Admin" && $success === true) {
+        echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'schooladmin/school-home.php';</script>";
+        exit();
+      } else if ($type === "Transport Admin" && $success === true) {
+        echo "<script>alert('Login Successful. Welcome " . $type . ".'); window.location.href = 'transportadmin/transport-home.php';</script>";
+        exit();
+      } else {
+        echo "<script>alert('Invalid login Credentials or Account Status Pending.');</script>";
+      }
     } else {
-      echo "<script>alert('Invalid login Credentials or Account Status Pending.');</script>";
+      echo "<script>alert('Please select an a user type.'); window.location.href = 'login.php';</script>";
+      exit();
     }
   }
 }
@@ -132,7 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   .form-column h3 {
     margin-top: 10px;
-    color: #ffffff; /* Change the color of the h2 to #093d65 */
+    color: #ffffff;
+    /* Change the color of the h2 to #093d65 */
   }
 
   .form-column label,
