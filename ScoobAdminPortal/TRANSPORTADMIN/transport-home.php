@@ -25,6 +25,7 @@ if (isset($_POST["logout"])) {
 ?>
 
 <html>
+
 <head>
   <title>Transport Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,9 +46,11 @@ if (isset($_POST["logout"])) {
 
     <!--Navigation Shortcuts-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"><li class="nav-item"><a style="color:white;" id="current-time"></a></li></ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a style="color:white;" id="current-time"></a></li>
+      </ul>
     </div>
-	</nav>
+  </nav>
 
   <!-- Main Container -->
   <div class="bodyContainer">
@@ -55,24 +58,41 @@ if (isset($_POST["logout"])) {
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-buses.php'"> <span>Manage Buses</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-drivers.php'"> <span>Manage Drivers</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-manage-routes.php'"> <span>Manage Routes</span></button><br><br>
+      <button class="customButton" type="button" onclick="window.location.href='transport-active-routes.php'"> <span>View Active Routes</span></button><br><br>
       <button class="customButton" type="button" onclick="window.location.href='transport-import.php'"> <span>Import Data</span></button><br><br>
       <form method="post">
-	      <button class="logoutButton" tpe="button" name="logout">Logout</button>
-	    </form>
+        <button class="logoutButton" tpe="button" name="logout">Logout</button>
+      </form>
     </div>
 
     <div class="rightPanel">
-    WELCOME TO TRANSPORT ADMIN HOME! <br>
-    What would you like to do today? <br>
-    <br>
-    TODO:<br>
-    SHOW ALL UPCOMING TRIPS FOR THE DAY<br>
-    DRIVER/NUMBER OF PASSENGERS/LOCATION/WHICH BUS/ETC<br>
-    <br>
-    REVISE IMPORT, SCHOOLADMIN IMPORT GIVING ERRORS WHEN IMPORTING, UNABLE TO HANDLE DUPLICATE ENTRIES<br>
+      <?php
+      $aaa = GetCompanyData::getCompanyData();
+      $result = NULL; //PLACEHOLDER
+
+      if (isset($_SESSION['viewCompanyDataSQLTable'])) {
+        $result = $_SESSION['viewCompanyDataSQLTable'];
+      }
+
+      if ($result == NULL) {
+        echo 'Unable to retrieve company data.';
+      } else {
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo '<h1>Welcome</h1>';
+          echo 'Hi '. $row['cname'] . ' admin!<br>';
+          echo 'What would you like to do today?';
+          echo '<br><br><br>';
+          echo '<b>Company Name: </b><br>'.$row['cname'].'<br><br>';
+          echo '<B>Company UEN: </b><br>'.$row['cuen'].'<br><br>';
+          echo '<B>Paired School: </b><br>'.$row['sname'].'<br><br>';
+
+        }
+      }
+
+      ?>
     </div> <!-- End of RightPanel -->
-    
+
   </div> <!-- End of Container -->
 </body>
-</html>
 
+</html>
