@@ -142,4 +142,12 @@ class GetActiveClass{
     }
 }
 
+class GetSchoolData{
+    public static function getSchoolData(){
+        $getSchoolData = new School();
+        $results = $getSchoolData->getSchoolData();
+        return $results;
+    }
+}
+
 ?>

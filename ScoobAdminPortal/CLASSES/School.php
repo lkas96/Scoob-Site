@@ -462,4 +462,25 @@ class School
       return false;
     }
   }
+
+  //FUNCTION TO GET SCHOOL DATA TO DISPLAY ON HOMEPAGE
+  public function getSchoolData(){
+    $uen = $_SESSION['uen'];
+
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT s.name as sname, s.uen as suen, t.name as cname FROM transports t left join school_transport st on t.uen = st.transportuen left join schools s on st.schooluen = s.uen WHERE t.uen = '99999999';
+
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewSchoolDataSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
