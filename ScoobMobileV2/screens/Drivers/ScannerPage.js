@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const ScannerPage = ({ route }) => {
+
+	var verified = false
 	const allData = route.params;
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
@@ -18,7 +20,6 @@ const ScannerPage = ({ route }) => {
 
 		getBarCodeScannerPermissions();
 	}, []);
-	// console.log(allData);
 
 	const boardingBus = async (studentid) => {
 		try {
@@ -38,7 +39,7 @@ const ScannerPage = ({ route }) => {
 			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
 				pickupstatus: "Pickedup",
 			});
-			showPrompt("Pickup Successful");
+			showPrompt("Pick Up Successful");
 		} catch (error) {
 			console.error("Error updating pickupstatus:", error);
 		}
@@ -47,39 +48,21 @@ const ScannerPage = ({ route }) => {
 	const handleBarCodeScanned = async ({ type, data }) => {
 		setScanned(true);
 
-		allData.childData.map((matched) =>
-			// data === matched.studentid
-			// 	? boardingBus(matched.studentid)
-			// 	: data === matched.parentid ? alightingBus(matched.studentid) : showPrompt("Incorrect person")
-			console.log("data: " + data + " studentid: " + matched.studentid)
-		);
+		for (let i = 0; i < allData.childData.length; i++) {
 
-		// if (data === matched.studentid) {
-		// 	// Students's barcode matches the database
-		// 	try {
-		// 		// Make the PUT request to update the pickupstatus of the student
-		// 		await axios.put(`${lambdaEndpoint}/student/${matched.studentid}/onbus`, {
-		// 			pickupstatus: "Pickedup",
-		// 		});
-		// 		showPrompt("Bus Pick Up Successful");
-		// 	} catch (error) {
-		// 		console.error("Error updating pickupstatus:", error);
-		// 	}
-		// } else if (data === matched.parentid) {
-		// 	// Parent's barcode matches the student's parentid
-		// 	try {
-		// 		// Make the PUT request to update the pickupstatus of the student
-		// 		await axios.put(`${lambdaEndpoint}/student/${matched.studentid}/pickedup`, {
-		// 			pickupstatus: "Pickedup",
-		// 		});
-		// 		showPrompt("Pickup Successful");
-		// 	} catch (error) {
-		// 		console.error("Error updating pickupstatus:", error);
-		// 	}
-		// } else {
-		// 	// Parent's barcode does not match the student's parentid
-		// 	showPrompt("Incorrect Person");
-		// }
+			if (data === allData.childData[i].studentid.toString()) {
+				boardingBus(allData.childData[i].studentid)
+				verified = true;
+				break
+			} else if (data === allData.childData[i].parentid) {
+				alightingBus(allData.childData[i].studentid)
+				verified = true;
+			}
+
+		}
+		if (verified != true) {
+			showPrompt("Error")
+		}
 	};
 	const showPrompt = (message) => {
 		// Implement your prompt display logic here (e.g., using Alert)
