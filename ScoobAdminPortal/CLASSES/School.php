@@ -538,4 +538,55 @@ class School
     }
   }
 
+  public function getTrips()
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT bd.busid, bd.driverid, bd.tripstatus, bd.area, s.pcode, s.fname, s.lname, s.busid as 'busid2', concat(d.fname, ' ',d.lname, ' - ', d.driverid) as 'driver' 
+    FROM bus_driver bd
+    LEFT JOIN student s ON bd.busid = s.busid
+    LEFT JOIN driver d ON bd.driverid = d.driverid
+    WHERE s.uen = '$uen'
+    -- AND bd.tripstatus IS NOT NULL
+    AND bd.area IS NOT NULL
+    GROUP BY bd.busid
+    ;
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewGetTripsSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO GET ALL STUDENTS BASED ON GETTRIP BUSID
+  public function getStudents($busid)
+  {
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT concat(fname, ' ', lname) AS studentname, studentid, pcode from 
+    school_transport st 
+    join student s on st.schooluen = s.uen
+    join bus_driver bd on st.transportuen = bd.uen
+    where s.uen = '$uen'
+    AND s.busid = '$busid'
+    AND LEFT(s.pcode,3) = bd.area
+    ;";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewGetStudentsSQLTable'] = $result;
+      return $result;
+    } else {
+      return $result;
+    }
+  }
+
 }

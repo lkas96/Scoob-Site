@@ -174,4 +174,20 @@ class AssignStudentClass{
     }
 }
 
+class GetTrips{
+    public static function getTrips(){
+        $getTrips = new School();
+        $results = $getTrips->getTrips();
+        return $results;
+    }
+}
+
+class GetStudents{
+    public static function getStudents($busid){
+        $getStudents = new School();
+        $results = $getStudents->getStudents($busid);
+        return $results;
+    }
+}
+
 ?>
