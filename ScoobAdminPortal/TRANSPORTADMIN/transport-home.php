@@ -23,6 +23,22 @@ if (isset($_POST["logout"])) {
   $logout->logout();
 }
 ?>
+<script>
+  (function(d, s, id) {
+    if (d.getElementById(id)) {
+      if (window.__TOMORROW__) {
+        window.__TOMORROW__.renderWidget();
+      }
+      return;
+    }
+    const fjs = d.getElementsByTagName(s)[0];
+    const js = d.createElement(s);
+    js.id = id;
+    js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+    fjs.parentNode.insertBefore(js, fjs);
+  })(document, 'script', 'tomorrow-sdk');
+</script>
 
 <html>
 
@@ -79,18 +95,25 @@ if (isset($_POST["logout"])) {
       } else {
         while ($row = mysqli_fetch_assoc($result)) {
           echo '<h1>Welcome</h1>';
-          echo 'Hi '. $row['cname'] . ' admin!<br>';
-          echo 'What would you like to do today?';
-          echo '<br><br><br>';
-          echo '<b>Company Name: </b><br>'.$row['cname'].'<br><br>';
-          echo '<B>Company UEN: </b><br>'.$row['cuen'].'<br><br>';
-          echo '<B>Paired School: </b><br>'.$row['sname'].'<br><br>';
-
+          echo 'Hi ' . $row['cname'] . ' admin!<br>';
+          echo 'What would you like to do today?<br><br>';
+          echo '<br>';
+          echo '<b>Company Name: </b><br>' . $row['cname'] . '<br><br>';
+          echo '<B>Company UEN: </b><br>' . $row['cuen'] . '<br><br>';
+          echo '<B>Paired School: </b><br>' . $row['sname'] . '<br><br><br>';
+          echo "<b>Today's Weather</b>";
+          echo '<div class="tomorrow" data-location-id="2004709" data-language="EN" data-unit-system="METRIC" data-skin="light" data-widget-type="summary" style="width: 750px; padding-bottom: 22px; position: relative;">
+          <a href="https://www.tomorrow.io/weather-api/" rel="nofollow noopener noreferrer" target="_blank" style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;">
+            <img alt="Powered by the Tomorrow.io Weather API" src="https://weather-website-client.tomorrow.io/img/powered-by.svg" width="250" height="18" />
+          </a>
+        </div>';
         }
       }
 
       ?>
-    </div> <!-- End of RightPanel -->
+
+    </div>
+  </div> <!-- End of RightPanel -->
 
   </div> <!-- End of Container -->
 </body>
