@@ -68,89 +68,48 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
-        <?php
-        if (isset($_POST['student'])) {
-          $studentid = $_POST['student'];
-          $execute = ViewStudent::viewStudent($studentid);
+        <div class="header">
+          <h1 style="display: inline;">Edit Class for Student</h1> <br><br>
+        </div>
 
-          $result = NULL; //PLACEHOLDER
+        <form method="post">
+          <b>Selected Teacher & Current Class of Student:</b><br>
+          <?php echo $_SESSION['studentname'] . ' / ' . $_SESSION['studentclass'] ?><br><br>
+          <?php
+          $aaa = GetActiveClass::getActiveClass();
+          $result = $_SESSION['viewActiveClassSQLTable'];
 
-          if ($execute === true) {
-            $result = $_SESSION['viewStudentSQLTable'];
+          if ($result == NULL) {
+            echo "<b>No classes available to assign.</b>";
           } else {
-            echo "<script>alert('Error Retrieving Student Details.');</script>";
+            echo "<b>Available Classes:</b><br>";
+            echo "<select name='class'>";
+            echo "<option default selected hidden>Select a class</option>";
+            echo "<option value=''>Unassign Class</option>";
+            while ($row = mysqli_fetch_array($result)) {
+              echo "<option value='" . $row['class'] . "'>" . $row['class'] . "</option>";
+            }
+            echo "</select><br><br><br>";
           }
+          ?>
+          <input type="submit" name="submit" value="Edit Class">
 
-          //PRINT TABLE HEADERS
-          echo '<table class="table table-bordered table-sm" style="text-align: center">';
-          echo '<thead class="thead-dark">';
-          echo '<tr>';
-          echo '<th scope="col">Student ID</th>';
-          echo '<th scope="col">Student Name</th>';
-          echo '<th scope="col">Class</th>';
-          //echo '<th scope="col">Teacher</th>';
-          echo '<th scope="col">Postal Code</th>';
-          echo '<th scope="col">Parent ID</th>';
-          echo '<th scope="col">Bus Service</th>';
-          echo '<th scope="col">Action</th>';
-          echo '</tr>';
-          echo '</thead>';
+          <?php
+          if (isset($_POST["submit"])) {
+            $classid = $_POST["class"];
+            $studentid = $_SESSION['studentid'];
 
+            $assignBus = new AssignStudentClass();
+            $assignBus->assignStudentClass($studentid, $classid);
 
-          while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tbody>';
-            echo '<tr>';
-            echo '<td>' . $row['studentid'] . "</td>";
-            echo '<td>' . $row['name'] . "</td>";
-            echo '<td>' . $row['class'] . "</td>";
-            echo '<td>' . $row['pcode'] . "</td>";
-            echo '<td>' . $row['parentid'] . "</td>";
-            echo '<td>' . $row['subscription'] . "</td>";
-
-            //ACTION BUTTON DELETE STUDENT
-            echo '<td><form action="school-manage-students-view.php" method="post">';
-            echo '<input type="hidden" name="studentid" value="' . $row['studentid'] . '">';
-            echo '<input type="hidden" name="studentclass" value="' . $row['class'] . '">';
-            echo '<input type="hidden" name="studentname" value="' . $row['name'] . '">';
-            echo '<button class="view-button" name="editClass" type="submit">Edit Class</button>&nbsp;&nbsp;';
-            echo '<button class="delete-button" name="deleteStudent" type="submit">Delete</button>';
-            echo '</td>';
-            echo '</tr>';
-            echo '</tbody>';
+            if ($assignBus == true) {
+              echo "<script>alert('Student successfully assigned class'); window.location.href = 'school-manage-students.php';</script>";
+            } else {
+              echo "<script>alert('Class is already assigned'); window.location.href = 'school-manage-students-edit.php';</script>";
+            }
           }
-
-          echo '</table>';
-        }
-
-        ?>
-
-
-        <!-- FOR DELETING A STUDENT -->
-        <?php
-        if (isset($_POST['deleteStudent'])) {
-          $studentid = $_POST['studentid'];
-          $execute = DeleteStudent::deleteStudent($studentid);
-
-          if ($execute === true) {
-            // Perform necessary actions after successful deletion
-            echo "<script>alert('Successfully deleted student record.'); window.location='../SCHOOLADMIN/school-manage-students.php';</script>";
-          } else {
-            echo "<script>alert('Error Deleting Student Details.');</script>";
-          }
-        }
-        ?>
-
-        <!-- FOR EDITING CLASS OF A TEACHER , ON BUTTON CLICK TAKE TO EDIT CLASS PAGE -->
-        <?php
-        if (isset($_POST['editClass'])) {
-          $_SESSION['studentid'] = $_POST['studentid'];
-          $_SESSION['studentname'] = $_POST['studentname'];
-          $_SESSION['studentclass'] = $_POST['studentclass'];
-          echo "<script>window.location='../SCHOOLADMIN/school-manage-students-edit.php';</script>";
-        }
-        ?>
-
-
+          ?>
+        </form>
       </div>
 
     </div>
