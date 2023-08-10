@@ -663,7 +663,7 @@ class Transport
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "SELECT t.name as cname, t.uen as cuen, s.name as sname FROM transports t left join school_transport st on t.uen = st.transportuen left join schools s on st.schooluen = s.uen WHERE t.uen = '99999999';
+    $sql = "SELECT t.name as cname, t.uen as cuen, s.name as sname FROM transports t left join school_transport st on t.uen = st.transportuen left join schools s on st.schooluen = s.uen WHERE t.uen = '$uen';
 
     ";
 
