@@ -23,15 +23,12 @@ const HomePage = ({ route, navigation }) => {
 	const [trip, setTrip] = useState();
 	var ts = " ";
 	var did = " ";
+	var bid = " ";
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
-	/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		do dynamic busid*/
-
 	const fetchTripData = async () => {
+		// Fetch trip data
 		try {
 			const response = await axios.get(
 				`${lambdaEndpoint}/bus_driver/${userDetails.userId}`
@@ -40,28 +37,22 @@ const HomePage = ({ route, navigation }) => {
 			setTripData(data);
 			ts = data[0].tripstatus;
 			did = data[0].driverid;
+			bid = data[0].busid;
 			setTrip(ts === "Started" ? true : false);
 
 			console.log("In fetchTripData()");
-			// ! To explain again
-			// console.log(ts, did);
-			// console.log("trip: ", trip);
 		} catch (error) {
 			console.error(error);
 		}
-	};
 
-	const fetchStudentData = async () => {
+		// Fetch student data
 		try {
 			const response = await axios.get(
-				`${lambdaEndpoint}/student/B006/takingbus`
+				`${lambdaEndpoint}/student/${bid}/takingbus`
 			);
 			const data = response.data;
 			setChildData(data);
 			console.log("In fetchStudentData()");
-			// ! To explain again
-			// console.log("childData: ", childData);
-			// console.log("driverData: ", userDetails);
 		} catch (error) {
 			console.error(error);
 		}
@@ -70,7 +61,6 @@ const HomePage = ({ route, navigation }) => {
 	useEffect(() => {
 		const focusHandler = navigation.addListener("focus", () => {
 			fetchTripData();
-			fetchStudentData();
 			console.log("Refreshed!");
 		});
 		return focusHandler;
@@ -111,7 +101,7 @@ const HomePage = ({ route, navigation }) => {
 	};
 
 	const scannerHandler = () => {
-		navigation.navigate("DriversScannerPage", { tripData });
+		navigation.navigate("DriversScannerPage", { childData });
 	};
 
 	return (
@@ -122,11 +112,10 @@ const HomePage = ({ route, navigation }) => {
 				</Text>
 				<Icon
 					raised
+					underlayColor={COLORS.white}
 					name="barcode-scan"
 					type="material-community"
 					color={COLORS.secondary}
-					// ! To change onPress to navigate to scanner
-					// onPress={() => console.log("onPress()")}
 					onPress={scannerHandler}
 				/>
 			</HStack>
@@ -145,10 +134,6 @@ const HomePage = ({ route, navigation }) => {
 								height: 150,
 							}}
 							disabledStyle={{ opacity: 0.5 }}
-							// onLongPress={() => console.log("onLongPress()")}
-							// onPress={() =>
-							// 	navigation.navigate("DriversTripsPage", { childInfo: item })
-							// }
 							pad={20}
 						>
 							<Avatar
@@ -160,7 +145,7 @@ const HomePage = ({ route, navigation }) => {
 								<ListItem.Title>
 									<Text
 										variant="h5"
-										// style={styles.text}
+									// style={styles.text}
 									>{`${item.fname} ${item.lname}`}</Text>
 								</ListItem.Title>
 								<ListItem.Subtitle>

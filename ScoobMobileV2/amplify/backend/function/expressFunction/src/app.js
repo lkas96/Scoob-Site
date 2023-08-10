@@ -134,7 +134,8 @@ app.get("/student/:busid/takingbus", (req, res) => {
 	const busid = req.params.busid;
 
 	// SQL query to select all columns from the 'parent' table where the email matches
-	const sql = "SELECT * FROM student where busid = ?";
+	// const sql = "SELECT * FROM student where busid = ?";
+	const sql = "SELECT s.class, s.fname, s.lname, p.parentid, s.pcode, s.studentid FROM student s left join parentguardians p on s.parentid = p.parentid where s.busid = ? AND s.pickupmode = true";
 
 	db.query(sql, [busid], (err, results) => {
 		if (err) {
@@ -642,6 +643,35 @@ app.put("/student/:studentid/bus", function (req, res) {
 	try {
 		// SQL query to fetch all user details from the specified table
 		const sql = `UPDATE student SET pickupmode = false WHERE studentid = ?`;
+
+		db.query(sql, [studentId], (err, results) => {
+			if (err) {
+				console.error("Error executing query:", err);
+				return res.status(500).json({ error: "Failed to perform query" });
+			}
+
+			if (results.length === 0) {
+				// No matching user found, send error response
+				return res.status(401).json({ error: "None updated" });
+			}
+			// Send all user details, including the respective user ID
+			res.json({ message: "Update successful" });
+		});
+	} catch (err) {
+		// Handle any database query errors
+		console.error("Error executing query:", err);
+		res.status(500).json({ error: "Failed to update data" });
+	}
+});
+
+// Update pickupstatus to on bus
+app.put("/student/:studentid/onbus", function (req, res) {
+	// Add your code here
+	const studentId = req.params.studentid;
+
+	try {
+		// SQL query to fetch all user details from the specified table
+		const sql = `UPDATE student SET pickupstatus = 'On Bus' WHERE studentid = ?`;
 
 		db.query(sql, [studentId], (err, results) => {
 			if (err) {

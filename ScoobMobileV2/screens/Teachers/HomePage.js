@@ -24,6 +24,7 @@ const HomePage = ({ navigation }) => {
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
+	console.log(userDetails);
 	const fetchPUZStudentData = async () => {
 		try {
 			const response = await axios.get(
@@ -138,9 +139,9 @@ const HomePage = ({ navigation }) => {
 								rounded
 								title={`${item.fname[0]}`}
 								containerStyle={{ backgroundColor: "grey" }}
-								// source={{
-								// 	uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
-								// }}
+							// source={{
+							// 	uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
+							// }}
 							/>
 							<ListItem.Content>
 								<ListItem.Title>

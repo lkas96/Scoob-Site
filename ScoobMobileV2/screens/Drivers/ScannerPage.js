@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const ScannerPage = ({ route }) => {
-	console.log(route.params);
+	const allData = route.params;
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
 	const lambdaEndpoint =
@@ -18,14 +18,58 @@ const ScannerPage = ({ route }) => {
 
 		getBarCodeScannerPermissions();
 	}, []);
+	// console.log(allData);
+
+	const boardingBus = async (studentid) => {
+		try {
+			// Make the PUT request to update the pickupstatus of the student
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/onbus`, {
+				pickupstatus: "Pickedup",
+			});
+			showPrompt("Bus Pick Up Successful");
+		} catch (error) {
+			console.error("Error updating pickupstatus:", error);
+		}
+	}
+
+	const alightingBus = async (studentid) => {
+		try {
+			// Make the PUT request to update the pickupstatus of the student
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
+				pickupstatus: "Pickedup",
+			});
+			showPrompt("Pickup Successful");
+		} catch (error) {
+			console.error("Error updating pickupstatus:", error);
+		}
+	}
 
 	const handleBarCodeScanned = async ({ type, data }) => {
 		setScanned(true);
-		// if (data === parentid) {
+
+		allData.childData.map((matched) =>
+			// data === matched.studentid
+			// 	? boardingBus(matched.studentid)
+			// 	: data === matched.parentid ? alightingBus(matched.studentid) : showPrompt("Incorrect person")
+			console.log("data: " + data + " studentid: " + matched.studentid)
+		);
+
+		// if (data === matched.studentid) {
+		// 	// Students's barcode matches the database
+		// 	try {
+		// 		// Make the PUT request to update the pickupstatus of the student
+		// 		await axios.put(`${lambdaEndpoint}/student/${matched.studentid}/onbus`, {
+		// 			pickupstatus: "Pickedup",
+		// 		});
+		// 		showPrompt("Bus Pick Up Successful");
+		// 	} catch (error) {
+		// 		console.error("Error updating pickupstatus:", error);
+		// 	}
+		// } else if (data === matched.parentid) {
 		// 	// Parent's barcode matches the student's parentid
 		// 	try {
 		// 		// Make the PUT request to update the pickupstatus of the student
-		// 		await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
+		// 		await axios.put(`${lambdaEndpoint}/student/${matched.studentid}/pickedup`, {
 		// 			pickupstatus: "Pickedup",
 		// 		});
 		// 		showPrompt("Pickup Successful");
@@ -34,9 +78,8 @@ const ScannerPage = ({ route }) => {
 		// 	}
 		// } else {
 		// 	// Parent's barcode does not match the student's parentid
-		// 	showPrompt("Incorrect Parent");
+		// 	showPrompt("Incorrect Person");
 		// }
-		// console.log();
 	};
 	const showPrompt = (message) => {
 		// Implement your prompt display logic here (e.g., using Alert)
@@ -49,6 +92,7 @@ const ScannerPage = ({ route }) => {
 	if (hasPermission === false) {
 		return <Text>No access to camera</Text>;
 	}
+
 
 	return (
 		<SafeAreaView style={styles.container}>
