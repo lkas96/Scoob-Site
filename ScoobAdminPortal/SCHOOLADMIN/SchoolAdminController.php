@@ -150,4 +150,28 @@ class GetSchoolData{
     }
 }
 
+class GetClassNoTeacher{
+    public static function getClassNoTeacher(){
+        $getClassNoTeacher = new School();
+        $results = $getClassNoTeacher->getClassNoTeacher();
+        return $results;
+    }
+}
+
+class AssignTeacherClass{
+    public static function assignTeacherClass($teacherid, $class){
+        $assignTeacherClass = new School();
+        $results = $assignTeacherClass->assignTeacherClass($teacherid, $class);
+        return $results;
+    }
+}
+
+class AssignStudentClass{
+    public static function assignStudentClass($studentid, $classid){
+        $assignStudentClass = new School();
+        $results = $assignStudentClass->assignStudentClass($studentid, $classid);
+        return $results;
+    }
+}
+
 ?>

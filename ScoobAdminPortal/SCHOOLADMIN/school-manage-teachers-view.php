@@ -102,7 +102,9 @@ if (isset($_POST["logout"])) {
               //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
               echo '<td><form action="school-manage-teachers-view.php" method="post">';
               echo '<input type="hidden" name="teacherid" value="' . $row['teacherid'] . '">';
-              echo '<button class="edit-button" name="edit" type="submit">Edit</button>&nbsp';
+              echo '<input type="hidden" name="teachername" value="' . $row['name'] . '">';
+              echo '<input type="hidden" name="teacherclass" value="' . $row['class'] . '">';
+              echo '<button class="edit-button" name="editClass" type="submit">Edit Class</button>&nbsp';
               echo '<button class="delete-button" name="deleteTeacher" type="submit">Delete</button>';
               echo '</form></td>';
               echo "</tr>";
@@ -111,8 +113,6 @@ if (isset($_POST["logout"])) {
             }
             echo '</table>';
           }
-        } else {
-          echo "<script>alert('Error Retrieving Teacher Details.');</script>";
         }
         ?>
 
@@ -129,6 +129,16 @@ if (isset($_POST["logout"])) {
           } else {
             echo "<script>alert('Error Deleting Teacher Details.');</script>";
           }
+        }
+        ?>
+
+        <!-- FOR EDITING CLASS OF A TEACHER , ON BUTTON CLICK TAKE TO EDIT CLASS PAGE -->
+        <?php
+        if (isset($_POST['editClass'])) {
+          $_SESSION['teacherid'] = $_POST['teacherid'];
+          $_SESSION['teachername'] = $_POST['teachername'];
+          $_SESSION['teacherclass'] = $_POST['teacherclass'];
+          echo "<script>window.location='../SCHOOLADMIN/school-manage-teachers-edit.php';</script>";
         }
         ?>
       </div>

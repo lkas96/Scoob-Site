@@ -14,6 +14,21 @@ if (isset($_POST["logout"])) {
 }
 ?>
 
+<!-- FOR DELETING A CLASS -->
+<?php
+if (isset($_POST['deleteClass'])) {
+  $class = $_POST['class-del'];
+  $execute = DeleteClass::deleteClass($class);
+
+  if ($execute === true) {
+    // Perform necessary actions after successful deletion
+    echo "<script>alert('Successfully deleted class, please reassign students to a new class.'); window.location='../SCHOOLADMIN/school-manage-classes.php';</script>";
+  } else {
+    echo "<script>alert('Error Deleting Class.');</script>";
+  }
+}
+?>
+
 <html>
 
 <head>
@@ -67,23 +82,6 @@ if (isset($_POST["logout"])) {
       </div>
 
       <div class="data">
-
-        <!-- FOR DELETING A CLASS -->
-        <?php
-        if (isset($_POST['deleteClass'])) {
-          $class = $_POST['class-del'];
-          $execute = DeleteClass::deleteClass($class);
-
-          if ($execute === true) {
-            // Perform necessary actions after successful deletion
-            echo "<script>alert('Successfully deleted class, please reassign students to a new class.'); window.location='../SCHOOLADMIN/school-manage-classes.php';</script>";
-          } else {
-            echo "<script>alert('Error Deleting Class.');</script>";
-          }
-        }
-        ?>
-
-
         <?php
         if (isset($_POST['class'])) {
           $class = $_POST['class'];
@@ -122,6 +120,7 @@ if (isset($_POST["logout"])) {
             //BUTTON FORM DELETE CLASS
             echo '<td><form action="school-manage-classes-view.php" method="post">';
             echo '<input type="hidden" name="class-del" value="' . $row['class'] . '">';
+            // echo '<button class="delete-button" name="unassignTeaacher" type="submit">Unassign Teacher</button>&nbsp';
             echo '<button class="delete-button" name="deleteClass" type="submit">Delete</button>';
             echo '</form></td>';
             echo "</tr>";

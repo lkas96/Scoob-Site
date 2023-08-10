@@ -467,9 +467,7 @@ class School
   public function getSchoolData(){
     $uen = $_SESSION['uen'];
 
-    $uen = $_SESSION['uen'];
-
-    $sql = "SELECT s.name as sname, s.uen as suen, t.name as cname FROM transports t left join school_transport st on t.uen = st.transportuen left join schools s on st.schooluen = s.uen WHERE t.uen = '99999999';
+    $sql = "SELECT s.name as sname, s.uen as suen, t.name as cname FROM transports t left join school_transport st on t.uen = st.transportuen left join schools s on st.schooluen = s.uen WHERE s.uen = '$uen';
 
     ";
 
@@ -483,4 +481,61 @@ class School
       return false;
     }
   }
+
+  //FUNCTION TO GET LIST OF CLASS WITH NO TEACHER
+  public function getClassNoTeacher(){
+    $uen = $_SESSION['uen'];
+
+    $sql = "SELECT c.class from class c left join teacher t on c.class = t.class where c.uen = '$uen' AND t.class IS NULL;
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      //SAVE THE TABLE TO SESSION
+      $_SESSION['viewGetClassNoTeacherSQLTable'] = $result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO TEACHER TO CLASS
+  public function assignTeacherClass($teacherid, $classid){
+    $uen = $_SESSION['uen'];
+
+    //EXISTING TEACHER UNSET CLASS FIRST
+    $sql2 = "UPDATE teacher SET class = NULL WHERE class='$classid' AND uen = '$uen';
+    ";
+
+    $result2 = $this->conn->query($sql2);
+
+    $sql = "UPDATE teacher SET class = '$classid' WHERE teacherid = '$teacherid' AND uen = '$uen';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result2 === true && $result === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //FUNCTION TO STUDENT TO CLASS
+  public function assignStudentClass($studentid, $classid){
+    $uen = $_SESSION['uen'];
+
+    $sql = "UPDATE student SET class = '$classid' WHERE studentid = '$studentid' AND uen = '$uen';
+    ";
+
+    $result = $this->conn->query($sql);
+
+    if ($result === true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
