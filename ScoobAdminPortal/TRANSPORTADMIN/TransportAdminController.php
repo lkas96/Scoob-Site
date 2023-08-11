@@ -177,9 +177,9 @@ class AddRoute{
 }
 
 class UnassignArea{
-    public static function unassignArea($pcode, $busid){
+    public static function unassignArea($busid, $pcode){
         $unassignArea = new Transport();
-        $results = $unassignArea->unassignArea($pcode, $busid);
+        $results = $unassignArea->unassignArea($busid, $pcode);
         return $results;
     }
 }
