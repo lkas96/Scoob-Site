@@ -16,6 +16,9 @@ import { Avatar, ListItem } from "@rneui/base";
 import { Button, Icon } from "@rneui/themed";
 import COLORS from "../../constants/colors";
 
+import * as Location from "expo-location";
+import MapView, { Marker } from "react-native-maps";
+
 const HomePage = ({ route, navigation }) => {
 	const { userDetails } = useContext(UserContext);
 	const [tripData, setTripData] = useState("");
@@ -26,6 +29,10 @@ const HomePage = ({ route, navigation }) => {
 	var bid = " ";
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
+
+	// ! for testing location
+	const [location, setLocation] = useState({});
+	const [errorMsg, setErrorMsg] = useState(null);
 
 	const fetchTripData = async () => {
 		// Fetch trip data
@@ -40,9 +47,10 @@ const HomePage = ({ route, navigation }) => {
 			bid = data[0].busid;
 			setTrip(ts === "Started" ? true : false);
 
-			console.log("In fetchTripData()");
+			console.log("fetchTripData() Successful");
 		} catch (error) {
-			console.error(error);
+			console.error("fetchTripData() Unsuccessful: ", error);
+			setTripData(null);
 		}
 
 		// Fetch student data
@@ -52,19 +60,53 @@ const HomePage = ({ route, navigation }) => {
 			);
 			const data = response.data;
 			setChildData(data);
-			console.log("In fetchStudentData()");
+			console.log("fetchStudentData() Successful");
 		} catch (error) {
-			console.error(error);
+			console.error("fetchStudentData() Unsuccessful: ", error);
+			setChildData(null);
 		}
 	};
 
-	useEffect(() => {
-		const focusHandler = navigation.addListener("focus", () => {
+	// ! Test live location
+	const getLiveLocation = async () => {
+		let { status } = await Location.requestForegroundPermissionsAsync();
+		if (status !== "granted") {
+			setErrorMsg("Permission to access location was denied");
+			return;
+		}
+		let location = await Location.getCurrentPositionAsync({
+			enableHighAccuracy: true,
+		});
+		setLocation({
+			latitude: location.coords.latitude,
+			longitude: location.coords.longitude,
+			latitudeDelta: 0.0922,
+			longitudeDelta: 0.0421,
+		});
+	};
+
+	const focusHandler = async () => {
+		navigation.addListener("focus", () => {
 			fetchTripData();
 			console.log("Refreshed!");
 		});
-		return focusHandler;
+	};
+
+	useEffect(() => {
+		// ! test live location
+		getLiveLocation();
+
+		focusHandler();
 	}, [navigation]);
+
+	// ! testing location
+	let text = "Waiting..";
+	if (errorMsg) {
+		text = errorMsg;
+	} else if (location) {
+		text = JSON.stringify(location);
+	}
+	console.log(location);
 
 	const startHandler = () => {
 		console.log(userDetails.userId);
@@ -145,7 +187,7 @@ const HomePage = ({ route, navigation }) => {
 								<ListItem.Title>
 									<Text
 										variant="h5"
-									// style={styles.text}
+										// style={styles.text}
 									>{`${item.fname} ${item.lname}`}</Text>
 								</ListItem.Title>
 								<ListItem.Subtitle>
@@ -203,6 +245,9 @@ const HomePage = ({ route, navigation }) => {
 						titleStyle={{ marginHorizontal: 5, color: COLORS.black }}
 					/>
 				</HStack>
+				<MapView style={styles.map}>
+					<Marker coordinate={location} title="Marker" />
+				</MapView>
 			</View>
 		</SafeAreaView>
 	);
@@ -259,6 +304,10 @@ const styles = StyleSheet.create({
 		color: COLORS.black,
 		paddingVertical: 10,
 		fontSize: 16,
+	},
+	map: {
+		width: "80%",
+		height: "70%",
 	},
 });
 
