@@ -5,6 +5,7 @@ import { COLORS } from "../constants";
 
 import TeachersHomePage from "../screens/Teachers/HomePage";
 import TeacherPickUpStack from "./TeacherPickUpStack";
+import ScanID from "../screens/Teachers/ScannerPage";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const TeacherHomeStack = () => {
 	return (
 		<Stack.Navigator
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 				headerTitle: " ",
 				headerStyle: {
 					backgroundColor: COLORS.background,
@@ -33,6 +34,12 @@ const TeacherHomeStack = () => {
 				options={{
 					headerShown: false,
 					headerTitle: "Child Info",
+				}}
+			/>
+			<Stack.Screen
+				name="ScanID"
+				component={ScanID}
+				options={{
 				}}
 			/>
 		</Stack.Navigator>

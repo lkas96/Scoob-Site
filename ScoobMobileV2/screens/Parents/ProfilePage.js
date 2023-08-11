@@ -48,7 +48,7 @@ const ProfilePage = ({ route }) => {
 						</Text>
 						<Text style={styles.text}>NRIC/FIN: {profileData.parentid}</Text>
 						<Text style={styles.text}>Email: {profileData.email}</Text>
-						<Text style={styles.text}>Phone Number: {profileData.phone}</Text>
+						{/* <Text style={styles.text}>Phone Number: {profileData.phone}</Text> */}
 						{/* Add more profile details as needed */}
 						<Barcode
 							value={profileData.parentid}
@@ -63,32 +63,6 @@ const ProfilePage = ({ route }) => {
 					</View>
 				)}
 			</View>
-			<Button
-					buttonStyle={{
-						width: "100%",
-						backgroundColor: COLORS.primary,
-						borderRadius: 8,
-						height: 50,
-					}}
-					containerStyle={{ margin: 5 }}
-					disabledStyle={{
-						borderWidth: 2,
-						borderColor: "#00F",
-					}}
-					disabledTitleStyle={{ color: "#00F" }}
-					linearGradientProps={null}
-					iconContainerStyle={{ background: "#000" }}
-					loadingProps={{ animating: true }}
-					loadingStyle={{}}
-					onPress={editProfileHandler}
-					title="Edit Profile"
-					uppercase={true}
-					titleProps={{}}
-					titleStyle={{
-						marginHorizontal: 5,
-						color: COLORS.black,
-					}}
-				/>
 		</View>
 	);
 };

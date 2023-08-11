@@ -13,8 +13,8 @@ import CustomButton from "../../components/CustomButton";
 import UserContext from "../../context/UserContext";
 
 import { HStack, Text } from "@react-native-material/core";
-import { Avatar, ListItem } from "@rneui/base";
-import { Icon } from "react-native-elements";
+import { Avatar, ListItem, Icon } from "@rneui/base";
+// import { Icon } from "react-native-elements";
 import COLORS from "../../constants/colors";
 
 const HomePage = ({ navigation }) => {
@@ -24,7 +24,6 @@ const HomePage = ({ navigation }) => {
 	const lambdaEndpoint =
 		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev";
 
-	console.log(userDetails);
 	const fetchPUZStudentData = async () => {
 		try {
 			const response = await axios.get(
@@ -51,6 +50,10 @@ const HomePage = ({ navigation }) => {
 		}
 	};
 
+	const scannerHandler = async () => {
+		navigation.navigate("ScanID", { studentData });
+	};
+
 	useEffect(() => {
 		const focusHandler = navigation.addListener("focus", () => {
 			fetchPUZStudentData();
@@ -62,6 +65,19 @@ const HomePage = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
+			<HStack justify={"space-evenly"} align={"center"} m={10}>
+				<Text variant="h4" style={styles.welcome}>
+					Welcome, {userDetails.fname}
+				</Text>
+				<Icon
+					raised
+					underlayColor={COLORS.white}
+					name="barcode-scan"
+					type="material-community"
+					color={COLORS.primary}
+					onPress={scannerHandler}
+				/>
+			</HStack>
 			<Text variant="h5" style={styles.title}>
 				Student(s) in Pick Up Zone
 			</Text>
@@ -118,13 +134,6 @@ const HomePage = ({ navigation }) => {
 					// keyExtractor={(item) => item.id} //if you want to extract key value
 					data={studentData}
 					renderItem={({ item }) => (
-						// <CustomButton
-						// 	text={`${item.fname} ${item.lname}`}
-						// 	type="SECONDARY"
-						// 	onPress={() =>
-						// 		navigation.navigate("ChildInfoStack", { childInfo: item })
-						// 	}
-						// />
 						<ListItem
 							bottomDivider
 							Component={TouchableHighlight}
@@ -139,29 +148,39 @@ const HomePage = ({ navigation }) => {
 								rounded
 								title={`${item.fname[0]}`}
 								containerStyle={{ backgroundColor: "grey" }}
-							// source={{
-							// 	uri: "https://avatars0.githubusercontent.com/u/32242596?s=460&u=1ea285743fc4b083f95d6ee0be2e7bb8dcfc676e&v=4",
-							// }}
 							/>
 							<ListItem.Content>
 								<ListItem.Title>
 									<Text
 										variant="h5"
 										style={styles.text}
-									>{`${item.fname} ${item.lname}`}</Text>
+									>{`${item.fname} ${item.lname}  `}</Text>
+									{item.pickupstatus === "In School" ? (
+										<Icon
+											name="checkmark-done-circle-outline"
+											type="ionicon" // Use the appropriate icon library/type
+											color="green"
+										/>
+									) : (
+										<Icon
+											name="close"
+											type="ionicon" // Use the appropriate icon library/type
+											color="red"
+										/>
+									)}
 								</ListItem.Title>
 								<ListItem.Subtitle>
 									<Text>{`${item.studentid}, ${item.class}`}</Text>
 								</ListItem.Subtitle>
 								<ListItem.Subtitle>
-									{/* // ! To change the naming */}
-									{item.pickupstatus === "Picked Up" ? (
-										<Text>Status: Picked Up</Text>
-									) : item.pickupstatus === "Arriving" ? (
-										<Text>Status: On the way</Text>
+									{item.pickupstatus === "Arriving" ? (
+										<Text>Status: In School</Text>
+									) : item.pickupstatus === "Arrived" ? (
+										<Text>Status: In School</Text>
 									) : (
-										<Text>Status: Came</Text>
+										<Text>{`Status: ${item.pickupstatus}`}</Text>
 									)}
+									{/* <Text>{`Status: ${item.pickupstatus}`}</Text> */}
 								</ListItem.Subtitle>
 								<ListItem.Subtitle>
 									{item.pickupmode === 1 ? (
@@ -179,7 +198,7 @@ const HomePage = ({ navigation }) => {
 									)}
 								</ListItem.Subtitle>
 							</ListItem.Content>
-							<ListItem.Chevron />
+							{/* <ListItem.Chevron /> */}
 						</ListItem>
 					)}
 				/>
@@ -217,6 +236,14 @@ const styles = StyleSheet.create({
 		padding: 15,
 		fontWeight: "bold",
 		// fontFamily: "NunitoSans-Bold",
+	},
+	welcome: {
+		paddingTop: 16,
+		// paddingLeft: 10,
+		// padding: 10,
+		fontWeight: "bold",
+		// fontFamily: "NunitoSans-Bold",
+		color: COLORS.primary,
 	},
 	text: {
 		fontWeight: "bold",

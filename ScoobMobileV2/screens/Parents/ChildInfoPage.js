@@ -227,6 +227,8 @@ const ChildInfoPage = ({ route, navigation }) => {
 								"Failed to fetch bus driver. Please try again."
 							);
 						});
+				} else {
+
 				}
 			})
 			.catch((error) => {

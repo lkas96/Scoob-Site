@@ -107,7 +107,7 @@ const HomePage = ({ route, navigation }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<HStack justify={"space-between"} align={"center"} m={10}>
-				<Text variant="h4" style={styles.title}>
+				<Text variant="h5" style={styles.title}>
 					Trip
 				</Text>
 				<Icon

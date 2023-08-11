@@ -134,8 +134,9 @@ app.get("/student/:busid/takingbus", (req, res) => {
 	const busid = req.params.busid;
 
 	// SQL query to select all columns from the 'parent' table where the email matches
-	// const sql = "SELECT * FROM student where busid = ?";
-	const sql = "SELECT s.class, s.fname, s.lname, p.parentid, s.pcode, s.studentid FROM student s left join parentguardians p on s.parentid = p.parentid where s.busid = ? AND s.pickupmode = true";
+	const sql = `SELECT s.class, s.fname, s.lname, p.parentid, s.pcode, s.studentid FROM student s left join parentguardians p 
+	on s.parentid = p.parentid 
+	where s.busid = ? AND s.pickupmode = true AND s.pickupstatus = 'In School'`;
 
 	db.query(sql, [busid], (err, results) => {
 		if (err) {
@@ -152,34 +153,6 @@ app.get("/student/:busid/takingbus", (req, res) => {
 		res.json(results);
 	});
 });
-
-// Get students with pickupstatus 'Arrived' for a specific class BACKUP
-// app.get("/teacher/:class/pickupstatus/arrived", (req, res) => {
-// 	const teacherClass = req.params.class;
-
-// 	// SQL query to select students from the 'student' table where pickupstatus is 'Arrived' and class matches the teacher's class
-// 	const sql =
-// 		"SELECT * FROM student WHERE pickupstatus = 'Arrived' AND class = ?";
-
-// 	db.query(sql, [teacherClass], (err, results) => {
-// 		if (err) {
-// 			console.error("Error executing query:", err);
-// 			return res.status(500).json({ error: "Failed to get student data" });
-// 		}
-
-// 		if (results.length === 0) {
-// 			// No student data found with 'Arrived' pickupstatus for the given class
-// 			return res
-// 				.status(404)
-// 				.json({ error: "No students with 'Arrived' pickupstatus found" });
-// 		}
-
-// 		// Student data found, send the data as the response
-// 		res.json(results);
-// 	});
-// });
-
-// Assuming you have a separate table called 'parentguardians' that contains parent information
 
 // Your existing route to get student data with 'Arrived' pickup status
 app.get("/teacher/:class/pickupstatus/arrived", (req, res) => {
@@ -357,7 +330,7 @@ app.put("/student/:studentid", (req, res) => {
 	const { subscription } = req.body;
 
 	// SQL query to update the subscription status in the 'student' table
-	const sql = "UPDATE student SET subscription = ? WHERE studentid = ?";
+	const sql = "UPDATE student SET subscription = ?, pickupmode = false, busid = null WHERE studentid = ?";
 
 	db.query(sql, [subscription, studentid], (err, results) => {
 		if (err) {
@@ -472,64 +445,6 @@ app.put("/student/:studentid/pickedup", (req, res) => {
 	});
 });
 
-// SUBSCRIBE
-app.put("/student/:studentid/notSubscribed", function (req, res) {
-	// Add your code here
-	const studentId = req.params.studentid;
-
-	try {
-		// SQL query to fetch all user details from the specified table
-		const sql = `UPDATE student SET subscription = 'Yes' WHERE studentid = ?`;
-
-		db.query(sql, [studentId], (err, results) => {
-			if (err) {
-				console.error("Error executing query:", err);
-				return res.status(500).json({ error: "Failed to perform login" });
-			}
-
-			if (results.length === 0) {
-				// No matching user found, send error response
-				return res.status(401).json({ error: "None updated" });
-			}
-			// Send all user details, including the respective user ID
-			res.json({ message: "Update successful" });
-		});
-	} catch (err) {
-		// Handle any database query errors
-		console.error("Error executing query:", err);
-		res.status(500).json({ error: "Failed to update data" });
-	}
-});
-
-// UNSUBSCRIBE
-app.put("/student/:studentid/subscribed", function (req, res) {
-	// Add your code here
-	const studentId = req.params.studentid;
-
-	try {
-		// SQL query to fetch all user details from the specified table
-		const sql = `UPDATE student SET subscription = 'No' WHERE studentid = ?`;
-
-		db.query(sql, [studentId], (err, results) => {
-			if (err) {
-				console.error("Error executing query:", err);
-				return res.status(500).json({ error: "Failed to perform login" });
-			}
-
-			if (results.length === 0) {
-				// No matching user found, send error response
-				return res.status(401).json({ error: "None updated" });
-			}
-			// Send all user details, including the respective user ID
-			res.json({ message: "Update successful" });
-		});
-	} catch (err) {
-		// Handle any database query errors
-		console.error("Error executing query:", err);
-		res.status(500).json({ error: "Failed to update data" });
-	}
-});
-
 // Change mode to Bus
 app.put("/student/:studentid/self", function (req, res) {
 	// Add your code here
@@ -605,35 +520,6 @@ app.put("/bus_driver/:driverid/end", (req, res) => {
 	});
 });
 
-// // Change pickup mode
-// app.put("/student/:studentid/pickupmode", function (req, res) {
-// 	// Add your code here
-// 	const studentId = req.params.studentid;
-// 	const { pickupmode } = req.body;
-
-// 	try {
-// 		// SQL query to fetch all user details from the specified table
-// 		const sql = `UPDATE student SET pickupmode = ? WHERE studentid = ?`;
-
-// 		db.query(sql, [pickupmode, studentId], (err, results) => {
-// 			if (err) {
-// 				console.error("Error executing query:", err);
-// 				return res.status(500).json({ error: "Failed to perform query" });
-// 			}
-
-// 			if (results.length === 0) {
-// 				// No matching user found, send error response
-// 				return res.status(401).json({ error: "None updated" });
-// 			}
-// 			// Send all user details, including the respective user ID
-// 			res.json({ message: "Update successful" });
-// 		});
-// 	} catch (err) {
-// 		// Handle any database query errors
-// 		console.error("Error executing query:", err);
-// 		res.status(500).json({ error: "Failed to update data" });
-// 	}
-// });
 
 // Change mode to Self
 app.put("/student/:studentid/bus", function (req, res) {
@@ -672,6 +558,35 @@ app.put("/student/:studentid/onbus", function (req, res) {
 	try {
 		// SQL query to fetch all user details from the specified table
 		const sql = `UPDATE student SET pickupstatus = 'On Bus' WHERE studentid = ?`;
+
+		db.query(sql, [studentId], (err, results) => {
+			if (err) {
+				console.error("Error executing query:", err);
+				return res.status(500).json({ error: "Failed to perform query" });
+			}
+
+			if (results.length === 0) {
+				// No matching user found, send error response
+				return res.status(401).json({ error: "None updated" });
+			}
+			// Send all user details, including the respective user ID
+			res.json({ message: "Update successful" });
+		});
+	} catch (err) {
+		// Handle any database query errors
+		console.error("Error executing query:", err);
+		res.status(500).json({ error: "Failed to update data" });
+	}
+});
+
+// Update pickupstatus to in school
+app.put("/student/:studentid/attendance", function (req, res) {
+	// Add your code here
+	const studentId = req.params.studentid;
+
+	try {
+		// SQL query to fetch all user details from the specified table
+		const sql = `UPDATE student SET pickupstatus = 'In School' WHERE studentid = ?`;
 
 		db.query(sql, [studentId], (err, results) => {
 			if (err) {

@@ -103,13 +103,12 @@ const HomePage = ({ navigation }) => {
 									)}
 								</ListItem.Subtitle>
 								<ListItem.Subtitle>
-									{/* // ! To change the naming */}
-									{item.pickupstatus === "Picked Up" ? (
-										<Text>Status: Picked Up</Text>
-									) : item.pickupstatus === "Arriving" ? (
-										<Text>Status: On the way</Text>
+									{item.pickupstatus === "Arriving" ? (
+										<Text>Status: In School</Text>
+									) : item.pickupstatus === "Arrived" ? (
+										<Text>Status: In School</Text>
 									) : (
-										<Text>Status: Came</Text>
+										<Text>{`Status: ${item.pickupstatus}`}</Text>
 									)}
 								</ListItem.Subtitle>
 								<ListItem.Subtitle>

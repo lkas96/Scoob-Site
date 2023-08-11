@@ -5,7 +5,9 @@ import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const ScannerPage = ({ route }) => {
-	const { parentid, studentid } = route.params;
+
+	var verified = false;
+	const allData = route.params;
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
 	const lambdaEndpoint =
@@ -20,23 +22,48 @@ const ScannerPage = ({ route }) => {
 		getBarCodeScannerPermissions();
 	}, []);
 
+	const attendanceHandler = async (studentid) => {
+		try {
+			// Make the PUT request to update the pickupstatus of the student
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/attendance`, {
+				pickupstatus: "In School",
+			});
+			showPrompt("Attendance Marked");
+		} catch (error) {
+			console.error("Error updating pickupstatus:", error);
+		}
+	}
+
+	const parentPickUp = async (studentid) => {
+		try {
+			// Make the PUT request to update the pickupstatus of the student
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
+				pickupstatus: "Pickedup",
+			});
+			showPrompt("Pick Up Successful");
+		} catch (error) {
+			console.error("Error updating pickupstatus:", error);
+		}
+	}
+
 	const handleBarCodeScanned = async ({ type, data }) => {
 		setScanned(true);
-		if (data === parentid) {
-			// Parent's barcode matches the student's parentid
-			try {
-				// Make the PUT request to update the pickupstatus of the student
-				await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
-					pickupstatus: "Pickedup",
-				});
-				showPrompt("Pickup Successful");
-			} catch (error) {
-				console.error("Error updating pickupstatus:", error);
+		if (allData.studentData != null) {
+			for (let i = 0; i < allData.studentData.length; i++) {
+
+				if (data === allData.studentData[i].studentid.toString()) {
+					attendanceHandler(allData.studentData[i].studentid)
+					verified = true;
+					break
+				}
 			}
-		} else {
-			// Parent's barcode does not match the student's parentid
-			showPrompt("Incorrect Parent");
-		}
+		} else if (data === allData.parentid) {
+			parentPickUp(allData.studentid)
+			verified = true;
+		} else { showPrompt("No data found") }
+		// if (verified != true) {
+		// 	showPrompt("Error")
+		// }
 	};
 	const showPrompt = (message) => {
 		// Implement your prompt display logic here (e.g., using Alert)

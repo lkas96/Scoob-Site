@@ -15,7 +15,7 @@ import UserContext from "../../context/UserContext";
 const ThirdPartyQR = ({ route }) => {
 	const { userDetails } = useContext(UserContext);
 
-	function QR() {}
+	function QR() { }
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
@@ -24,8 +24,7 @@ const ThirdPartyQR = ({ route }) => {
 				<View style={styles.QRStyle}>
 					<QRCode
 						//QR code value
-						value={`${userDetails.userId},${route.params.studentid}`}
-						// data=result.split(",") // to read the data from ^
+						value={`${userDetails.userId}`}
 						//size of QR Code
 						size={250}
 						//Color of the QR Code (Optional)
@@ -43,9 +42,6 @@ const ThirdPartyQR = ({ route }) => {
 						logoBackgroundColor={COLORS.white}
 					/>
 				</View>
-				{/* <TouchableOpacity style={styles.buttonStyle} onPress={() => QR()}>
-					<Text style={styles.buttonTextStyle}>Generate QR Code</Text>
-				</TouchableOpacity> */}
 			</View>
 		</SafeAreaView>
 	);
