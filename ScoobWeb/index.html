@@ -30,9 +30,9 @@
 			<li class="nav-item" >
 				<a class="nav-link" href="services.html">Services</a>
 			</li>
-      <li class="nav-item" >
+      <!--li class="nav-item" >
 				<a class="nav-link" href="parents.html">Parents</a>
-			</li>
+			</li-->
       <li class="nav-item" >
 				<a class="nav-link" href="updates.html">Updates</a>
 			</li>
@@ -106,8 +106,53 @@
   <br><br><br>
   <img src="img/dismiss.jpg" alt="home-teachers-students" style="width: 30%; height: auto;">
   <br><br><br>
+
+  <img src="img/phone.png" alt="home-teachers-students" style="width: 5%; height: auto;">
   <br><br><br>
+</div>
+
+
+<div class="tick">
+  <div class="tick-item">
+    <img src="img/ticksss.png" alt="tick" style="width: 5%; height: auto;">
+    <h1>Safe</h1>
+  </div>
+  <div class="tick-item">
+    <img src="img/ticksss.png" alt="tick" style="width: 5%; height: auto;">
+    <h1>Secure</h1>
+  </div>
+  <div class="tick-item">
+    <img src="img/ticksss.png" alt="tick" style="width: 5%; height: auto;">
+    <h1>Streamlined</h1>
+  </div>
+</div>
+<br><br><br>
+<br><br><br>
+<div class="links">
+  <ul class="info">
+    <li class="desc">
+      <h1>What is Scoob?</h1>
+      <h1>What services?</h1>
+    </li>
+    <br>
+    <li class="link">   
+      <a class="buttons" href="about.html">See About</a>
+      <a class="buttons" href="services.html">See Services</a>
+    </li>      
+    <br><br><br><br>
+  </ul>
+</div>
+
+<div class="center-container">
+  <a class="buttons" href="/Scoob-Site/ScoobAdminPortal/onboarding/onboard-home.php">Sign up here!</a>
+</div>
+<br><br><br>
+
+
+
+<div class="foot">  
   <br><br><br>
+      <a class="contact-button" href="contact.html">Contact Us</a>
 </div>
 
 </body>
@@ -154,5 +199,109 @@
     padding: 10px;
   }
 
+  .tick {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;  
+  background: #F07c34;
+  height: 150px;
+  color: black;
+  }
 
+  .tick-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px; /* Adjust this padding to control the gap between image and h1 */
+  margin: 0 1px; /* Adjust this margin for spacing between tick-items */
+  }
+
+  .tick-item h1 {
+  margin: 0;
+  margin: 0 5px; /* Adjust this margin for spacing between tick-items */
+}
+
+.tick-item img {
+  margin-bottom: 10px; /* Adjust this margin for spacing between image and h1 */
+}
+
+  .links {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 150%;
+}
+
+.desc p {
+  flex: 2;
+  margin: 0;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 143%;
+  margin-top: 10px;
+}
+
+.link a {
+  flex: 1;
+  text-align: center;
+}
+
+.buttons {
+  background-color: #F07c34;
+  border: none;
+  color: white;
+  padding: 10px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 220px;
+}
+
+.buttons:hover {
+  text-decoration: none;
+  color:black;
+}
+
+.contact-button {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  color: gray;
+}
+
+.foot {
+  background-color: white;
+  height: 150px;
+}
+
+.contact-button:hover{
+  text-decoration: none;
+  color:black;
+}
+
+.center-container {
+  text-align: center;
+}
 </style>

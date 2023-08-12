@@ -30,9 +30,9 @@
 			<li class="nav-item active" >
 				<a class="nav-link" href="services.html">Services</a>
 			</li>
-      <li class="nav-item" >
+      <!--li class="nav-item" >
 				<a class="nav-link" href="parents.html">Parents</a>
-			</li>
+			</li-->
       <li class="nav-item" >
 				<a class="nav-link" href="updates.html">Updates</a>
 			</li>
@@ -50,10 +50,116 @@
 	</nav>
 
   <!--Main Body-->
-  <div>
-    WORK IN PROGRESS
-  </div>
+  <br><br>
+  <div class="services">
+    <div class="intro-services">
+      <h1>What services does Scoob provide?</h1>
+    </div>
+    <br><br>
 
+    <div class="each-services">
+      <table class="no-bullets">
+      <tr class="service-description">
+      <tr>
+        <th>
+      <h2 style="text-align: center;">Schools</h2>
+      <br><br>
+      <p>- School Admins are able to access the Scoob Admin Portal in the web</p>
+      <p>- Manage information of teachers, classes & students</p>
+      <p>- Bulk import of information available too</p>
+    </th>
+      <th style="text-align: right;">
+        <img src="img/services1.jpg" alt="services1" style="width: 80%; height: auto;">
+      </th>
+      </tr>
+      <br><br>
+      <br><br>
+    </div>
+    <br><br>
+    <br><br>
+    <div class="each-services">
+      <table class="no-bullets">
+      <tr class="service-description">
+      <tr>
+        <th>
+      <h2 style="text-align: center;">Transport Companies</h2>
+      <br><br>
+      <p>- Transport Admins are able to access the Scoob Admin Portal in the web</p>
+      <p>- Manage information of buses & drivers</p>
+      <p>- Assign drivers to buses, assign routes of bus trips etc.</p>
+      <p>- Bulk import of information available too</p>
+    </th>
+      <th style="text-align: right;">
+        <img src="img/services2.jpg" alt="services2" style="width: 80%; height: auto;">
+      </th>
+      </tr>
+      <br><br>
+      <br><br>
+    </div>
+    <br><br>
+    <br><br>
+    <div class="each-services">
+      <table class="no-bullets">
+      <tr class="service-description">
+      <tr>
+        <th>
+      <h2 style="text-align: center;">Teachers</h2>
+      <br><br>
+      <p>- Scan QR code for pickup verification in the Mobile App</p>
+      <p>- View pickup information</p>
+    </th>
+      <th style="text-align: right;">
+        <img src="img/services1.jpg" alt="services1" style="width: 80%; height: auto;">
+      </th>
+      </tr>
+      <br><br>
+      <br><br>
+    </div>
+    <br><br>
+    <br><br>
+    <div class="each-services">
+      <table class="no-bullets">
+      <tr class="service-description">
+      <tr>
+        <th>
+      <h2 style="text-align: center;">Parents</h2>
+      <br><br>
+      <p>- Subscribe to Bus Pickup & change pickup modes in the Mobile App</p>
+      <p>- Alert school upon arrival, indicate child(s) to pickup</p>
+      <p>- Authorisation of 3rd-Party Personnel for pickup available too</p>
+    </th>
+      <th style="text-align: right;">
+        <img src="img/services1.jpg" alt="services1" style="width: 80%; height: auto;">
+      </th>
+      </tr>
+      <br><br>
+      <br><br>
+    </div>
+    <br><br>
+    <br><br>
+    <div class="each-services">
+      <table class="no-bullets">
+      <tr class="service-description">
+      <tr>
+        <th>
+      <h2 style="text-align: center;">Drivers</h2>
+      <br><br>
+      <p>- View student passenger list in the Mobile App</p>
+      <p>- Start & End trips to update statuses</p>
+    </th>
+      <th style="text-align: right;">
+        <img src="img/services1.jpg" alt="services1" style="width: 80%; height: auto;">
+      </th>
+      </tr>
+      <br><br>
+      <br><br>
+    </div>
+    <br><br>
+    <br><br>
+  </div>
+  <br><br>
+  <br><br><br><br>
+  <br><br>
 </body>
 </html>
 
@@ -73,7 +179,7 @@
   }
   
   body {
-    background: orange;
+    background: #F07c34;
   }
   
   .content {
@@ -82,4 +188,51 @@
     background: white;
     padding: 10px;
   }
+
+  .services {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+}
+
+.intro-services h1,
+.each-services h3 {
+  text-align: center;
+}
+
+.each-services {
+  display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    width: 2000px;
+    align-items: center;
+    background-color: #093d65;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.no-bullets {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.each-services p {
+  text-align: left;
+  font-size: 20px;
+}
+
+.images {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  margin-top: 50px; /* Adjust this margin as needed */
+  width: 100%; /* Ensure the image container spans the width */
+}
+
+.images img {
+  max-width: 100%; /* Ensure the image fits within the container */
+  height: auto;
+}
 </style>
