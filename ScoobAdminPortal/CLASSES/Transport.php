@@ -582,7 +582,16 @@ class Transport
 
     $result = $this->conn->query($sql);
 
-    if ($result) {
+    $sql2 = "UPDATE student s join school_transport st on s.uen = st.schooluen join bus_driver bd on st.transportuen = bd.uen
+    set s.busid = '$busid' 
+    WHERE bd.uen = '$uen'
+    AND left(s.pcode, 3) = bd.area
+    AND s.subscription= 'Yes';
+  ";
+
+    $result2 = $this->conn->query($sql2); 
+
+    if ($result == true && $result2 == true) {
       return true;
     } else {
       return false;
@@ -590,16 +599,25 @@ class Transport
   }
 
   //FUNCTION TO UNASSIGN ROUTE FROM BUS
-  public function unassignArea($busid, $name)
+  public function unassignArea($busid, $pcode)
   {
     $uen = $_SESSION['uen'];
 
-    $sql = "UPDATE bus_driver SET area = NULL WHERE uen = '$uen' AND busid = '$busid';
+    $sql = "UPDATE bus_driver SET area = NULL WHERE uen = '$uen' AND busid = '$busid' AND area = '$pcode';
   ";
 
     $result = $this->conn->query($sql);
 
-    if ($result) {
+    $sql2 = "UPDATE student s join school_transport st on s.uen = st.schooluen join bus_driver bd on st.transportuen = bd.uen
+    set s.busid = NULL 
+    WHERE bd.uen = '$uen'
+    AND left(s.pcode, 3) = '$pcode'
+    AND s.subscription= 'Yes';
+  ";
+
+    $result2 = $this->conn->query($sql2);
+
+    if ($result == true && $result2 == true) {
       return true;
     } else {
       return false;

@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <html>
+
 <head>
   <title>Scoob Onboarding Signup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,59 +32,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a class="navbar-brand" href="onboard-home.php">
       <img src="../img/scoob-orange.svg" height="30px" alt="Toggle Navigation">&nbsp&nbsp Scoob Onboarding Signup
     </a>
+    <a href="../login.php">Web Portal Login</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   </nav>
 
-  <!--REGISTER FORM-->
   <div class="container">
 
-  <table>
-    <form method="post">
-      <tr>
-        <td style="text-align: center;"><h3>Parent/Guardian Details</h3></td>
-      </tr>
+    <div class="form-column">
+      <!-- Your content for the third column in the second row -->
+      <div class="image-column">
+        <h3>Signing up as a Parent or Guardian</h3>
+        <img src="../img/parentx.png" height="150px" alt="Transport">
+      </div>
 
-      <tr>
-        <td><input id="fname" name="fname" type="text" maxlength="30" style="width:400px;" placeholder="First Name" ></td>
-      </tr>
+      <form method="post">
+        <h5>Personal Details</h5>
+        <input id="fname" name="fname" type="text" maxlength="30" placeholder="First Name" required>
+        <input id="lname" name="lname" type="text" maxlength="30" placeholder="Last Name" required>
+        <input id="parentid" name="parentid" type="text" maxlength="30" placeholder="NRIC" required>
+        <h5>Account Creation</h5>
+        <input id="email" name="email" type="text" maxlength="30" placeholder="Email" required>
+        <input id="password" name="password" type="password" placeholder="Password" required>
+        <input type="submit" id="submit" name="submit" value="Sign Up">
+      </form>
 
-      <tr>
-        <td><input id="lname" name="lname" type="text" maxlength="30" style="width:400px;" placeholder="Last Name" ></td>
-      </tr>
-
-      <tr>
-        <td><input id="parentid" name="parentid" type="text" maxlength="30" style="width:400px;" placeholder="parentid" ></td>
-      </tr>
-
-      <tr><td>&nbsp</td></tr>
-      <tr><td>&nbsp</td></tr>
-
-      <tr>
-        <td style="text-align: center;"><h3>Account Creation</h3></td>
-      </tr>
-
-      <tr>
-        <td><input id="email" name="email" type="text" maxlength="30" style="width:400px;" placeholder="Email" ></td>
-      </tr>
-
-      <tr>
-        <td><input id="password" name="password" type="password" style="width:400px;" placeholder="Password" ><br></td>
-      </tr>
-
-      <tr><td>&nbsp</td></tr>
-      <tr><td>&nbsp</td></tr>
-
-      <tr>
-        <td colspan="2" style="text-align: center;"><input type="submit" id="submit" name="Submit" value="Submit" style="width:100px; height:30px;"></td>
-      </tr>
-      
-    </form>
-  </table>
-
-  </div>
+    </div>
 </body>
+
 </html>
 
 
@@ -91,22 +68,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #ffa404;
-    }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #F07c34;
+  }
 
-    .container {
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 59px;
+  }
 
-    form {
-      text-align: center;
-    }
-  </style>
+  .row {
+    display: flex;
+    width: 100%;
+    /* align-items: center;
+    text-align: center; */
+  }
+
+  .image-column {
+    flex: 3;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .image-column img {
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .form-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-column label,
+  .form-column input,
+  .form-column select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .form-column select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* Adjust the width for wider input fields */
+    width: 200px;
+  }
+
+  .form-column input[type="text"],
+  .form-column input[type="password"],
+  .form-column select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* Adjust the width for wider input fields */
+    width: 400px;
+  }
+
+  .form-column input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #093d65;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  .form-column input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
