@@ -2,16 +2,20 @@
 include("OnboardingController.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  //ON SUBMIT CALL ONBOARDING CONTROLLER
-  $result = new CreateParentGuardianAccount();
-  $success = $result->createParentGuardianAccount($_POST['fname'], $_POST['lname'], $_POST['parentid'], $_POST['email'], $_POST['password']);
+  try {
+    // ON SUBMIT CALL ONBOARDING CONTROLLER
+    $result = new CreateParentGuardianAccount();
+    $success = $result->createParentGuardianAccount($_POST['fname'], $_POST['lname'], $_POST['parentid'], $_POST['email'], $_POST['password']);
 
-  //CHECK IF SUCCESSFULLY CREATED
-  if ($success === true){
-    echo "<script type='text/javascript'>alert('Parent/Guardian Account Created Successfully!'); window.location.href = 'onboard-home.php';</script>";
-  } else {
-    echo "<script type='text/javascript'>alert('$onboardingController->getErrorMessage()');</script>";
-    echo "<script type='text/javascript'>alert('Account Creation Unsuccessful!'); window.location.href = 'onboard-home.php';</script>";
+    // CHECK IF SUCCESSFULLY CREATED
+    if ($success === true) {
+      echo "<script type='text/javascript'>alert('Parent/Guardian Account Created Successfully!'); window.location.href = 'onboard-home.php';</script>";
+    } else {
+      echo "<script type='text/javascript'>alert('$onboardingController->getErrorMessage()');</script>";
+      echo "<script type='text/javascript'>alert('Account Creation Unsuccessful!'); window.location.href = 'onboard-home.php';</script>";
+    }
+  } catch (mysqli_sql_exception $e) {
+    echo "<script type='text/javascript'>alert('NRIC has already been registered. Please check and try again.'); window.location.href = 'onboard-parentguardian.php';</script>";
   }
 }
 ?>
