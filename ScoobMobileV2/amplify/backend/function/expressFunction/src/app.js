@@ -134,9 +134,10 @@ app.get("/student/:busid/takingbus", (req, res) => {
 	const busid = req.params.busid;
 
 	// SQL query to select all columns from the 'parent' table where the email matches
-	const sql = `SELECT s.class, s.fname, s.lname, p.parentid, s.pcode, s.studentid FROM student s left join parentguardians p 
-	on s.parentid = p.parentid 
-	where s.busid = ? AND s.pickupmode = true AND s.pickupstatus = 'In School'`;
+	const sql = `SELECT s.class, s.fname, s.lname, p.parentid, s.pcode, s.studentid 
+	FROM student s LEFT JOIN parentguardians p 
+	ON s.parentid = p.parentid 
+	WHERE s.busid = ? AND s.pickupmode = true AND s.pickupstatus = 'In School' OR s.pickupstatus = 'On Bus'`;
 
 	db.query(sql, [busid], (err, results) => {
 		if (err) {
@@ -146,7 +147,8 @@ app.get("/student/:busid/takingbus", (req, res) => {
 
 		if (results.length === 0) {
 			// No parent data found for the given email
-			return res.status(404).json({ error: "Parent data not found" });
+			// return res.status(404).json({ error: "Parent data not found" });
+			console.log("No data found");
 		}
 
 		// Parent data found, send the data as the response
@@ -173,9 +175,10 @@ app.get("/teacher/:class/pickupstatus/arrived", (req, res) => {
 
 		if (results.length === 0) {
 			// No student data found with 'Arrived' pickupstatus for the given class
-			return res
-				.status(404)
-				.json({ error: "No students with 'Arrived' pickupstatus found" });
+			// return res
+			// 	.status(404)
+			// 	.json({ error: "No students with 'Arrived' pickupstatus found" });
+			console.log("No students in school with parents arrived");
 		}
 
 		// Student data found, send the data as the response
@@ -330,7 +333,8 @@ app.put("/student/:studentid", (req, res) => {
 	const { subscription } = req.body;
 
 	// SQL query to update the subscription status in the 'student' table
-	const sql = "UPDATE student SET subscription = ?, pickupmode = false, busid = null WHERE studentid = ?";
+	const sql =
+		"UPDATE student SET subscription = ?, pickupmode = false, busid = null WHERE studentid = ?";
 
 	db.query(sql, [subscription, studentid], (err, results) => {
 		if (err) {
@@ -519,7 +523,6 @@ app.put("/bus_driver/:driverid/end", (req, res) => {
 		res.json({ message: "Trip status updated successfully" });
 	});
 });
-
 
 // Change mode to Self
 app.put("/student/:studentid/bus", function (req, res) {

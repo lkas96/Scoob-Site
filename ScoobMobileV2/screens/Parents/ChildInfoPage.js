@@ -228,7 +228,6 @@ const ChildInfoPage = ({ route, navigation }) => {
 							);
 						});
 				} else {
-
 				}
 			})
 			.catch((error) => {
@@ -307,7 +306,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 								height: 50,
 							}}
 							containerStyle={{ margin: 5 }}
-							disabled={pickUpMode === true ? true : false}
+							// disabled={pickUpMode === true ? true : false}
 							disabledStyle={{}}
 							disabledTitleStyle={{}}
 							linearGradientProps={null}

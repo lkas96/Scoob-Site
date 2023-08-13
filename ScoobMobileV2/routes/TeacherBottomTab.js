@@ -48,7 +48,7 @@ const TeacherBottomTab = () => {
 				options={{ tabBarLabel: "Home" }}
 			/>
 			{/* <Tab.Screen name="TeachersHome" component={TeachersHomePage} options={{tabBarLabel: "Home", gestureEnabled: false,}}/> */}
-			<Tab.Screen
+			{/* <Tab.Screen
 				name="TeachersChat"
 				component={TeachersChatPage}
 				options={{
@@ -57,7 +57,7 @@ const TeacherBottomTab = () => {
 					headerTitle: "",
 					headerStyle: { backgroundColor: COLORS.background },
 				}}
-			/>
+			/> */}
 			<Tab.Screen
 				name="TeachersSettings"
 				component={TeachersSettingsStack}

@@ -15,8 +15,6 @@ import UserContext from "../../context/UserContext";
 const ThirdPartyQR = ({ route }) => {
 	const { userDetails } = useContext(UserContext);
 
-	function QR() { }
-
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View style={styles.container}>

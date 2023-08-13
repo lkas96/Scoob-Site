@@ -8,7 +8,6 @@ import {
 	TouchableHighlight,
 	View,
 } from "react-native";
-import CustomButton from "../../components/CustomButton";
 import UserContext from "../../context/UserContext";
 
 import { HStack, Text } from "@react-native-material/core";
@@ -55,6 +54,7 @@ const HomePage = ({ route, navigation }) => {
 
 		// Fetch student data
 		try {
+			// ! TO LOOK AT THIS FUNCTION IN APP.JS (ERROR HANDLING PART) AGAIN
 			const response = await axios.get(
 				`${lambdaEndpoint}/student/${bid}/takingbus`
 			);
@@ -186,7 +186,7 @@ const HomePage = ({ route, navigation }) => {
 							<ListItem.Content>
 								<ListItem.Title>
 									<Text
-										variant="h5"
+										variant="h4"
 										// style={styles.text}
 									>{`${item.fname} ${item.lname}`}</Text>
 								</ListItem.Title>

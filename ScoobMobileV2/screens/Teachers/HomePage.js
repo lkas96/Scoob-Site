@@ -9,11 +9,10 @@ import {
 	TouchableHighlight,
 	View,
 } from "react-native";
-import CustomButton from "../../components/CustomButton";
 import UserContext from "../../context/UserContext";
 
 import { HStack, Text } from "@react-native-material/core";
-import { Avatar, ListItem, Icon } from "@rneui/base";
+import { Avatar, Button, Icon, ListItem } from "@rneui/base";
 // import { Icon } from "react-native-elements";
 import COLORS from "../../constants/colors";
 
@@ -31,9 +30,12 @@ const HomePage = ({ navigation }) => {
 			);
 			const data = response.data;
 			setChildData(data);
-			console.log("Fetching...");
+			//Test
+			console.log(childData);
+			console.log("fetchPUZStudentData() Successful");
 		} catch (error) {
-			console.error(error);
+			console.error("fetchPUZStudentData() Unsuccessful: ", error);
+			// setChildData(null);
 		}
 	};
 
@@ -44,9 +46,10 @@ const HomePage = ({ navigation }) => {
 			);
 			const data = response.data;
 			setStudentData(data);
-			console.log("Fetching...");
+			console.log("fetchStudentData() Successful");
 		} catch (error) {
-			console.error(error);
+			console.error("fetchStudentData() Unsuccessful: ", error);
+			// setStudentData(null);
 		}
 	};
 
@@ -54,13 +57,16 @@ const HomePage = ({ navigation }) => {
 		navigation.navigate("ScanID", { studentData });
 	};
 
-	useEffect(() => {
-		const focusHandler = navigation.addListener("focus", () => {
+	const focusHandler = () => {
+		navigation.addListener("focus", () => {
 			fetchPUZStudentData();
 			fetchStudentData();
 			console.log("Refreshed!");
 		});
-		return focusHandler;
+	};
+
+	useEffect(() => {
+		focusHandler();
 	}, [navigation]);
 
 	return (
@@ -79,53 +85,58 @@ const HomePage = ({ navigation }) => {
 				/>
 			</HStack>
 			<Text variant="h5" style={styles.title}>
-				Student(s) in Pick Up Zone
+				Parent(s) in Pick Up Zone
 			</Text>
 			<View style={styles.scrollContainer}>
-				<FlatList
-					showsVerticalScrollIndicator={false}
-					contentContainerStyle={styles.scrollViewItem}
-					// keyExtractor={(item) => item.id} //if you want to extract key value
-					data={childData}
-					renderItem={({ item }) => (
-						<ListItem
-							bottomDivider
-							Component={TouchableHighlight}
-							containerStyle={{
-								// borderRadius: 8,
-								height: 150,
-							}}
-							disabledStyle={{ opacity: 0.5 }}
-							onLongPress={() => console.log("onLongPress()")}
-							onPress={() =>
-								navigation.navigate("TeacherPickUpStack", { childInfo: item })
-							}
-							pad={20}
-						>
-							<Avatar
-								rounded
-								title={`${item.fname[0]}`}
-								containerStyle={{ backgroundColor: "grey" }}
-							/>
-							<ListItem.Content>
-								<ListItem.Title>
-									<Text
-										variant="h5"
-										style={styles.text}
-									>{`${item.fname} ${item.lname}`}</Text>
-								</ListItem.Title>
-								<ListItem.Subtitle>
-									<Text>{`${item.studentid}, ${item.class}`}</Text>
-								</ListItem.Subtitle>
-								<ListItem.Subtitle></ListItem.Subtitle>
-							</ListItem.Content>
-							<ListItem.Chevron />
-						</ListItem>
-					)}
-				/>
+				{/* // ! Display something is no data */}
+				{childData === null ? (
+					<Text>No</Text>
+				) : (
+					<FlatList
+						showsVerticalScrollIndicator={false}
+						contentContainerStyle={styles.scrollViewItem}
+						// keyExtractor={(item) => item.id} //if you want to extract key value
+						data={childData}
+						renderItem={({ item }) => (
+							<ListItem
+								bottomDivider
+								Component={TouchableHighlight}
+								containerStyle={{
+									// borderRadius: 8,
+									height: 150,
+								}}
+								disabledStyle={{ opacity: 0.5 }}
+								onLongPress={() => console.log("onLongPress()")}
+								onPress={() =>
+									navigation.navigate("TeacherPickUpStack", { childInfo: item })
+								}
+								pad={20}
+							>
+								<Avatar
+									rounded
+									title={`${item.fname[0]}`}
+									containerStyle={{ backgroundColor: "grey" }}
+								/>
+								<ListItem.Content>
+									<ListItem.Title>
+										<Text
+											variant="h5"
+											style={styles.text}
+										>{`${item.fname} ${item.lname}`}</Text>
+									</ListItem.Title>
+									<ListItem.Subtitle>
+										<Text>{`${item.studentid}, ${item.class}`}</Text>
+									</ListItem.Subtitle>
+									<ListItem.Subtitle></ListItem.Subtitle>
+								</ListItem.Content>
+								<ListItem.Chevron />
+							</ListItem>
+						)}
+					/>
+				)}
 			</View>
 			<Text variant="h5" style={styles.title}>
-				Students in your class
+				Class List
 			</Text>
 			<View style={styles.scrollContainer}>
 				<FlatList
@@ -152,19 +163,19 @@ const HomePage = ({ navigation }) => {
 							<ListItem.Content>
 								<ListItem.Title>
 									<Text
-										variant="h5"
+										variant="h4"
 										style={styles.text}
 									>{`${item.fname} ${item.lname}  `}</Text>
 									{item.pickupstatus === "In School" ? (
 										<Icon
-											name="checkmark-done-circle-outline"
-											type="ionicon" // Use the appropriate icon library/type
+											name="checkbox-marked-circle-outline"
+											type="material-community" // Use the appropriate icon library/type
 											color="green"
 										/>
 									) : (
 										<Icon
-											name="close"
-											type="ionicon" // Use the appropriate icon library/type
+											name="checkbox-blank-circle-outline"
+											type="material-community" // Use the appropriate icon library/type
 											color="red"
 										/>
 									)}
