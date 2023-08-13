@@ -92,6 +92,9 @@ if (isset($_POST["logout"])) {
 
           $rowNumber = 1;
 
+          if (mysqli_num_rows($result) == 0) {
+            echo "No pending applications at the moment.";
+        } else {
           while ($row = mysqli_fetch_assoc($result)) {
             echo '<tbody>';
             echo '<tr>';
@@ -112,6 +115,7 @@ if (isset($_POST["logout"])) {
           }
           echo '</table>';
         }
+      }
 
         }
         catch (PDOException $e) {
