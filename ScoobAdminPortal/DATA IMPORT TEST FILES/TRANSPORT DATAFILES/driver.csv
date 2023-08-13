@@ -1,6 +1,4 @@
 driverid,uen,fname,lname,phone,email,password
-0,NULL,NULL,NULL,NULL,driver@esp.com,driver
-1,NULL,NULL,NULL,NULL,d,d
 111111,99999999,Kai,Tan,81234567,DEMO1@demo.com,demo123
 222222,99999999,Mei,Lim,82123456,DEMO2@demo.com,demo123
 333333,99999999,Wei,Lee,89123456,DEMO3@demo.com,demo123
