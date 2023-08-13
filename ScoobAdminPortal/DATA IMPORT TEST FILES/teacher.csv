@@ -1,10 +1,7 @@
 email,password,fname,lname,uen,class,teacherid
-ava@eps.com,ava123,Ava,Martinez,28374095,P1,T93857
-elijah@eps.com,elijah123,Elijah,Wilson,28374095,P2,T93852
-emma@eps.com,emma123,Emma,Smith,28374095,P3,T33395
-liam@eps.com,liam123,Liam,Johnson,28374095,P4,T03912
-noah@eps.com,noah123,Noah,Davis,28374095,P5,T04552
-olivia@eps.com,olivia123,Olivia,Brown,28374095,P6,T12345
-t,t,Test,Teacher,28374095,NULL,NULL
-teacher2,teacher2,Teacher,Two,28374095,P1-6,Teacher22222
-teacher3,teacher3,Teacher,Three,28374095,P1-2,Teacher33333
+ava@eps.com,ava123,Ava,Martinez,11223344,CSV1,T93857
+elijah@eps.com,elijah123,Elijah,Wilson,11223344,CSV2,T93852
+emma@eps.com,emma123,Emma,Smith,11223344,CSV1,T33395
+liam@eps.com,liam123,Liam,Johnson,11223344,CSV2,T03912
+noah@eps.com,noah123,Noah,Davis,11223344,CSV1,T04552
+olivia@eps.com,olivia123,Olivia,Brown,11223344,CSV2,T12345
