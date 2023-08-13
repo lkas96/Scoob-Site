@@ -42,6 +42,7 @@ class Applications
       $_SESSION['viewPendinglApplicationsSQLTable'] = $result;
       return true;
     } else {
+      unset($_SESSION['viewPendinglApplicationsSQLTable']);
       return false;
     }
   }
