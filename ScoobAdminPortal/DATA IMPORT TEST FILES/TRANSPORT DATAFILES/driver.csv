@@ -4,8 +4,3 @@ driverid,uen,fname,lname,phone,email,password
 333333,99999999,Wei,Lee,89123456,DEMO3@demo.com,demo123
 444444,99999999,Jasmine,Ng,82345678,DEMO4@demo.com,demo123
 555555,99999999,Ryan,Chua,91234567,DEMO5@demo.com,demo123
-666666,99999999,Eileen,Kumar,84567891,DEMO6@demo.com,demo123
-777777,99999999,Darren,Wong,89765432,DEMO7@demo.com,demo123
-888888,99999999,Rachel,Koh,91234568,DEMO8@demo.com,demo123
-999999,99999999,Adrian,Tanaka,83456789,DEMO9@demo.com,demo123
-101010,99999999,Alicia,Abdullah,82111111,DEML10@demo.com,demo123

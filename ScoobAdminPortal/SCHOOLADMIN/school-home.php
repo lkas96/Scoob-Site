@@ -80,7 +80,7 @@ if (isset($_POST["logout"])) {
       }
 
       if ($result == NULL) {
-        echo 'Unable to retrieve school data.';
+        echo 'Your school is not paired with a Transport Company yet. <br>Services will be fully available once you are paired with a Transport Company.';
       } else {
         while ($row = mysqli_fetch_assoc($result)) {
           echo '<h1>Welcome</h1>';
