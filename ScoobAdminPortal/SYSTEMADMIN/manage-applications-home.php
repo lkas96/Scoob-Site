@@ -66,7 +66,8 @@ if (isset($_POST["logout"])) {
       <div class="data">
 
         <?php
-        $aaa = ViewPendingApplications::viewPendingApplications();
+        try {
+          $aaa = ViewPendingApplications::viewPendingApplications();
         $result = NULL; //PLACEHOLDER
 
         if (isset($_SESSION['viewPendinglApplicationsSQLTable'])) {
@@ -111,6 +112,13 @@ if (isset($_POST["logout"])) {
           }
           echo '</table>';
         }
+
+        }
+        catch (PDOException $e) {
+          echo "No pending applications at the moment.";
+        }
+
+        
         ?>
 
       </div>
