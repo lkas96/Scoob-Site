@@ -38,7 +38,7 @@ const ScannerPage = ({ route }) => {
 	const parentPickUp = async (studentid) => {
 		try {
 			// Make the PUT request to update the pickupstatus of the student
-			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup/self`, {
 				pickupstatus: "Pickedup",
 			});
 			showPrompt("Pick Up Successful");
@@ -63,9 +63,6 @@ const ScannerPage = ({ route }) => {
 		} else {
 			showPrompt("No data found");
 		}
-		// if (verified != true) {
-		// 	showPrompt("Error")
-		// }
 	};
 	const showPrompt = (message) => {
 		// Implement your prompt display logic here (e.g., using Alert)

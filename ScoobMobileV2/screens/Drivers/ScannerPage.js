@@ -3,6 +3,7 @@ import axios from "axios";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { COLORS } from "../../constants";
 
 const ScannerPage = ({ route }) => {
 	var verified = false;
@@ -27,7 +28,7 @@ const ScannerPage = ({ route }) => {
 			await axios.put(`${lambdaEndpoint}/student/${studentid}/onbus`, {
 				pickupstatus: "Pickedup",
 			});
-			showPrompt("Bus Pick Up Successful");
+			showPrompt("Bus Boarding Successful");
 		} catch (error) {
 			console.error("Error updating pickupstatus:", error);
 		}
@@ -36,10 +37,10 @@ const ScannerPage = ({ route }) => {
 	const alightingBus = async (studentid) => {
 		try {
 			// Make the PUT request to update the pickupstatus of the student
-			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup`, {
+			await axios.put(`${lambdaEndpoint}/student/${studentid}/pickedup/bus`, {
 				pickupstatus: "Pickedup",
 			});
-			showPrompt("Pick Up Successful");
+			showPrompt("Alighting Successful");
 		} catch (error) {
 			console.error("Error updating pickupstatus:", error);
 		}
