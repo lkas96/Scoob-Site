@@ -86,7 +86,6 @@ if (isset($_POST["logout"])) {
             echo '<th scope="col">Teacher Name</th>';
             echo '<th scope="col">Class</th>';
             echo '<th scope="col">E-Mail</th>';
-            echo '<th scope="col">Password</th>';
             echo '<th scope="col">Action</th>';
             echo '</tr>';
             echo '</thead>';
@@ -98,7 +97,6 @@ if (isset($_POST["logout"])) {
               echo '<td>' . $row['name'] . "</td>";
               echo '<td>' . $row['class'] . "</td>";
               echo '<td>' . $row['email'] . "</td>";
-              echo '<td>' . $row['password'] . "</td>";
 
               //BUTTON FORM TO SEND POST UEN TO NEXT PAGE
               echo '<td><form action="school-manage-teachers-view.php" method="post">';
