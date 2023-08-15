@@ -568,6 +568,7 @@ class Transport
       $_SESSION['viewPostalGroupSQLTable'] = $result;
       return true;
     } else {
+      unset ($_SESSION['viewPostalGroupSQLTable']);
       return false;
     }
   }

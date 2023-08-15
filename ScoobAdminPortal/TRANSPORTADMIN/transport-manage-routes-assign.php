@@ -91,20 +91,20 @@ if (isset($_POST["logout"])) {
       echo $driver.'<br><br>';
 
       $acc = GetPostalGroup::getPostalGroup();
-      $result = $_SESSION['viewPostalGroupSQLTable'];
 
-      if ($result === NULL) {
-        echo "No data from school side.";
-      } else {
+      if (isset($_SESSION['viewPostalGroupSQLTable'])) {
         echo "<form method='post'>";
         echo "<select name='pcode' required>";
         echo "<option disabled hidden selected>Assign Postal Area</option>";
-        while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($_SESSION['viewPostalGroupSQLTable'])) {
           echo "<option value='" . $row['pcode'] . "'>" . $row['pcode'] . "XXX</option>";
         }
         echo "</select><br><br>";
         echo "<input type='submit' name='assign' value='Assign Route'>";
         echo "</form>";
+        
+      } else {
+        echo "No new routes required by school. All routes has been assigned.";
       }
     }
     ?>
