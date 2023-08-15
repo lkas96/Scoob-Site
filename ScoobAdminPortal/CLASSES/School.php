@@ -58,7 +58,7 @@ class School
             FROM class
             LEFT JOIN teacher ON class.class = teacher.class
             LEFT JOIN student ON class.class = student.class
-            WHERE class.uen ='$uen' AND class.class = '$class'
+            WHERE class.uen ='$uen' AND class.class = '$class' AND student.uen = '$uen'
             GROUP BY class.class;
     ";
 
@@ -228,7 +228,8 @@ class School
             WHERE student.uen = '$uen' AND studentid LIKE '%$searchQuery%' 
             OR student.uen = '$uen' AND CONCAT(student.fname , ' ', student.lname) LIKE '%$searchQuery%'
             OR student.uen = '$uen' AND fname LIKE '%$searchQuery%'
-            OR student.uen = '$uen' AND lname LIKE '%$searchQuery%';
+            OR student.uen = '$uen' AND lname LIKE '%$searchQuery%'
+            OR student.uen = '$uen' AND student.class LIKE '%$searchQuery%';
                
     ";
 
