@@ -507,7 +507,7 @@ app.put("/bus_driver/:driverid/start", (req, res) => {
 	const driverid = req.params.driverid;
 
 	// SQL query to update the tripstatus in the 'bus_driver' table
-	const sql = "UPDATE bus_driver SET tripstatus = 'Started' WHERE driverid = ?";
+	const sql = "UPDATE bus_driver b LEFT JOIN student s ON b.busid = s.busid SET b.tripstatus = 'Started', s.pickupstatus = 'Enroute Home' WHERE b.driverid = ? AND s.pickupstatus = 'On Bus'";
 
 	db.query(sql, [driverid], (err, results) => {
 		if (err) {

@@ -15,7 +15,7 @@
       "function": {
         "expressFunction": {
           "deploymentBucketName": "amplify-scoobmobilev2-dev-174945-deployment",
-          "s3Key": "amplify-builds/expressFunction-4544544f36365a744944-build.zip"
+          "s3Key": "amplify-builds/expressFunction-77776e304b6f30415836-build.zip"
         }
       },
       "storage": {

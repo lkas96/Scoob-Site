@@ -120,7 +120,7 @@ const HomePage = ({ route, navigation }) => {
 			.catch((error) => {
 				console.error("Error updating trip status:", error);
 				// Show an error message to the user
-				Alert.alert("Error", "Failed to update trip status. Please try again.");
+				Alert.alert("Error", "No students on the bus!");
 			});
 	};
 
@@ -187,7 +187,7 @@ const HomePage = ({ route, navigation }) => {
 								<ListItem.Title>
 									<Text
 										variant="h4"
-										// style={styles.text}
+									// style={styles.text}
 									>{`${item.fname} ${item.lname}`}</Text>
 								</ListItem.Title>
 								<ListItem.Subtitle>
