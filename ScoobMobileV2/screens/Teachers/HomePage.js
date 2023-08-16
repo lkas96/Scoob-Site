@@ -120,7 +120,7 @@ const HomePage = ({ navigation }) => {
 								<ListItem.Content>
 									<ListItem.Title>
 										<Text
-											variant="h5"
+											variant="h4"
 											style={styles.text}
 										>{`${item.fname} ${item.lname}`}</Text>
 									</ListItem.Title>
