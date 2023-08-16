@@ -1,4 +1,4 @@
-drop database scoob;
+-- drop database scoob;
 create database scoob;
 use scoob;
 
@@ -118,7 +118,7 @@ CREATE TABLE `teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `student` (
-  `studentid` int NOT NULL,
+  `studentid` varchar(10) NOT NULL,
   `parentid` varchar(50) DEFAULT NULL,
   `pcode` int DEFAULT NULL,
   `fname` varchar(30) DEFAULT NULL,
