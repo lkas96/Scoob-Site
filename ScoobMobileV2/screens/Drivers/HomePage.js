@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "lightgray",
 		margin: 10,
 		minHeight: 150,
-		maxHeight: 350,
+		maxHeight: 225,
 	},
 	scrollViewItem: {
 		justifyContent: "center",

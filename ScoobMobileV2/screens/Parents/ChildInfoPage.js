@@ -162,7 +162,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 				busid: busID,
 			})
 			.then((response) => {
-				Alert.alert("Success", "Bus ID updated successfully!");
+				Alert.alert("Success", "Subscribed successfully!");
 			})
 			.catch((error) => {
 				console.error("Error updating student's busid:", error);
@@ -184,6 +184,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 			.then((response) => {
 				// Update the subscription status in the state
 				setSubscriptionStatus(newSubscriptionStatus);
+				console.log(newSubscriptionStatus);
 				if (newSubscriptionStatus === "Yes") {
 					axios
 						.get(`${lambdaEndpoint}/schooltransport/${route.params.uen}`)
@@ -228,6 +229,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 							);
 						});
 				} else {
+					Alert.alert("Success", "Unsubscribed Successfully")
 				}
 			})
 			.catch((error) => {
