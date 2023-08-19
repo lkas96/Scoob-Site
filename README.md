@@ -1,4 +1,5 @@
-# Scoob
+![logo-no-background](https://github.com/lkas96/Scoob-Site/assets/103634851/8b7f3bba-9276-487c-8eb6-e225155d12de)
+
 
 # Requirements
 To use Expo, you need to have the following tools installed on your machine:
