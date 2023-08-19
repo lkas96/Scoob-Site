@@ -1,41 +1,95 @@
-import { View, Text, Image, StyleSheet, TextInput, FlatList } from 'react-native'
-import React from 'react'
+import Barcode from "@kichiyaki/react-native-barcode-generator";
+import { ActivityIndicator } from "@react-native-material/core";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import CustomButton from "../../components/CustomButton";
+import { COLORS } from "../../constants";
+import UserContext from "../../context/UserContext";
 
-const ProfilePage = ({ navigation }) => {
+import { Button } from "@rneui/themed";
+import { HStack, Stack, VStack } from "react-native-flex-layout";
+
+const ProfilePage = ({ route }) => {
+	const editProfileHandler = () => {
+		Alert.alert("Edit profile");
+	};
+
+	const { userEmail } = useContext(UserContext);
+	const [profileData, setProfileData] = useState("");
+	const lambdaEndpoint =
+		"https://2teci17879.execute-api.ap-southeast-1.amazonaws.com/dev/";
+
+	useEffect(() => {
+		// Fetch data from the Lambda function when the component mounts
+		axios
+			.get(`${lambdaEndpoint}/parent/${userEmail}`)
+			.then((response) => {
+				// Handle the response and set the profile data in the state
+				setProfileData(response.data);
+				// console.log(profileData.parentid);
+			})
+			.catch((error) => {
+				console.error("Error fetching profile data:", error);
+			});
+	}, [userEmail]);
+
 	return (
 		<View style={styles.container}>
-			<Image style={styles.image} source={require("../../assets/images/kemal.jpg")} />
+			{/* <Image
+				style={styles.image}
+				source={require("../../assets/images/kemal.jpg")}
+			/> */}
 			<View style={styles.details}>
-				<Text style={styles.text}>Name: I Cant Code</Text>
-				<Text style={styles.text}>NRIC/FIN: S1234567A</Text>
-				<Text style={styles.text}>Email: soHard@gg.com</Text>
-				<Text style={styles.text}>Phone Number: 91234567</Text>
-				<Text style={styles.text}>|lll|||l||ll|||||</Text>
-				<Text style={styles.text}>S1234567A</Text>
+				{profileData ? (
+					<>
+						<Text style={styles.text}>
+							Name: {profileData.fname} {profileData.lname}
+						</Text>
+						<Text style={styles.text}>NRIC/FIN: {profileData.parentid}</Text>
+						<Text style={styles.lastText}>Email: {profileData.email}</Text>
+						{/* <Text style={styles.text}>Phone Number: {profileData.phone}</Text> */}
+						{/* Add more profile details as needed */}
+						<Barcode
+							value={profileData.parentid}
+							height={80}
+							background={COLORS.white}
+						/>
+					</>
+				) : (
+					<View style={styles.loading}>
+						<ActivityIndicator size="large" color={COLORS.primary} />
+						<Text>Loading...</Text>
+					</View>
+				)}
 			</View>
 		</View>
-	)
-}
+	);
+};
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		paddingTop: 100
+		alignItems: "center",
+		justifyContent: "center",
+		paddingBottom: 50,
 	},
-	details: {
-
-	},
+	details: {},
 	image: {
-		resizeMode: 'contain',
+		resizeMode: "contain",
 		height: 200,
 		width: 150,
 	},
 	text: {
-		alignSelf: 'center',
-		fontWeight: 'bold',
+		alignSelf: "center",
 		fontSize: 24,
-		margin: 10,
-	}
-})
-export default ProfilePage
+		margin: 8,
+	},
+	lastText: {
+		alignSelf: "center",
+		fontSize: 24,
+		margin: 8,
+		paddingBottom: 50,
+	},
+});
+export default ProfilePage;
