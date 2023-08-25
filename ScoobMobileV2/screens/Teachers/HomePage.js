@@ -120,7 +120,7 @@ const HomePage = ({ navigation }) => {
 								<ListItem.Content>
 									<ListItem.Title>
 										<Text
-											variant="h4"
+											variant="h5"
 											style={styles.text}
 										>{`${item.fname} ${item.lname}`}</Text>
 									</ListItem.Title>
@@ -163,7 +163,7 @@ const HomePage = ({ navigation }) => {
 							<ListItem.Content>
 								<ListItem.Title>
 									<Text
-										variant="h4"
+										variant="h5"
 										style={styles.text}
 									>{`${item.fname} ${item.lname}  `}</Text>
 									{item.pickupstatus === "In School" ? (
