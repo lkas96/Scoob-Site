@@ -229,7 +229,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 							);
 						});
 				} else {
-					Alert.alert("Success", "Unsubscribed Successfully")
+					Alert.alert("Success", "Unsubscribed Successfully");
 				}
 			})
 			.catch((error) => {
@@ -246,7 +246,7 @@ const ChildInfoPage = ({ route, navigation }) => {
 		<SafeAreaView style={styles.container}>
 			<View style={styles.studentDetails}>
 				<VStack m={10} spacing={5}>
-					<Text variant="h2" style={styles.studentName}>
+					<Text variant="h4" style={styles.studentName}>
 						{fname} {lname}
 					</Text>
 					<Text variant="h6" style={styles.details}>
